@@ -32,6 +32,32 @@ Hela exporten sparas i arkivet på datorn, inte här. Skälet är inte bara
 storleken: så länge GitHub Pages serverar `main` är allt som ligger där
 offentligt läsbart, och designutkast hör inte hemma på en publik adress.
 
+## Bilder som ligger i repot
+
+Några bilder serveras från repot i stället för från Shopifys CDN — Maries
+porträtt och Aagaard-loggan är två. De refereras i designen med den
+**fullständiga adressen**:
+
+```
+https://fertilitetplus.se/bilder/marie-antonsson.webp
+```
+
+inte med `/bilder/marie-antonsson.webp`.
+
+Skälet är att båda ställena ska stämma. En rotrelativ adress fungerar på
+den byggda sajten men inte i Claude Designs förhandsvisning, där det inte
+finns någon sajt att vara relativ mot — bilden blir en tom ruta och
+designen slutar likna verkligheten. Den fullständiga adressen hämtas över
+nätet och syns i förhandsvisningen, och konverteraren skriver om den till
+den rotrelativa formen vid bygget. Resultatet blir identiskt med live.
+
+Samma sak gäller inte Shopifys bilder: de ligger på
+`shop.fertilitetplus.se/cdn/…` och ska stå kvar som de är.
+
+Har en `<img>` både `src` och `srcset` vinner `srcset`. Byter man bara
+`src` händer därför ingenting. Sajtens bilder har ingen `srcset` — finns
+det en, ta bort den.
+
 ## Att byta ut exporten
 
 1. Claude Design → Share → Project HTML → Project archive → Export.
@@ -50,4 +76,3 @@ Claude Design stänger **14 december 2026**. Designsystem flyttas över
 automatiskt, men projekt gör det inte — de raderas. Exporten här är
 därför inte bara byggets indata, den är den enda kvarvarande kopian av
 designen efter det datumet.
-
