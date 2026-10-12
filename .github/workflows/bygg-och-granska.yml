@@ -29,12 +29,24 @@
 #      GÖR INTE DET HÄR FÖRRÄN ETT BYGGE HAR GRANSKATS OCH GODKÄNTS.
 #      Fram till dess serveras sajten från `main` precis som i dag, och
 #      ingenting som händer här kan röra den.
+#
+# ORDNINGEN SPELAR ROLL
+# ---------------------
+# Så länge Pages serverar `main` är allt som ligger i `main` offentligt —
+# designexporten inräknad. Därför ska `byggkedjan` inte slås ihop med
+# `main` förrän Pages pekar på `live`. Ordningen blir:
+#
+#   1. Allt ligger på `byggkedjan`. Bygget kör där och testerna går igenom.
+#   2. Ladda ner resultatet och titta igenom det.
+#   3. Peka om Pages till `live`.    ← nu serveras `main` inte längre
+#   4. Slå ihop `byggkedjan` med `main`.
+#   5. Första riktiga bygget från `main`, godkänn, sajten uppdateras.
 
 name: Bygg och granska
 
 on:
   push:
-    branches: [main]
+    branches: [main, byggkedjan]
     paths:
       - "design/**"
       - "bygg/**"
@@ -77,6 +89,13 @@ jobs:
 
   publicera:
     needs: bygg
+    # Bara från `main`. Det är inte en extra försiktighetsåtgärd utan en
+    # nödvändighet: innan sajten flyttats över till grenen `live` är det
+    # `main` GitHub Pages serverar, och då får bygget inte kunna skriva
+    # dit från en arbetsgren. Det gör också att hela kedjan går att prova
+    # färdigt på `byggkedjan` — bygget körs, testerna körs, resultatet går
+    # att ladda ner och titta på — utan att något kan publiceras.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: live         # <- det är här den väntar på ett godkännande
     steps:
