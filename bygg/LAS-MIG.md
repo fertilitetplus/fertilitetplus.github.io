@@ -1,144 +1,143 @@
-# bygg/ — vad som finns, vad som saknas, och vad som ska byggas
+# Byggkedjan — klar att lägga i repot
 
-Skrivet 9 oktober 2026.
+Skriven 12 oktober 2026.
 
-Den här mappen finns för att byggkedjan inte ska kunna försvinna igen.
-Den försvann nästan den 8 oktober, och det är värt att förstå varför
-innan något annat görs.
+Det här är maskinen som gör om Claude Design till sajten. Den försvann
+den 8 oktober och är nu återskapad, provad mot sajten som ligger live,
+och utbyggd med det som saknades.
 
----
-
-## Vad som hände
-
-Sajten byggs från Claude Design av en konverterare. Konverteraren har
-aldrig legat i det här repot. Den fanns på två ställen:
-
-- molnmiljön i Claude-sessionen, som rensas när sessionen tar slut
-- `$HOME/sajt` i Linux-miljön på Maries dator
-
-Den 8 oktober slutade Linux-miljön starta (*"Workspace unavailable"*) och
-molnmiljön hade redan rensats. Därmed fanns det ingen plats kvar där
-sajten gick att bygga om. Repot innehöll den färdiga sajten, men inte
-maskinen som gjorde den.
-
-Det är därför en enskild trasig bokningslänk den dagen fick rättas för
-hand genom GitHubs webbgränssnitt. Det fungerade, men det är inte ett
-sätt att driva en sajt.
-
-**Lärdomen:** det som bygger sajten ska ligga i repot, inte hos en person.
+**Inget här rör live-sajten.** Arbetsflödet publicerar först när en
+människa godkänt, och GitHub Pages pekar fortfarande på `main` tills
+någon aktivt ändrar det.
 
 ---
 
-## Vad som finns
+## Var filerna ska ligga
 
-| Var | Vad |
+```
+repots rot
+├── .github/workflows/bygg-och-granska.yml   bygger och testar vid varje ändring
+├── package.json
+├── bygg/
+│   ├── bygg.mjs            hela kedjan i ett kommando
+│   ├── konvertera.mjs      designen → sidor
+│   ├── tester.mjs          de fem testerna
+│   ├── sitemap.mjs         sitemap.xml och robots.txt
+│   ├── bokningslankar.mjs  (flyttas hit från roten)
+│   └── jamfor-dom.mjs      jämför ett bygge mot en annan version
+├── data/
+│   ├── url-karta.json      adresser och omdirigeringar
+│   └── sidmeta.json        titel och beskrivning per sida
+└── design/                 designexporten, orörd
+```
+
+Att köra det:
+
+```
+npm install
+npx playwright install --with-deps chromium
+node bygg/bygg.mjs design ut
+node bygg/tester.mjs ut
+```
+
+---
+
+## Vad bygget gör, i ordning
+
+| Steg | Vad |
 |---|---|
-| Repot (roten) | Den färdiga sajten, 63 HTML-filer, plus `fp-fixar.css`, `fp-typsnitt.css`, `fp-meny.js`, `fp-samtycke.js`, `fp-korg.js`, `fp-chatt.js`, `fp-omdomen.js`, `fp-prislista.js`, typsnitt, material, ikoner |
-| Repot (roten) | Efterbehandlingsskripten: `bygg-innehallsfixar.mjs`, `bygg-utlandssidorna.mjs`, `bygg-utlandssidan-allman.mjs`, `kor-sprak.mjs`, `textbyten.mjs`, `bokningslankar.mjs` |
-| `bygg/konvertera.mjs` | Konverteraren **som den såg ut 30 september**. Se varningen överst i filen. |
-| Projektet i Claude | Regelboken, behandlingsmatrisen, SEO-baslinjen, lanseringschecklistan och ett tjugotal andra dokument |
-| `Documents/fp-bygg/` på Maries dator | Versionskedjan av allt jag skickat under bygget |
-| `Documents/fp-bygg/arkiv/` | Designexporten från 8 september (delad i två filer), de byggda paketen, de gamla Lovable-ändringarna |
+| 0 | Kopierar det som inte byggs: skript, stilmall, typsnitt, bilder, ikoner, och Shopifys 32 sidor |
+| 1 | Gör om designen till 22 sidor |
+| 2 | Bygger de två remissidorna, med en färdig sida som skal |
+| 3 | Sätter `#step-1` på varje bokningslänk |
+| 4 | Skriver `sitemap.xml` (24 adresser) och `robots.txt` |
 
-## Vad som saknas
-
-| Saknas | Vad den gjorde | Går den att få tillbaka? |
-|---|---|---|
-| Konverteraren i aktuell version | Allt `konvertera.mjs` gör, plus det som listas i varningen överst i den filen | Skrivs om. Ögonblicksbilden från 30 september är en användbar stomme. |
-| `url-karta.json` | Kopplar `<Sidnamn>.dc.html` till sajtens adress, och håller 301-listan | Behöver en färsk export för att kunna skrivas rätt. Adresserna finns i `sitemap.xml`. |
-| `bygg-live.mjs` / `kor-live.mjs` | Växlar mellan förhandsvisning och skarpt läge: `noindex`, `robots.txt`, fullständiga canonical-adresser, `lang="sv"` | Skrivs om. Beteendet går att läsa av på de byggda sidorna. |
-| `klicktest.mjs`, `menytest.mjs`, `overflowtest.mjs`, `bannertest.mjs`, `fonttest.mjs` | Bevisade före varje leverans att alla sidor går att nå, att menyerna öppnas utan JavaScript, att inget scrollar i sidled, att cookiebannern fungerar och att typsnitten faktiskt renderas | Skrivs om. Det här är den dyraste posten — och den som hindrade flest fel. |
-
-**Designen själv är inte borta.** Den ligger i Claude Design och är
-oersättlig. Exporten i arkivet är från 8 september och visar hur det såg
-ut innan sajten byggdes färdigt — den duger som referens, inte som källa.
+Testerna körs separat, med flit: ett bygge som stannar mitt i är svårare
+att felsöka än ett som blir klart och sedan underkänns.
 
 ---
 
-## Vad som ska byggas
+## Vad bygget lägger till som designen inte kan uttrycka
 
-Målet: Marie, Magnus och Linnea ska kunna ändra var sin sak, oberoende av
-varandra, utan att någon behöver ha något installerat.
+Det här är gränsen mellan innehåll och beteende, och den är värd att
+hålla ren. Allt nedan är **beteende** och hör hemma här, inte i designen.
 
-```
-CLAUDE DESIGN                 GITHUB                        LIVE
-─────────────                 ──────                        ────
-Marie, Magnus            design/   exporten, orörd      fertilitetplus.se
-utseende, texter,        bygg/     konverteraren,
-bilder, menyn                      fixarna, testerna
-                         data/     adresser, SEO,
-Linnea                             bokningskalendrar
-kalendrar i              .github/  kör bygget vid
-patient.nu                         varje ändring
-```
+| Vad | Varför det inte kan bo i designen |
+|---|---|
+| Menyerna fälls ut och sparas ner | Designen ritar dem först när någon pekar — i en sparad fil finns de inte |
+| Cookiebannerns båda vyer | Samma sak: inställningsvyn ritas först vid klick |
+| Prislistans "Läs mer"-paneler | Samma sak, sexton stycken |
+| `<head>`: titlar, canonical, ikoner, mätning, skript | Claude Design skriver ingen head |
+| Kontaktformulärens koppling till Shopify | Designen ritar formuläret men kan inte posta det |
+| Märkningar som stilmallen hakar i | `data-prisrad`, `data-tabellrad`, `data-personbild` med flera |
+| Bildernas laddningsprioritet | Första bilden med förtur, resten väntar |
+| `#step-1` på bokningslänkar | En felskriven siffra ska inte kunna nå en patient |
 
-### Varför `data/`
-
-Det som ändras ofta men inte är design bryts ut till egna filer:
-
-| Fil | Vem rör den | Innehåll |
-|---|---|---|
-| `data/url-karta.json` | den som lägger till en sida | adresser och omdirigeringar |
-| `data/sidmeta.json` | den som jobbar med SEO | titel och beskrivning per sida |
-| `data/bokningar.json` | den som sköter bokningarna | behandling → kalender-ID |
-
-Tre personer som rör tre olika filer kan inte kollidera. Och felet den
-8 oktober — tre knappar som pekade på fel kalender och fel steg — blir en
-rad att rätta i stället för något en patient upptäcker.
-
-### Så går en ändring till
-
-1. Någon ändrar: exporterar från Claude Design, eller redigerar en fil i `data/`.
-2. GitHub bygger automatiskt och kör testerna.
-3. Resultatet går att titta på innan det publiceras.
-4. Någon godkänner. Sajten uppdateras.
-
-Alla med tillgång får göra alla stegen. Spärren ligger på att *något*
-måste godkännas, inte på *vem* som godkänner.
-
-### Var den byggda HTML:en ska ligga
-
-`main` innehåller källorna — designexporten, bygget, datafilerna. Den
-färdiga HTML:en skrivs av bygget till en egen gren, `live`, och det är
-den grenen GitHub Pages serverar.
-
-Det ger tre saker på en gång:
-
-- **Ingen råkar handredigera sajten.** HTML:en finns inte i `main`, så
-  frestelsen finns inte där man arbetar.
-- **Varje publicering syns som en skillnad.** Ändrade bygget 40 sidor när
-  du bara rörde en rubrik? Det står i `live`-grenens historik.
-- **Nödutgången finns kvar.** Går allt annat sönder går det att rätta
-  direkt i `live`, precis som den 8 oktober. Nästa bygge skriver över —
-  men det är då väntat och synligt, inte en tyst fälla.
+**Kontaktformulären är värda en extra rad.** Kopplingen till Shopify
+fanns bara i den försvunna konverteraren. Hade bygget körts utan den
+hade formulären på Kontakt och Omdömen ritats precis som vanligt och
+slutat skicka — utan felmeddelande, utan att något syntes.
 
 ---
 
-## Ordning att göra det i
+## Vad som INTE längre körs
 
-1. **Färsk export från Claude Design.** Allt annat behöver den för att
-   kunna testas mot. Den läggs i `design/`.
-2. **`data/url-karta.json`** skrivs mot exportens filnamn och
-   `sitemap.xml`.
-3. **Konverteraren** skrivs om i `bygg/`, mot exporten, tills den
-   återskapar sajten som ligger live. Jämförelsen är enkel: bygget ska ge
-   samma filer som redan finns i repot.
-4. **Testerna** skrivs om.
-5. **GitHub Actions** kopplas på och tar över bygget.
-6. **`data/bokningar.json`** bryts ut, och kalender-ID:na försvinner ur
-   designen.
+`bygg-innehallsfixar.mjs`, `textbyten.mjs` och
+`bygg-utlandssidan-allman.mjs` rättade innehåll efter bygget. Varje
+sådan regel var en skuld mot Claude Design.
 
-Steg 3 är klart när ett bygge ger samma resultat som dagens sajt. Det är
-ett hårt kvitto och värt att hålla fast vid: då, och först då, vet vi att
-kedjan är hel igen.
+**Alla sju är betalda.** Körda mot dagens bygge: fyra borttagningar
+träffar ingenting, tre infogningar hoppas över, och inte en byte ändras.
+
+De ligger kvar i repot som historik men ingår inte i kedjan. De ska
+heller inte köras igen — en infogning vars text numera finns i designen
+skulle lägga in den en andra gång om spärren någon gång togs bort.
 
 ---
 
-## Regler som gäller oavsett
+## Kvittot
 
-- Innehåll bor i Claude Design. Konverteraren rör aldrig innehåll.
-- Beteende bor i bygget. Det är därför en fix inte kan regrera.
-- Rättningar i `bygg-innehallsfixar.mjs` är **skulder**, inte lösningar.
-  När samma ändring är gjord i designen ska regeln bort.
-- Ingen adress ändras utan en 301 i `url-karta.json`.
-- Ett bygge är inte verifierat förrän någon klickat sig igenom det.
+Bygget jämfört mot sajten som ligger live, element för element och
+attribut för attribut:
+
+**52 av 56 sidor är identiska.**
+
+De fyra som skiljer sig gör det för att de ska:
+
+| Sida | Skillnad |
+|---|---|
+| Startsidan | "Läs alla omdömen"-länken kommer nu från designen i stället för att klistras på efteråt |
+| Samarbeten | Partnerkorten UR Vistahermosa och Aagaard likadant |
+| Utlandssidan | Hela sidan kommer från designen i stället för att byggas av ett skript. Texten är ordagrant densamma |
+| Om FertilitetPlus | **Kvar att rätta:** Maries porträtt pekar mot Shopify i designen men ligger som fil på sajten (`/bilder/marie-antonsson.webp`) |
+
+Testerna är provade åt båda hållen: de går igenom på bygget, och var
+och en fångar ett påhittat fel. Overflowtestet missade sitt eget
+sabotage första gången — designen har `overflow-x: hidden` runt hela
+sidan, så ett för brett element klipps i stället för att ge en
+scrollrad. Det mäter numera elementen mot skärmen i stället för sidans
+bredd.
+
+---
+
+## Två inställningar som måste göras för hand
+
+1. **Settings → Environments → New environment → `live`**, kryssa i
+   *Required reviewers*, lägg till Marie, Magnus och Linnea.
+   Utan det steget publicerar arbetsflödet utan att fråga.
+
+2. **Settings → Pages → gren `live`, mapp `/ (root)`.**
+   Gör inte det förrän ett bygge har granskats och godkänts. Fram till
+   dess serveras sajten från `main` precis som i dag, och ingenting som
+   händer i arbetsflödet kan röra den.
+
+---
+
+## Kvar att göra
+
+- Porträttlänken i designen (raden ovan).
+- Bryt ut kalender-ID:na till `data/bokningar.json`, så att Linnea kan
+  ändra en bokning utan att gå in i designen.
+- Fråga till Linnea: konsultationen vid utlandsbehandling, 1 200 kr,
+  bokas via `dbd1fde4…` från prislistan och `290c221b…` från IVF-sidan.
+  Samma både live och i designen, men två kalendrar för samma tjänst.
