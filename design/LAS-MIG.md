@@ -50,3 +50,4 @@ Claude Design stänger **14 december 2026**. Designsystem flyttas över
 automatiskt, men projekt gör det inte — de raderas. Exporten här är
 därför inte bara byggets indata, den är den enda kvarvarande kopian av
 designen efter det datumet.
+
