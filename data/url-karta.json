@@ -1,0 +1,52 @@
+{
+  "_lasmig": "Kopplar Claude Design till sajtens adresser. Framtagen 2026-10-09 genom att matcha varje designsidas rubrik mot live-sidorna; 21 av 22 matchade automatiskt.",
+  "sidor": {
+    "FertilitetPlus Startsida.dc.html": "/",
+    "Om-FertilitetPlus.dc.html": "/pages/fertilitetplus",
+    "Vara-samarbeten.dc.html": "/pages/samarbeten",
+    "Omdomen.dc.html": "/pages/omdomen",
+    "Kontakt.dc.html": "/pages/kontakt",
+    "Fertilitetsutredning.dc.html": "/pages/fertilitetsutredning",
+    "Immunologisk-utredning.dc.html": "/pages/immunsuppression",
+    "Skoldkortelproblematik.dc.html": "/pages/autoimmuna-sjukdomar-och-graviditet",
+    "Ultraljud-under-graviditet.dc.html": "/pages/lakarkonsultation-och-ultraljud",
+    "Ultraljud-infor-graviditet.dc.html": "/pages/lakarkonsultation-och-ultraljud-infor-graviditet",
+    "Spermaprov.dc.html": "/pages/spermaprov",
+    "Fostertest-NIPT.dc.html": "/pages/nipt-test",
+    "Vitamindropp.dc.html": "/pages/nyhet-dropp",
+    "IVF-och-utlandsbehandlingar.dc.html": "/pages/provtagning-infor-behandling-utomlands",
+    "Prislista.dc.html": "/pages/prislista",
+    "Vanliga-fragor.dc.html": "/pages/om-fertilitet",
+    "Barnlangtan-efter-40.dc.html": "/pages/fertilitet-efter-40",
+    "Skaffa-barn-pa-egen-hand.dc.html": "/pages/skaffa-barn-sjalv",
+    "Boka-tid.dc.html": "/pages/boka-tid",
+    "Produkter.dc.html": "/collections/all",
+    "Betala-pa-klinik.dc.html": "/collections/betala-pa-klinik",
+    "Integritetspolicy.dc.html": "/policies/privacy-policy"
+  },
+  "komponenter": [
+    "Sidhuvud.dc.html",
+    "Sidfot.dc.html",
+    "Cookiebanner.dc.html"
+  ],
+  "_omdirigeringar": "Gamla adresser som ligger kvar som smasidor med canonical mot ratt adress. De far inte tas bort: varje adress utan omdirigering ar forlorad rankning.",
+  "omdirigeringar": {
+    "/pages/medarbetare": "/pages/samarbeten",
+    "/pages/skoldkortelrubbningar": "/pages/autoimmuna-sjukdomar-och-graviditet",
+    "/pages/lakarkonsultation-och-ultaljud-innan-graviditet": "/pages/lakarkonsultation-och-ultraljud-infor-graviditet",
+    "/collections/frontpage": "/",
+    "/collections/vara-paket": "/collections/all",
+    "/collections/betala-pa-klinik-1": "/collections/betala-pa-klinik"
+  },
+  "_utanfor": "Sidor som inte kommer fran Claude Design och inte ska byggas darifran.",
+  "utanfor": {
+    "remissidor": [
+      "/pages/fertilitetplus-x-utlandsbehandling",
+      "/pages/fertilitetplus-x-utlandsbehandling-en"
+    ],
+    "shopify": "16 produktsidor under /products/ och 16 bloggsidor under /blogs/news/",
+    "ovrigt": [
+      "/404.html"
+    ]
+  }
+}
