@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<sc-if value="{{ visible }}">
+  <div role="dialog" aria-modal="false" aria-labelledby="fp-cookie-title" data-cookie-banner="true" style="position:fixed;left:24px;bottom:24px;z-index:100;width:calc(100% - 48px);max-width:460px;background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px;box-shadow:0 24px 60px -24px rgba(58,53,48,0.35);font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#3A3530;max-height:calc(100vh - 48px);overflow-y:auto">
+    <div style="padding:28px 28px 24px">
+      <p style="margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Cookies</p>
+      <h2 id="fp-cookie-title" style="margin:0 0 12px;font-size:18px;font-weight:700;line-height:1.4;color:#3A3530">Vi använder cookies</h2>
+      <p style="margin:0 0 20px;font-size:15px;font-weight:300;line-height:1.7;color:rgba(58,53,48,0.78)">Nödvändiga cookies behövs för att sajten, varukorgen och bokningen ska fungera. Med ditt samtycke använder vi även cookies för statistik och marknadsföring. Du kan ändra ditt val när som helst. <a href="Integritetspolicy.dc.html" style="color:#3A3530;font-weight:500;text-decoration:underline;text-underline-offset:3px">Läs mer i vår integritetspolicy</a>.</p>
+
+      <sc-if value="{{ showSettings }}">
+        <div style="display:flex;flex-direction:column;border-top:1px solid #EBE7E1;margin-bottom:20px">
+          <sc-for list="{{ categories }}" as="c" hint-placeholder-count="3">
+            <div style="display:flex;gap:16px;align-items:flex-start;justify-content:space-between;padding:16px 0;border-bottom:1px solid #EBE7E1">
+              <div>
+                <p style="margin:0 0 4px;font-size:15px;font-weight:600;color:#3A3530">{{ c.label }}</p>
+                <p style="margin:0;font-size:14px;font-weight:300;line-height:1.6;color:rgba(58,53,48,0.7)">{{ c.text }}</p>
+              </div>
+              <sc-if value="{{ c.locked }}">
+                <span style="flex:none;margin-top:2px;font-size:12px;font-weight:600;color:#7E9680;white-space:nowrap">Alltid på</span>
+              </sc-if>
+              <sc-if value="{{ c.on }}">
+                <button role="switch" aria-checked="true" aria-label="{{ c.label }}" onClick="{{ c.toggle }}" style="flex:none;position:relative;width:44px;height:26px;border-radius:13px;border:0;background:#7E9680;cursor:pointer;padding:0">
+                  <span style="position:absolute;top:3px;left:21px;width:20px;height:20px;border-radius:50%;background:#F8F6F2"></span>
+                </button>
+              </sc-if>
+              <sc-if value="{{ c.off }}">
+                <button role="switch" aria-checked="false" aria-label="{{ c.label }}" onClick="{{ c.toggle }}" style="flex:none;position:relative;width:44px;height:26px;border-radius:13px;border:0;background:#C8B5A2;cursor:pointer;padding:0">
+                  <span style="position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#F8F6F2"></span>
+                </button>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <button onClick="{{ saveChoices }}" style="font-family:inherit;background:#3A3530;color:#F8F6F2;border:1px solid #3A3530;padding:13px 20px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;cursor:pointer" style-hover="background:#2a2520">Spara mina val</button>
+          <button onClick="{{ acceptAll }}" style="font-family:inherit;background:transparent;color:#3A3530;border:1px solid #3A3530;padding:13px 20px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;cursor:pointer" style-hover="background:#EBE7E1">Acceptera alla</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showMain }}">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+          <button onClick="{{ acceptAll }}" style="font-family:inherit;background:#3A3530;color:#F8F6F2;border:1px solid #3A3530;padding:13px 16px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;cursor:pointer" style-hover="background:#2a2520">Acceptera alla</button>
+          <button onClick="{{ necessaryOnly }}" style="font-family:inherit;background:#3A3530;color:#F8F6F2;border:1px solid #3A3530;padding:13px 16px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;cursor:pointer" style-hover="background:#2a2520">Endast nödvändiga</button>
+        </div>
+        <button onClick="{{ openSettings }}" style="font-family:inherit;background:none;border:0;padding:6px 0;font-size:14px;font-weight:600;color:#3A3530;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Anpassa</button>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:520,&quot;height&quot;:620},&quot;forceOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Förhandsvisning&quot;},&quot;startInSettings&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Förhandsvisning&quot;}}">
+class Component extends DCLogic {
+  KEY = 'fp-cookie-consent-v1';
+  state = { open: false, settings: false, stats: false, marketing: false };
+  componentDidMount() {
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem(this.KEY) || 'null'); } catch (e) {}
+    if (saved) { this.setState({ stats: !!saved.stats, marketing: !!saved.marketing }); this.push(saved); }
+    this.setState({ open: !saved || !!this.props.forceOpen, settings: !!this.props.startInSettings });
+    this.onHash = () => { if (location.hash === '#cookies') { this.setState({ open: true, settings: true }); history.replaceState(null, '', location.pathname + location.search); } };
+    window.addEventListener('hashchange', this.onHash);
+    this.onHash();
+  }
+  componentWillUnmount() { window.removeEventListener('hashchange', this.onHash); }
+  push(c) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(['consent', 'update', {
+      analytics_storage: c.stats ? 'granted' : 'denied',
+      ad_storage: c.marketing ? 'granted' : 'denied',
+      ad_user_data: c.marketing ? 'granted' : 'denied',
+      ad_personalization: c.marketing ? 'granted' : 'denied'
+    }]);
+    window.dispatchEvent(new CustomEvent('fp-cookie-consent', { detail: c }));
+  }
+  save(stats, marketing) {
+    const c = { necessary: true, stats, marketing, date: new Date().toISOString() };
+    try { localStorage.setItem(this.KEY, JSON.stringify(c)); } catch (e) {}
+    this.push(c);
+    this.setState({ open: false, settings: false, stats, marketing });
+  }
+  renderVals() {
+    const { open, settings, stats, marketing } = this.state;
+    const cat = (label, text, key, locked) => ({
+      label, text, locked: !!locked, on: !locked && this.state[key], off: !locked && !this.state[key],
+      toggle: () => this.setState(s => ({ [key]: !s[key] }))
+    });
+    return {
+      visible: open, showSettings: settings, showMain: !settings,
+      categories: [
+        cat('Nödvändiga', 'Krävs för att sajten, varukorgen och bokningen ska fungera.', null, true),
+        cat('Statistik', 'Hjälper oss förstå hur sajten används, samlat och utan att identifiera dig.', 'stats'),
+        cat('Marknadsföring', 'Används för att visa och mäta annonser på andra sajter.', 'marketing')
+      ],
+      acceptAll: () => this.save(true, true),
+      necessaryOnly: () => this.save(false, false),
+      saveChoices: () => this.save(stats, marketing),
+      openSettings: () => this.setState({ settings: true })
+    };
+  }
+}
+</script>
+</body>
+</html>
