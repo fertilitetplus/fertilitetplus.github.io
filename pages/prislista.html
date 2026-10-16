@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="sv"><head><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>x-dc{display:none!important}</style>
+<style></style><style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F8F6F2;color:#3A3530;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:#7E9680;text-decoration:none}
+  a:hover{color:#3A3530}
+  ul{margin:0;padding:0;list-style:none}
+  img{display:block;max-width:100%}
+  @media (max-width: 960px) {
+    header nav[data-desktop-nav] { display: none !important; }
+    header button[data-mobile-toggle] { display: flex !important; }
+  }
+  @media (max-width: 900px) {
+    [style*="grid-template-columns"]:not([style*="auto-fit"]):not([style*="auto-fill"]) { grid-template-columns: 1fr !important; }
+    section, section > div, header > div, footer > div { padding-left: 24px !important; padding-right: 24px !important; }
+  }
+  @media (max-width: 640px) {
+    [data-cookie-banner] { left: 0 !important; bottom: 0 !important; width: 100% !important; max-width: none !important; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+    h1 { font-size: 40px !important; line-height: 1.08 !important; }
+    h2 { font-size: 24px !important; line-height: 1.3 !important; }
+    h3 { font-size: 18px !important; }
+    section, section > div { padding-top: 64px !important; padding-bottom: 64px !important; }
+    header [data-cart-label] { display: none !important; }
+    header [data-header-actions] { gap: 8px !important; }
+    header [data-book] { padding: 11px 14px !important; }
+    [data-cards] { grid-template-columns: 1fr !important; }
+  }
+</style>
+<title>Priser och tjänster | FertilitetPlus</title>
+<meta name="description" content="Alla utredningar och behandlingar med pris, plats och tidsåtgång. Bokas utan remiss.">
+<link rel="canonical" href="https://fertilitetplus.se/pages/prislista">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:site_name" content="FertilitetPlus">
+<meta property="og:title" content="Priser och tjänster | FertilitetPlus">
+<meta property="og:description" content="Alla utredningar och behandlingar med pris, plats och tidsåtgång. Bokas utan remiss.">
+<meta property="og:url" content="https://fertilitetplus.se/pages/prislista">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/typsnitt/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/typsnitt/cormorant-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fp-typsnitt.css">
+<link rel="stylesheet" href="/fp-fixar.css">
+<script src="/fp-samtycke.js"></script>
+<script>(function(w,d,s,l,i){if(["fertilitetplus.se","www.fertilitetplus.se"].indexOf(location.hostname)<0)return;
+w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KVBBJLL');</script>
+<script src="/fp-meny.js" defer></script>
+<script src="/fp-korg.js" defer></script>
+<script src="https://chatt.varden.se/widget-embed.js" widget-id="fertilitetplus.se"></script>
+<script src="/fp-chatt.js" defer></script>
+<script src="/fp-prislista.js" defer></script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVBBJLL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id="dc-root"><div class="sc-host" data-sc-name="Prislista"><template id="__bundler_thumbnail"></template><div style="width: 100%; overflow-x: hidden;">
+  <div class="sc-host" data-sc-name="Sidhuvud"><template id="__bundler_thumbnail"></template><header style="position: sticky; top: 0px; z-index: 50; background: rgba(248, 246, 242, 0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgb(235, 231, 225); font-family: &quot;Plus Jakarta Sans&quot;, system-ui, sans-serif;">
+  <div style="max-width: 1600px; margin: 0px auto; padding: 16px 40px; min-height: 84px; display: flex; align-items: center; gap: 24px; flex-wrap: nowrap;">
+    <a href="/" style="display: flex; align-items: center; gap: 14px; color: rgb(58, 53, 48); text-decoration: none; flex: 0 0 auto;">
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none" style="flex: 0 0 auto; display: block;">
+        <circle cx="19" cy="19" r="17.5" stroke="#7E9680" stroke-width="1.2" fill="none"></circle>
+        <line x1="19" y1="10" x2="19" y2="28" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+        <line x1="10" y1="19" x2="28" y2="19" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+      </svg>
+      <span style="display: flex; flex-direction: column; line-height: 1;">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.23em; text-transform: uppercase; color: rgb(58, 53, 48);">Fertilitet</span>
+        <span style="font-size: 13px; font-weight: 300; letter-spacing: 0.5em; text-transform: uppercase; color: rgb(126, 150, 128); margin-top: 5px;">Plus</span>
+      </span>
+    </a>
+
+    <div data-header-actions="true" style="margin-left: auto; display: flex; align-items: center; gap: 20px; flex-wrap: nowrap;">
+      <nav data-desktop-nav="true" style="display: flex; align-items: center; gap: 2px; position: relative; flex-wrap: nowrap;">
+        <div style="position: relative;" data-meny-grupp="">
+          <button class="scp2" style="display: flex; align-items: center; gap: 6px; background: none; border: 0px; padding: 12px 10px; font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); cursor: pointer; white-space: nowrap;" aria-haspopup="true" aria-expanded="false">Om oss<svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="display: block; flex: 0 0 auto;"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+          
+        <div style="position: absolute; top: 100%; left: 0px; min-width: 250px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); box-shadow: rgba(58, 53, 48, 0.24) 0px 20px 44px -20px; padding: 10px;" data-meny-panel="">
+              <ul style="display: flex; flex-direction: column; margin: 0px; padding: 0px; list-style: none;">
+                <li><a href="/pages/fertilitetplus" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">FertilitetPlus</a></li>
+                <li><a href="/pages/samarbeten" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Våra samarbeten</a></li>
+                <li><a href="/pages/omdomen" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Omdömen</a></li>
+                <li><a href="/pages/kontakt" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Kontakt</a></li>
+              </ul>
+            </div></div>
+
+        <div style="position: relative;" data-meny-grupp="">
+          <button class="scp2" style="display: flex; align-items: center; gap: 6px; background: none; border: 0px; padding: 12px 10px; font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); cursor: pointer; white-space: nowrap;" aria-haspopup="true" aria-expanded="false">Utredning &amp; behandling<svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="display: block; flex: 0 0 auto;"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+          
+        <div style="position: absolute; top: 100%; left: 0px; min-width: 360px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); box-shadow: rgba(58, 53, 48, 0.24) 0px 20px 44px -20px; padding: 10px;" data-meny-panel="">
+              <ul style="display: flex; flex-direction: column; margin: 0px; padding: 0px; list-style: none;">
+                <li><a href="/pages/prislista" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;"><strong style="font-weight: 600;">Alla behandlingar och priser</strong></a></li>
+                <li><a href="/pages/fertilitetsutredning" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Fertilitetsutredning</a></li>
+                <li><a href="/pages/immunsuppression" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Autoimmuna sjukdomar och fertilitet</a></li>
+                <li><a href="/pages/lakarkonsultation-och-ultraljud" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Ultraljud/läkarkonsultation under graviditet</a></li>
+                <li><a href="/pages/autoimmuna-sjukdomar-och-graviditet" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Sköldkörtelproblematik i fertil ålder</a></li>
+                <li><a href="/pages/lakarkonsultation-och-ultraljud-infor-graviditet" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Ultraljud/läkarkonsultation inför graviditet</a></li>
+                <li><a href="/pages/spermaprov" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Spermaprov</a></li>
+                <li><a href="/pages/provtagning-infor-behandling-utomlands" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">IVF &amp; utlandsbehandlingar</a></li>
+                <li><a href="/pages/nipt-test" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Fostertest NIPT</a></li>
+                <li><a href="/pages/nyhet-dropp" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Vitamindropp</a></li>
+              </ul>
+            </div></div>
+
+        <div style="position: relative;" data-meny-grupp="">
+          <button class="scp2" style="display: flex; align-items: center; gap: 6px; background: none; border: 0px; padding: 12px 10px; font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); cursor: pointer; white-space: nowrap;" aria-haspopup="true" aria-expanded="false">Kunskap &amp; stöd<svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="display: block; flex: 0 0 auto;"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+          
+        <div style="position: absolute; top: 100%; left: 0px; min-width: 270px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); box-shadow: rgba(58, 53, 48, 0.24) 0px 20px 44px -20px; padding: 10px;" data-meny-panel="">
+              <ul style="display: flex; flex-direction: column; margin: 0px; padding: 0px; list-style: none;">
+                <li><a href="https://shop.fertilitetplus.se/blogs/news" target="_blank" rel="noopener" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Artiklar</a></li>
+                <li><a href="/pages/om-fertilitet" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Vanliga frågor</a></li>
+                <li><a href="/pages/fertilitet-efter-40" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Barnlängtan efter 40</a></li>
+                <li><a href="/pages/skaffa-barn-sjalv" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Skaffa barn på egen hand</a></li>
+                <li><a href="/pages/immunsuppression" class="scp3" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Missfall</a></li>
+              </ul>
+            </div></div>
+
+        <div>
+          <a href="/pages/prislista" class="scp2" style="display: block; padding: 12px 10px; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); text-decoration: none; white-space: nowrap;">Prislista</a>
+        </div>
+        <div>
+          <a href="/collections/all" class="scp2" style="display: block; padding: 12px 10px; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); text-decoration: none; white-space: nowrap;">Produkter</a>
+        </div>
+      </nav>
+
+      <a data-book="true" href="/pages/boka-tid" class="scp4" style="flex: 0 0 auto; background: rgb(58, 53, 48); color: rgb(248, 246, 242); padding: 12px 22px; border-radius: 4px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.05em; text-decoration: none; white-space: nowrap;">Boka här</a>
+
+      <a href="https://shop.fertilitetplus.se/cart" target="_blank" rel="noopener" aria-label="Varukorg" class="scp5" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 44px; height: 44px; padding: 0px 14px; border: 1px solid rgb(235, 231, 225); border-radius: 4px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.05em; color: rgb(58, 53, 48); text-decoration: none; white-space: nowrap;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="display: block; flex: 0 0 auto;"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg><span data-cart-label="true">Varukorg</span></a>
+
+      <button data-mobile-toggle="true" aria-label="Meny" style="display: none; align-items: center; justify-content: center; gap: 5px; flex-direction: column; width: 44px; height: 44px; background: none; border: 1px solid rgb(235, 231, 225); border-radius: 4px; cursor: pointer; flex: 0 0 auto;">
+        <span style="display: block; width: 18px; height: 1.5px; background: rgb(58, 53, 48);"></span>
+        <span style="display: block; width: 18px; height: 1.5px; background: rgb(58, 53, 48);"></span>
+        <span style="display: block; width: 18px; height: 1.5px; background: rgb(58, 53, 48);"></span>
+      </button>
+    </div>
+  </div>
+
+  
+    <nav data-mobile-panel="true" style="border-top: 1px solid rgb(235, 231, 225); background: rgb(248, 246, 242); padding: 16px 20px 28px; max-height: 70vh; overflow-y: auto;">
+      <p style="margin: 0px 0px 10px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: rgb(126, 150, 128);">Om oss</p>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 22px; padding: 0px; list-style: none;">
+        <li><a href="/pages/fertilitetplus" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">FertilitetPlus</a></li>
+        <li><a href="/pages/samarbeten" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Våra samarbeten</a></li>
+        <li><a href="/pages/omdomen" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Omdömen</a></li>
+        <li><a href="/pages/kontakt" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Kontakt</a></li>
+      </ul>
+      <p style="margin: 0px 0px 10px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: rgb(126, 150, 128);">Utredning &amp; behandling</p>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 22px; padding: 0px; list-style: none;">
+        <li><a href="/pages/prislista" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);"><strong style="font-weight: 600;">Alla behandlingar och priser</strong></a></li>
+        <li><a href="/pages/fertilitetsutredning" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Fertilitetsutredning</a></li>
+        <li><a href="/pages/immunsuppression" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Autoimmuna sjukdomar och fertilitet</a></li>
+        <li><a href="/pages/lakarkonsultation-och-ultraljud" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Ultraljud under graviditet</a></li>
+        <li><a href="/pages/autoimmuna-sjukdomar-och-graviditet" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Sköldkörtelproblematik</a></li>
+        <li><a href="/pages/lakarkonsultation-och-ultraljud-infor-graviditet" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Ultraljud inför graviditet</a></li>
+        <li><a href="/pages/spermaprov" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Spermaprov</a></li>
+        <li><a href="/pages/provtagning-infor-behandling-utomlands" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">IVF &amp; utlandsbehandlingar</a></li>
+        <li><a href="/pages/nipt-test" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Fostertest NIPT</a></li>
+        <li><a href="/pages/nyhet-dropp" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Vitamindropp</a></li>
+      </ul>
+      <p style="margin: 0px 0px 10px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: rgb(126, 150, 128);">Kunskap &amp; stöd</p>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 22px; padding: 0px; list-style: none;">
+        <li><a href="https://shop.fertilitetplus.se/blogs/news" target="_blank" rel="noopener" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Artiklar</a></li>
+        <li><a href="/pages/om-fertilitet" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Vanliga frågor</a></li>
+        <li><a href="/pages/fertilitet-efter-40" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Barnlängtan efter 40</a></li>
+        <li><a href="/pages/skaffa-barn-sjalv" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Skaffa barn på egen hand</a></li>
+        <li><a href="/pages/immunsuppression" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Missfall</a></li>
+      </ul>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 24px; padding: 0px; list-style: none; border-top: 1px solid rgb(235, 231, 225);">
+        <li><a href="/pages/prislista" style="display: block; padding: 13px 0px; font-size: 16px; font-weight: 600; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Prislista</a></li>
+        <li><a href="/collections/all" style="display: block; padding: 13px 0px; font-size: 16px; font-weight: 600; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Produkter</a></li>
+      </ul>
+      <a href="/pages/boka-tid" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 16px 24px; border-radius: 4px; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none;">Boka här</a>
+    </nav>
+  </header></div>
+
+  <section style="max-width: 1600px; margin: 0px auto; padding: 112px 40px 64px;">
+    <p style="margin: 0px 0px 22px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(126, 150, 128);">Priser &amp; tjänster</p>
+    <h1 style="margin: 0px 0px 26px; font-family: Cormorant, Georgia, serif; font-style: italic; font-weight: 400; font-size: 62px; line-height: 1.08; letter-spacing: -0.01em; color: rgb(58, 53, 48);">Prislista</h1>
+    <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); max-width: 40em; text-wrap: pretty;">Alla utredningar och behandlingar bokas utan remiss. Välj Stockholm eller Göteborg för att se vad som finns på respektive klinik, eller se allt samtidigt. Varje tjänst visar var den finns.</p>
+  </section>
+
+  <section style="max-width: 1600px; margin: 0px auto; padding: 0px 40px 96px;">
+    <div role="group" aria-label="Filtrera på plats" style="position: sticky; top: 84px; z-index: 5; background: rgb(248, 246, 242); display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 0px; margin-bottom: 24px; align-items: center; border-bottom: 1px solid rgb(235, 231, 225);">
+      
+        
+          <button aria-pressed="true" style="font-family: inherit; font-size: 14px; font-weight: 600; padding: 11px 20px; border-radius: 4px; border: 1px solid rgb(58, 53, 48); background: rgb(58, 53, 48); color: rgb(248, 246, 242); cursor: pointer;" data-filter="alla" data-aktiv=""><span class="sc-interp">Alla</span></button>
+        
+        
+      
+        
+        
+          <button aria-pressed="false" class="scp0" style="font-family: inherit; font-size: 14px; font-weight: 500; padding: 11px 20px; border-radius: 4px; border: 1px solid rgb(200, 181, 162); background: transparent; color: rgb(58, 53, 48); cursor: pointer;" data-filter="stockholm"><span class="sc-interp">Stockholm</span></button>
+        
+      
+        
+        
+          <button aria-pressed="false" class="scp0" style="font-family: inherit; font-size: 14px; font-weight: 500; padding: 11px 20px; border-radius: 4px; border: 1px solid rgb(200, 181, 162); background: transparent; color: rgb(58, 53, 48); cursor: pointer;" data-filter="goteborg"><span class="sc-interp">Göteborg</span></button>
+        
+      
+      <p style="margin: 0px 0px 0px auto; font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);" data-antal=""><span class="sc-interp">16 tjänster</span></p>
+    </div>
+
+    <div style="display: flex; flex-direction: column;">
+      
+        <div style="padding: 56px 0px; border-bottom: 1px solid rgb(235, 231, 225);" data-grupp="">
+          <div style="display: grid; grid-template-columns: minmax(0px, 1fr) auto; gap: 32px; align-items: end; margin-bottom: 28px;">
+            <div>
+              <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                
+              </div>
+              <h2 style="margin: 0px 0px 14px; font-size: 28px; font-weight: 300; line-height: 1.3; letter-spacing: -0.01em; color: rgb(58, 53, 48);"><span class="sc-interp">Fertilitetsutredning</span></h2>
+              <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); max-width: 48em; text-wrap: pretty;"><span class="sc-interp">Här bokar du en fertilitetsutredning – för dig med utebliven graviditet eller för dig som vill ta reda på din fertila status. Med hjälp av blodprover tar vi reda på hur stora dina chanser till graviditet är. Vi har ingen åldersgräns och du behöver ingen remiss. Den som tar emot dig är barnmorska eller sjuksköterska.</span></p>
+            </div>
+            
+          </div>
+
+          <div data-cards="true" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Göteborg Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Fertilitetsutredning</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">från 2&nbsp;900 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">30 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">En utredning med konsultation, hormonprover, sköldkörtelprov och uppföljning av blodprov via telefon.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                      <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Fertilitetsprover tas dag 2–4 i cykeln – du får remiss för de prover som behöver tas vid rätt tid. Om ultraljud/läkarkonsultation rekommenderas i förlängningen tillkommer 1&nbsp;900 kr.</span></p>
+                    
+                    
+                      <a href="/pages/fertilitetsutredning" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/44752d1b-7097-499b-8f1a-ee2eafa21127#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+          </div>
+        </div>
+      
+        <div style="padding: 56px 0px; border-bottom: 1px solid rgb(235, 231, 225);" data-grupp="">
+          <div style="display: grid; grid-template-columns: minmax(0px, 1fr) auto; gap: 32px; align-items: end; margin-bottom: 28px;">
+            <div>
+              <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                
+              </div>
+              <h2 style="margin: 0px 0px 14px; font-size: 28px; font-weight: 300; line-height: 1.3; letter-spacing: -0.01em; color: rgb(58, 53, 48);"><span class="sc-interp">Immunologisk utredning</span></h2>
+              <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); max-width: 48em; text-wrap: pretty;"><span class="sc-interp">Här bokar du en immunologisk utredning – för dig som har svårt att bli gravid, haft upprepade missfall eller genomgått IVF utan att graviditeten fortsatt. Ibland kan ett överaktivt immunförsvar påverka möjligheten att bli eller förbli gravid, och här analyserar vi om immunförsvaret spelar en roll i din fertilitet. Den som hjälper dig är barnmorska eller sjuksköterska.</span></p>
+            </div>
+            
+          </div>
+
+          <div data-cards="true" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Göteborg Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Immunologisk utredning</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">från 5&nbsp;000 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">30 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Konsultation på kliniken med immunologiska prover (bl.a. NK-celler), sköldkörtelprover och koagulationsprover, samt uppföljning av blodprov via telefon.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                      <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Provtagning kan inte ske på fredagar, dag före röd dag eller på röd dag. Om ultraljud/läkarkonsultation rekommenderas i förlängningen tillkommer 1&nbsp;900 kr.</span></p>
+                    
+                    
+                      <a href="/pages/immunsuppression" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/57662b62-9c62-44e2-9995-ca1cbb2793f6#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+          </div>
+        </div>
+      
+        <div style="padding: 56px 0px; border-bottom: 1px solid rgb(235, 231, 225);" data-grupp="">
+          <div style="display: grid; grid-template-columns: minmax(0px, 1fr) auto; gap: 32px; align-items: end; margin-bottom: 28px;">
+            <div>
+              <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                
+              </div>
+              <h2 style="margin: 0px 0px 14px; font-size: 28px; font-weight: 300; line-height: 1.3; letter-spacing: -0.01em; color: rgb(58, 53, 48);"><span class="sc-interp">Sköldkörtelutredning</span></h2>
+              <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); max-width: 48em; text-wrap: pretty;"><span class="sc-interp">Här bokar du en sköldkörtelutredning – för dig som vill bli gravid och har misstänkt eller bekräftad sköldkörtelrubbning. Vi gör en grundlig utredning av din sköldkörtel med hjälp av blodprover.</span></p>
+            </div>
+            
+          </div>
+
+          <div data-cards="true" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Sköldkörtelutredning i fertil ålder</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">3&nbsp;000 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">30 + 30 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Första konsultation på kliniken med sjuksköterska eller barnmorska, utökad sköldkörtelanalys och ett uppföljande besök med läkare.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                    
+                      <a href="/pages/autoimmuna-sjukdomar-och-graviditet" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/268b81a6-cc1f-4694-b2ee-feefea24b5a1#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+          </div>
+        </div>
+      
+        <div style="padding: 56px 0px; border-bottom: 1px solid rgb(235, 231, 225);" data-grupp="">
+          <div style="display: grid; grid-template-columns: minmax(0px, 1fr) auto; gap: 32px; align-items: end; margin-bottom: 28px;">
+            <div>
+              <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                
+              </div>
+              <h2 style="margin: 0px 0px 14px; font-size: 28px; font-weight: 300; line-height: 1.3; letter-spacing: -0.01em; color: rgb(58, 53, 48);"><span class="sc-interp">Konsultationer</span></h2>
+              <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); max-width: 48em; text-wrap: pretty;"><span class="sc-interp">Här bokar du en konsultation med oss – på plats eller via telefon. Välj det som passar dig bäst.</span></p>
+            </div>
+            
+          </div>
+
+          <div data-cards="true" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Konsultation med barnmorska</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">900 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">30 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Ett första besök på kliniken för att påbörja en utredning eller undersökning, eller för att få kontakt med läkare.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                      <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Den som tar emot dig är barnmorska eller sjuksköterska.</span></p>
+                    
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/3210099f-2fa3-492d-8d51-d9b4088e4118#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Telefonkonsultation med barnmorska</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">250 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">15 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Ett telefonsamtal med en barnmorska för råd och vägledning kring din fertilitet och dina nästa steg, utan att du behöver besöka kliniken.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                      <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Vi kan svara på mycket per telefon, men önskar du en utredning, undersökning eller behandling behöver du vid något tillfälle besöka oss i Stockholm eller Göteborg.</span></p>
+                    
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/3210099f-2fa3-492d-8d51-d9b4088e4118#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Telefonkonsultation med läkare</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">1&nbsp;200 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">20 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Ett telefonsamtal med vår läkare, t.ex. om läkemedel, blodprovssvar, fortsatt behandling eller receptförnyelse.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                      <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Läkaren ringer upp dig på avtalad tid.</span></p>
+                    
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/3210099f-2fa3-492d-8d51-d9b4088e4118#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+          </div>
+        </div>
+      
+        <div style="padding: 56px 0px; border-bottom: 1px solid rgb(235, 231, 225);" data-grupp="">
+          <div style="display: grid; grid-template-columns: minmax(0px, 1fr) auto; gap: 32px; align-items: end; margin-bottom: 28px;">
+            <div>
+              <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                
+              </div>
+              <h2 style="margin: 0px 0px 14px; font-size: 28px; font-weight: 300; line-height: 1.3; letter-spacing: -0.01em; color: rgb(58, 53, 48);"><span class="sc-interp">Läkarbesök med ultraljud</span></h2>
+              <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); max-width: 48em; text-wrap: pretty;"><span class="sc-interp">Här bokar du ett läkarbesök med ultraljud – inför eller under en graviditet. Ett fysiskt besök hos vår fertilitetsläkare, utan remiss.</span></p>
+            </div>
+            
+          </div>
+
+          <div data-cards="true" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Läkarbesök med ultraljud</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">1&nbsp;900 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">30 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Ett fysiskt besök hos vår läkare där både läkarkonsultation och ultraljud ingår.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                      <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Passar dig som vill ha en kontroll inför en graviditet (livmoder och äggstockar, planering inför t.ex. IVF) eller extra trygghet under graviditeten. Ingen remiss behövs.</span></p>
+                    
+                    
+                      <a href="/pages/lakarkonsultation-och-ultraljud-infor-graviditet" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/d7162ceb-033b-49f1-9930-00da8c210fd3#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+          </div>
+        </div>
+      
+        <div style="padding: 56px 0px; border-bottom: 1px solid rgb(235, 231, 225);" data-grupp="">
+          <div style="display: grid; grid-template-columns: minmax(0px, 1fr) auto; gap: 32px; align-items: end; margin-bottom: 28px;">
+            <div>
+              <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                
+              </div>
+              <h2 style="margin: 0px 0px 14px; font-size: 28px; font-weight: 300; line-height: 1.3; letter-spacing: -0.01em; color: rgb(58, 53, 48);"><span class="sc-interp">Spermaprov</span></h2>
+              <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); max-width: 48em; text-wrap: pretty;"><span class="sc-interp">Här bokar du ett spermaprov – en enkel och viktig del i en fertilitetsutredning. Provet lämnas på kliniken samma dag, eller medhavt hemifrån (då behöver det vara hos oss senast en timme efter provtagning). Uppföljning sker oftast samma dag eller dagen efter. Avhållsamhet inför provet är 2–5 dagar och därmed inte mer än 5 dagar. Välj det som passar dig.</span></p>
+            </div>
+            
+          </div>
+
+          <div data-cards="true" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Göteborg Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Spermaprovsanalys</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">2&nbsp;200 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">30 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Vårt klassiska spermaprov: bestämning av antal och koncentration, klassificering av rörlighet och bedömning av spermiernas utseende.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                      <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Avhållsamhet 2–5 dagar (inte längre än 5) inför provet.</span></p>
+                    
+                    
+                      <a href="/pages/spermaprov" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/690a767f-9a5c-40c3-bc44-036307741fb4#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Utökat spermaprov</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">3&nbsp;800 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">30 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Ett fullständigt spermaprov med konsultation samt analys av volym, rörelse och utseende – och dessutom analys av oxidativ stress, som kan påverka spermiekvaliteten även vid normala värden i ett vanligt prov.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                      <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Referensvärden enligt WHO:s riktlinjer. Avhållsamhet 2–5 dagar (inte längre än 5).</span></p>
+                    
+                    
+                      <a href="/pages/spermaprov" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/690a767f-9a5c-40c3-bc44-036307741fb4#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+          </div>
+        </div>
+      
+        <div style="padding: 56px 0px; border-bottom: 1px solid rgb(235, 231, 225);" data-grupp="">
+          <div style="display: grid; grid-template-columns: minmax(0px, 1fr) auto; gap: 32px; align-items: end; margin-bottom: 28px;">
+            <div>
+              <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                
+              </div>
+              <h2 style="margin: 0px 0px 14px; font-size: 28px; font-weight: 300; line-height: 1.3; letter-spacing: -0.01em; color: rgb(58, 53, 48);"><span class="sc-interp">Fostertest Harmony NIPT</span></h2>
+              <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); max-width: 48em; text-wrap: pretty;"><span class="sc-interp">Här bokar du ett Harmony NIPT-fostertest, från graviditetsvecka 11. Testet görs via blodprov på den som är gravid och kompletteras med ett ultraljud.</span></p>
+            </div>
+            
+          </div>
+
+          <div data-cards="true" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Fostertest Harmony NIPT</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">6&nbsp;500 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">30 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Blodprovtagning, ultraljud utfört av läkare och uppföljning av testet via telefon.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                    
+                      <a href="/pages/nipt-test" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/0bf464f8-e019-4766-ad1d-caa0f7baf613#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+          </div>
+        </div>
+      
+        <div style="padding: 56px 0px; border-bottom: 1px solid rgb(235, 231, 225);" data-grupp="">
+          <div style="display: grid; grid-template-columns: minmax(0px, 1fr) auto; gap: 32px; align-items: end; margin-bottom: 28px;">
+            <div>
+              <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                
+              </div>
+              <h2 style="margin: 0px 0px 14px; font-size: 28px; font-weight: 300; line-height: 1.3; letter-spacing: -0.01em; color: rgb(58, 53, 48);"><span class="sc-interp">Provtagning inför behandling utomlands</span></h2>
+              <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); max-width: 48em; text-wrap: pretty;"><span class="sc-interp">Här bokar du din provtagning inför en fertilitetsbehandling utomlands. Vi gör dina undersökningar och provtagningar här i Sverige så att du slipper resa fram och tillbaka. Börja med en konsultation där vi går igenom ditt protokoll och planerar din provtagning.</span></p>
+            </div>
+            
+          </div>
+
+          <div data-cards="true" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Konsultation vid utlandsbehandling</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">1&nbsp;200 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">30 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">För dig som genomgår fertilitetsbehandling utomlands och vill göra undersökningar och provtagning i Sverige.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                      <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Konsultation på kliniken eller via telefon där en barnmorska går igenom ditt protokoll och skriver blodprovsremisser, med uppföljning via telefon. Kostnad för blodprover eller ultraljud tillkommer.</span></p>
+                    
+                    
+                      <a href="/pages/provtagning-infor-behandling-utomlands" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/dbd1fde4-26a3-47d1-8fd6-bd271e01e411#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+          </div>
+        </div>
+      
+        <div style="padding: 56px 0px; border-bottom: 1px solid rgb(235, 231, 225);" data-grupp="">
+          <div style="display: grid; grid-template-columns: minmax(0px, 1fr) auto; gap: 32px; align-items: end; margin-bottom: 28px;">
+            <div>
+              <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: rgb(235, 231, 225); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                
+              </div>
+              <h2 style="margin: 0px 0px 14px; font-size: 28px; font-weight: 300; line-height: 1.3; letter-spacing: -0.01em; color: rgb(58, 53, 48);"><span class="sc-interp">Droppbehandlingar</span></h2>
+              <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); max-width: 48em; text-wrap: pretty;"><span class="sc-interp">Här bokar du ett dropp. Vi erbjuder immunologiska dropp som en del av fertilitetsbehandling, och vitamindropp för energi och välmående. Alla dropp ges av barnmorska eller sjuksköterska. Välj det som passar dig.</span></p>
+            </div>
+            
+          </div>
+
+          <div data-cards="true" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Göteborg Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Droppbehandling med Intralipid</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">1&nbsp;600 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">60 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Intralipidbehandling i form av dropp, t.ex. vid upprepade missfall eller immunologiska orsaker. Du behöver tåla ägg och soja.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                    
+                      <a href="/pages/nyhet-dropp" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/3eb5d1d9-153b-46bc-bc11-7e8c84fd6e0d#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Göteborg Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Droppbehandling med Intralipid, helg</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">2&nbsp;200 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">60 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Samma behandling som ovan, men på helger.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                      <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Du behöver tåla ägg och soja. Hittar du ingen ledig tid är du välkommen att mejla oss så hittar vi en tid.</span></p>
+                    
+                    
+                      <a href="/pages/nyhet-dropp" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/3eb5d1d9-153b-46bc-bc11-7e8c84fd6e0d#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Göteborg Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Droppbehandling med IVIG (specialdropp)</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">2&nbsp;500 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">120 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Behandling med IVIG-dropp för dig som fått det utskrivet av läkare. Du tar med ditt eget preparat.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                    
+                      <a href="/pages/nyhet-dropp" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/3eb5d1d9-153b-46bc-bc11-7e8c84fd6e0d#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Göteborg Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">Multivitamindropp</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">900 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">ca 45 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Vitaminer och näring direkt i blodet – för ökad energi, hormonell balans och bättre förutsättningar inför och under graviditet.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                    
+                      <a href="/pages/nyhet-dropp" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/3eb5d1d9-153b-46bc-bc11-7e8c84fd6e0d#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+              <article style="background: rgb(235, 231, 225); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;" data-tjanst="" data-orter="Göteborg Stockholm">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Göteborg</span></span>
+                  
+                    <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgb(248, 246, 242); color: rgb(58, 53, 48);"><span class="sc-interp">Stockholm</span></span>
+                  
+                </div>
+                <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48); text-wrap: pretty;"><span class="sc-interp">C-vitamindropp</span></h3>
+                <p style="margin: 0px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                  <span style="font-size: 20px; font-weight: 600; color: rgb(58, 53, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">850 kr</span></span>
+                  <span style="font-size: 14px; font-weight: 300; color: rgba(58, 53, 48, 0.6);"><span class="sc-interp">ca 45 min</span></span>
+                </p>
+                <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); text-wrap: pretty;"><span class="sc-interp">Skyddar cellerna mot oxidativ stress, minskar trötthet, främjar järnupptag och stöttar kroppen inför och under graviditet.</span></p>
+                
+                  <button aria-expanded="false" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; background: none; border: 0px; padding: 4px 0px; font-family: inherit; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); cursor: pointer;" data-mer-knapp=""><span class="sc-interp">Läs mer</span><span aria-hidden="true" style="font-size: 18px; font-weight: 300; line-height: 1;">+</span></button><div style="display: flex; flex-direction: column; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(58, 53, 48, 0.12);" data-mer-panel="">
+                    
+                    
+                      <a href="/pages/nyhet-dropp" style="font-size: 14px; font-weight: 600; color: rgb(126, 150, 128); text-decoration: underline; text-underline-offset: 3px;">Läs mer om behandlingen</a>
+                    
+                  </div>
+                
+                
+                <div style="margin-top: auto; padding-top: 14px;">
+                  <a href="https://patient.nu/portal/public/calendar/3eb5d1d9-153b-46bc-bc11-7e8c84fd6e0d#step-1" target="_blank" rel="noopener" class="scp1" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;">Boka denna behandling</a>
+                </div>
+              </article>
+            
+          </div>
+        </div>
+      
+    </div>
+  </section>
+
+  <section style="background: rgb(235, 231, 225); color: rgb(58, 53, 48);">
+    <div style="max-width: 1600px; margin: 0px auto; padding: 96px 40px; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end;">
+      <div>
+        <h2 style="margin: 0px 0px 18px; font-size: 40px; font-weight: 300; line-height: 1.2; letter-spacing: -0.01em; color: rgb(58, 53, 48);">Osäker på vad du ska boka?</h2>
+        <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.77); max-width: 38em;">Om du är osäker på vilken bokning som passar dig bäst kan du börja med en konsultation.</p>
+      </div>
+      <a href="https://patient.nu/portal/public/calendar/3210099f-2fa3-492d-8d51-d9b4088e4118#step-1" target="_blank" rel="noopener" class="scp1" style="background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 15px 32px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap;">Boka konsultation</a>
+    </div>
+  </section>
+
+  <div class="sc-host" data-sc-name="Sidfot"><template id="__bundler_thumbnail"></template><footer style="background: rgb(58, 53, 48); color: rgb(248, 246, 242); font-family: &quot;Plus Jakarta Sans&quot;, system-ui, sans-serif;">
+  <div style="max-width: 1600px; margin: 0px auto; padding: 96px 40px 64px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 48px 40px;">
+    <div>
+      <a href="/" style="display: flex; align-items: center; gap: 14px; color: rgb(248, 246, 242); margin-bottom: 26px; text-decoration: none;">
+        <svg width="36" height="36" viewBox="0 0 38 38" fill="none" style="flex: 0 0 auto; display: block;">
+          <circle cx="19" cy="19" r="17.5" stroke="#7E9680" stroke-width="1.2" fill="none"></circle>
+          <line x1="19" y1="10" x2="19" y2="28" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+          <line x1="10" y1="19" x2="28" y2="19" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+        </svg>
+        <span style="display: flex; flex-direction: column; line-height: 1;">
+          <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.23em; text-transform: uppercase; color: rgb(248, 246, 242);">Fertilitet</span>
+          <span style="font-size: 13px; font-weight: 300; letter-spacing: 0.5em; text-transform: uppercase; color: rgb(126, 150, 128); margin-top: 5px;">Plus</span>
+        </span>
+      </a>
+      <p style="margin: 0px 0px 26px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(248, 246, 242, 0.55); max-width: 26em;">Fertilitetsklinik med mottagning i Stockholm och Göteborg. Ingen remiss, inga väntetider.</p>
+      <a href="/pages/boka-tid" class="scp6" style="display: inline-block; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 28px; border-radius: 4px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.05em; text-decoration: none;">Boka tid här</a>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Stockholm</p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(248, 246, 242, 0.6);">Värtavägen 30<br>115 53 Stockholm</p>
+      <p style="margin: 0px 0px 6px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); overflow-wrap: anywhere;"><a href="mailto:marie@fertilitetplus.se" class="scp2" style="color: rgba(248, 246, 242, 0.6); text-decoration: none;">marie@fertilitetplus.se</a></p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6);"><a href="tel:0708883836" class="scp2" style="color: rgba(248, 246, 242, 0.6); text-decoration: none;">070&nbsp;888 38 36</a></p>
+      <div style="font-size: 14px; font-weight: 300; line-height: 1.5; color: rgba(248, 246, 242, 0.55); max-width: 300px;"><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Mån–tors</span><span style="text-align: right;">09:00–17:00</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Fredag</span><span style="text-align: right;">09:00–16:00</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Lunch</span><span style="text-align: right;">12:00–12:30</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Lör–sön</span><span style="text-align: right;">Efter förfrågan</span></div></div>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Göteborg</p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(248, 246, 242, 0.6);">Askims kyrkväg 46<br>436 42 Askim</p>
+      <p style="margin: 0px 0px 6px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); overflow-wrap: anywhere;"><a href="mailto:gbg.fertilitetplus@outlook.com" class="scp2" style="color: rgba(248, 246, 242, 0.6); text-decoration: none; overflow-wrap: anywhere;">gbg.fertilitetplus@outlook.com</a></p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6);"><a href="tel:0723945023" class="scp2" style="color: rgba(248, 246, 242, 0.6); text-decoration: none;">072&nbsp;394 50 23</a></p>
+      <div style="font-size: 14px; font-weight: 300; line-height: 1.5; color: rgba(248, 246, 242, 0.55); max-width: 300px;"><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Mån–fre</span><span style="text-align: right;">Efter efterfrågan</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Lör–sön</span><span style="text-align: right;">Efter förfrågan</span></div></div>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Utredningar</p>
+      <ul style="display: flex; flex-direction: column; gap: 10px; margin: 0px; padding: 0px; list-style: none;">
+        <li><a href="/pages/fertilitetsutredning" class="scp2" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Fertilitetsutredning</a></li>
+        <li><a href="/pages/immunsuppression" class="scp2" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Autoimmuna sjukdomar och fertilitet</a></li>
+        <li><a href="/pages/spermaprov" class="scp2" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Spermaprov</a></li>
+        <li><a href="/pages/provtagning-infor-behandling-utomlands" class="scp2" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">IVF &amp; utlandsbehandlingar</a></li>
+        <li><a href="/pages/nipt-test" class="scp2" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Fostertest NIPT</a></li>
+        <li><a href="/pages/nyhet-dropp" class="scp2" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Vitamindropp</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Genvägar</p>
+      <ul style="display: flex; flex-direction: column; gap: 10px; margin: 0px 0px 32px; padding: 0px; list-style: none;">
+        <li><a href="/pages/kontakt" class="scp2" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Kontakt</a></li>
+        <li><a href="/pages/om-fertilitet" class="scp2" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Vanliga frågor</a></li>
+        <li><a href="/pages/prislista" class="scp2" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Prislista</a></li>
+        <li><a href="https://shop.fertilitetplus.se/blogs/news" target="_blank" rel="noopener" class="scp2" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Artiklar</a></li>
+        <li><a href="/collections/all" class="scp2" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Produkter</a></li>
+      </ul>
+      <p style="margin: 0px 0px 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Betala på klinik</p>
+      <p style="margin: 0px 0px 12px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(248, 246, 242, 0.45); max-width: 22em;">Endast för dig som ska betala ett besök på kliniken. Betalning här är ingen bokning.</p>
+      <a href="/collections/betala-pa-klinik" class="scp2" style="font-size: 16px; font-weight: 600; color: rgb(248, 246, 242); text-decoration: underline; text-underline-offset: 3px;">Till betalning</a>
+    </div>
+  </div>
+  <div style="max-width: 1600px; margin: 0px auto; padding: 24px 40px 64px; border-top: 1px solid rgba(248, 246, 242, 0.1); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+    <p style="margin: 0px; font-size: 12px; font-weight: 300; letter-spacing: 0.06em; color: rgba(200, 181, 162, 0.4);">© 2026 Fertilitetplus AB · Org.nr 559180-3076 · <a href="/policies/privacy-policy" class="scp7" style="color: rgba(200, 181, 162, 0.6); text-decoration: underline; text-underline-offset: 3px;">Integritetspolicy</a> · <a href="#cookies" class="scp7" style="color: rgba(200, 181, 162, 0.6); text-decoration: underline; text-underline-offset: 3px;">Cookie-inställningar</a></p>
+    <p style="margin: 0px; font-size: 12px; font-weight: 300; letter-spacing: 0.06em; color: rgba(200, 181, 162, 0.4);">Stockholm · Göteborg</p>
+  </div>
+  <div class="sc-host" data-sc-name="Cookiebanner">
+  <div role="dialog" aria-modal="false" aria-labelledby="fp-cookie-title" data-cookie-banner="true" style="position: fixed; left: 24px; bottom: 24px; z-index: 100; width: calc(100% - 48px); max-width: 460px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); border-radius: 4px; box-shadow: rgba(58, 53, 48, 0.35) 0px 24px 60px -24px; font-family: &quot;Plus Jakarta Sans&quot;, system-ui, sans-serif; color: rgb(58, 53, 48); max-height: calc(-48px + 100vh); overflow-y: auto;" hidden="" data-kopplad="">
+    <div style="padding: 28px 28px 24px;">
+      <p style="margin: 0px 0px 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(126, 150, 128);">Cookies</p>
+      <h2 id="fp-cookie-title" style="margin: 0px 0px 12px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48);">Vi använder cookies</h2>
+      <p style="margin: 0px 0px 20px; font-size: 15px; font-weight: 300; line-height: 1.7; color: rgba(58, 53, 48, 0.78);">Nödvändiga cookies behövs för att sajten, varukorgen och bokningen ska fungera. Med ditt samtycke använder vi även cookies för statistik och marknadsföring. Du kan ändra ditt val när som helst. <a href="/policies/privacy-policy" style="color: rgb(58, 53, 48); font-weight: 500; text-decoration: underline; text-underline-offset: 3px;">Läs mer i vår integritetspolicy</a>.</p>
+
+      
+        <div data-kategorier="" style="display: flex; flex-direction: column; border-top: 1px solid rgb(235, 231, 225); margin-bottom: 20px;">
+          
+            <div style="display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; padding: 16px 0px; border-bottom: 1px solid rgb(235, 231, 225);">
+              <div>
+                <p style="margin: 0px 0px 4px; font-size: 15px; font-weight: 600; color: rgb(58, 53, 48);"><span class="sc-interp">Nödvändiga</span></p>
+                <p style="margin: 0px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(58, 53, 48, 0.7);"><span class="sc-interp">Krävs för att sajten, varukorgen och bokningen ska fungera.</span></p>
+              </div>
+              
+                <span style="flex: 0 0 auto; margin-top: 2px; font-size: 12px; font-weight: 600; color: rgb(126, 150, 128); white-space: nowrap;">Alltid på</span>
+              
+              
+              
+            </div>
+          
+            <div style="display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; padding: 16px 0px; border-bottom: 1px solid rgb(235, 231, 225);">
+              <div>
+                <p style="margin: 0px 0px 4px; font-size: 15px; font-weight: 600; color: rgb(58, 53, 48);"><span class="sc-interp">Statistik</span></p>
+                <p style="margin: 0px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(58, 53, 48, 0.7);"><span class="sc-interp">Hjälper oss förstå hur sajten används, samlat och utan att identifiera dig.</span></p>
+              </div>
+              
+              
+              
+                <button role="switch" aria-checked="false" aria-label="Statistik" data-kategori="statistik" style="flex: 0 0 auto; position: relative; width: 44px; height: 26px; border-radius: 13px; border: 0px; background: rgb(200, 181, 162); cursor: pointer; padding: 0px;">
+                  <span style="position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: rgb(248, 246, 242);"></span>
+                </button>
+              
+            </div>
+          
+            <div style="display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; padding: 16px 0px; border-bottom: 1px solid rgb(235, 231, 225);">
+              <div>
+                <p style="margin: 0px 0px 4px; font-size: 15px; font-weight: 600; color: rgb(58, 53, 48);"><span class="sc-interp">Marknadsföring</span></p>
+                <p style="margin: 0px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(58, 53, 48, 0.7);"><span class="sc-interp">Används för att visa och mäta annonser på andra sajter.</span></p>
+              </div>
+              
+              
+              
+                <button role="switch" aria-checked="false" aria-label="Marknadsföring" data-kategori="marknadsforing" style="flex: 0 0 auto; position: relative; width: 44px; height: 26px; border-radius: 13px; border: 0px; background: rgb(200, 181, 162); cursor: pointer; padding: 0px;">
+                  <span style="position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: rgb(248, 246, 242);"></span>
+                </button>
+              
+            </div>
+          
+        </div>
+        <div data-kategorier-knappar="" style="display: flex; flex-direction: column; gap: 10px;">
+          <button class="scp8" data-samtycke="spara" style="font-family: inherit; background: rgb(58, 53, 48); color: rgb(248, 246, 242); border: 1px solid rgb(58, 53, 48); padding: 13px 20px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;">Spara mina val</button>
+          <button class="scp9" data-samtycke="alla" style="font-family: inherit; background: transparent; color: rgb(58, 53, 48); border: 1px solid rgb(58, 53, 48); padding: 13px 20px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;">Acceptera alla</button>
+        </div>
+      
+
+      
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;" data-huvudval="">
+          <button class="scp8" style="font-family: inherit; background: rgb(58, 53, 48); color: rgb(248, 246, 242); border: 1px solid rgb(58, 53, 48); padding: 13px 16px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;" data-samtycke="alla">Acceptera alla</button>
+          <button class="scp8" style="font-family: inherit; background: rgb(58, 53, 48); color: rgb(248, 246, 242); border: 1px solid rgb(58, 53, 48); padding: 13px 16px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;" data-samtycke="nodvandiga">Endast nödvändiga</button>
+        </div><button style="font-family: inherit; background: none; border: 0px; padding: 6px 0px; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); text-decoration: underline; text-underline-offset: 3px; cursor: pointer;" data-samtycke="anpassa">Anpassa</button></div>
+  </div></div></footer></div></div></div></div>
+
+
+
+</body></html>

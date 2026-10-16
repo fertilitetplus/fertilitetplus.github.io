@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="sv"><head><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>x-dc{display:none!important}</style>
+<style></style><style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F8F6F2;color:#3A3530;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:#7E9680}
+  a:hover{color:#3A3530}
+  ul{margin:0;padding:0;list-style:none}
+  img{display:block;max-width:100%}
+  @media (max-width: 960px) {
+    header nav[data-desktop-nav] { display: none !important; }
+    header button[data-mobile-toggle] { display: flex !important; }
+  }
+  @media (max-width: 900px) {
+    [style*="grid-template-columns"]:not([style*="auto-fit"]) { grid-template-columns: 1fr !important; }
+    section, section > div, header > div, footer > div { padding-left: 24px !important; padding-right: 24px !important; }
+    section[data-hero] { padding-top: 0 !important; gap: 32px !important; }
+    section[data-hero] > img { order: -1; width: calc(100% + 48px) !important; max-width: none !important; margin: 0 -24px; border-radius: 0 !important; aspect-ratio: 16/9 !important; }
+  }
+  @media (max-width: 640px) {
+    [data-cookie-banner] { left: 0 !important; bottom: 0 !important; width: 100% !important; max-width: none !important; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+    header [data-cart-label] { display: none !important; }
+    header [data-header-actions] { gap: 8px !important; }
+    header [data-book] { padding: 11px 14px !important; }
+    h1 { font-size: 40px !important; line-height: 1.08 !important; }
+    h2:not([data-h3-style]) { font-size: 28px !important; line-height: 1.2 !important; }
+    h2[style*="font-size: 28px"] { font-size: 24px !important; line-height: 1.3 !important; }
+    h3, h2[data-h3-style] { font-size: 18px !important; }
+    section, section > div { padding-top: 64px !important; padding-bottom: 64px !important; }
+    section[data-hero] { padding-top: 0 !important; }
+    img[style*="aspect-ratio"] { width: 100% !important; }
+  }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  details[open] > summary [data-plus] { display: none; }
+  details:not([open]) > summary [data-minus] { display: none; }
+</style>
+<title>Vanliga frågor om fertilitet | FertilitetPlus</title>
+<meta name="description" content="Svar på de vanligaste frågorna om fertilitetsutredning, missfall, provsvar och behandling.">
+<link rel="canonical" href="https://fertilitetplus.se/pages/om-fertilitet">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:site_name" content="FertilitetPlus">
+<meta property="og:title" content="Vanliga frågor om fertilitet | FertilitetPlus">
+<meta property="og:description" content="Svar på de vanligaste frågorna om fertilitetsutredning, missfall, provsvar och behandling.">
+<meta property="og:url" content="https://fertilitetplus.se/pages/om-fertilitet">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/typsnitt/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/typsnitt/cormorant-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fp-typsnitt.css">
+<link rel="stylesheet" href="/fp-fixar.css">
+<script src="/fp-samtycke.js"></script>
+<script>(function(w,d,s,l,i){if(["fertilitetplus.se","www.fertilitetplus.se"].indexOf(location.hostname)<0)return;
+w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KVBBJLL');</script>
+<script src="/fp-meny.js" defer></script>
+<script src="/fp-korg.js" defer></script>
+<script src="https://chatt.varden.se/widget-embed.js" widget-id="fertilitetplus.se"></script>
+<script src="/fp-chatt.js" defer></script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVBBJLL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id="dc-root"><div class="sc-host" data-sc-name="Vanliga-fragor"><template id="__bundler_thumbnail"></template><div class="sc-host" data-sc-name="Sidhuvud"><template id="__bundler_thumbnail"></template><header style="position: sticky; top: 0px; z-index: 50; background: rgba(248, 246, 242, 0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgb(235, 231, 225); font-family: &quot;Plus Jakarta Sans&quot;, system-ui, sans-serif;">
+  <div style="max-width: 1600px; margin: 0px auto; padding: 16px 40px; min-height: 84px; display: flex; align-items: center; gap: 24px; flex-wrap: nowrap;">
+    <a href="/" style="display: flex; align-items: center; gap: 14px; color: rgb(58, 53, 48); text-decoration: none; flex: 0 0 auto;">
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none" style="flex: 0 0 auto; display: block;">
+        <circle cx="19" cy="19" r="17.5" stroke="#7E9680" stroke-width="1.2" fill="none"></circle>
+        <line x1="19" y1="10" x2="19" y2="28" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+        <line x1="10" y1="19" x2="28" y2="19" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+      </svg>
+      <span style="display: flex; flex-direction: column; line-height: 1;">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.23em; text-transform: uppercase; color: rgb(58, 53, 48);">Fertilitet</span>
+        <span style="font-size: 13px; font-weight: 300; letter-spacing: 0.5em; text-transform: uppercase; color: rgb(126, 150, 128); margin-top: 5px;">Plus</span>
+      </span>
+    </a>
+
+    <div data-header-actions="true" style="margin-left: auto; display: flex; align-items: center; gap: 20px; flex-wrap: nowrap;">
+      <nav data-desktop-nav="true" style="display: flex; align-items: center; gap: 2px; position: relative; flex-wrap: nowrap;">
+        <div style="position: relative;" data-meny-grupp="">
+          <button class="scp1" style="display: flex; align-items: center; gap: 6px; background: none; border: 0px; padding: 12px 10px; font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); cursor: pointer; white-space: nowrap;" aria-haspopup="true" aria-expanded="false">Om oss<svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="display: block; flex: 0 0 auto;"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+          
+        <div style="position: absolute; top: 100%; left: 0px; min-width: 250px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); box-shadow: rgba(58, 53, 48, 0.24) 0px 20px 44px -20px; padding: 10px;" data-meny-panel="">
+              <ul style="display: flex; flex-direction: column; margin: 0px; padding: 0px; list-style: none;">
+                <li><a href="/pages/fertilitetplus" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">FertilitetPlus</a></li>
+                <li><a href="/pages/samarbeten" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Våra samarbeten</a></li>
+                <li><a href="/pages/omdomen" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Omdömen</a></li>
+                <li><a href="/pages/kontakt" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Kontakt</a></li>
+              </ul>
+            </div></div>
+
+        <div style="position: relative;" data-meny-grupp="">
+          <button class="scp1" style="display: flex; align-items: center; gap: 6px; background: none; border: 0px; padding: 12px 10px; font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); cursor: pointer; white-space: nowrap;" aria-haspopup="true" aria-expanded="false">Utredning &amp; behandling<svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="display: block; flex: 0 0 auto;"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+          
+        <div style="position: absolute; top: 100%; left: 0px; min-width: 360px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); box-shadow: rgba(58, 53, 48, 0.24) 0px 20px 44px -20px; padding: 10px;" data-meny-panel="">
+              <ul style="display: flex; flex-direction: column; margin: 0px; padding: 0px; list-style: none;">
+                <li><a href="/pages/prislista" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;"><strong style="font-weight: 600;">Alla behandlingar och priser</strong></a></li>
+                <li><a href="/pages/fertilitetsutredning" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Fertilitetsutredning</a></li>
+                <li><a href="/pages/immunsuppression" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Autoimmuna sjukdomar och fertilitet</a></li>
+                <li><a href="/pages/lakarkonsultation-och-ultraljud" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Ultraljud/läkarkonsultation under graviditet</a></li>
+                <li><a href="/pages/autoimmuna-sjukdomar-och-graviditet" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Sköldkörtelproblematik i fertil ålder</a></li>
+                <li><a href="/pages/lakarkonsultation-och-ultraljud-infor-graviditet" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Ultraljud/läkarkonsultation inför graviditet</a></li>
+                <li><a href="/pages/spermaprov" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Spermaprov</a></li>
+                <li><a href="/pages/provtagning-infor-behandling-utomlands" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">IVF &amp; utlandsbehandlingar</a></li>
+                <li><a href="/pages/nipt-test" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Fostertest NIPT</a></li>
+                <li><a href="/pages/nyhet-dropp" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Vitamindropp</a></li>
+              </ul>
+            </div></div>
+
+        <div style="position: relative;" data-meny-grupp="">
+          <button class="scp1" style="display: flex; align-items: center; gap: 6px; background: none; border: 0px; padding: 12px 10px; font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); cursor: pointer; white-space: nowrap;" aria-haspopup="true" aria-expanded="false">Kunskap &amp; stöd<svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="display: block; flex: 0 0 auto;"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+          
+        <div style="position: absolute; top: 100%; left: 0px; min-width: 270px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); box-shadow: rgba(58, 53, 48, 0.24) 0px 20px 44px -20px; padding: 10px;" data-meny-panel="">
+              <ul style="display: flex; flex-direction: column; margin: 0px; padding: 0px; list-style: none;">
+                <li><a href="https://shop.fertilitetplus.se/blogs/news" target="_blank" rel="noopener" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Artiklar</a></li>
+                <li><a href="/pages/om-fertilitet" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Vanliga frågor</a></li>
+                <li><a href="/pages/fertilitet-efter-40" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Barnlängtan efter 40</a></li>
+                <li><a href="/pages/skaffa-barn-sjalv" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Skaffa barn på egen hand</a></li>
+                <li><a href="/pages/immunsuppression" class="scp2" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Missfall</a></li>
+              </ul>
+            </div></div>
+
+        <div>
+          <a href="/pages/prislista" class="scp1" style="display: block; padding: 12px 10px; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); text-decoration: none; white-space: nowrap;">Prislista</a>
+        </div>
+        <div>
+          <a href="/collections/all" class="scp1" style="display: block; padding: 12px 10px; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); text-decoration: none; white-space: nowrap;">Produkter</a>
+        </div>
+      </nav>
+
+      <a data-book="true" href="/pages/boka-tid" class="scp3" style="flex: 0 0 auto; background: rgb(58, 53, 48); color: rgb(248, 246, 242); padding: 12px 22px; border-radius: 4px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.05em; text-decoration: none; white-space: nowrap;">Boka här</a>
+
+      <a href="https://shop.fertilitetplus.se/cart" target="_blank" rel="noopener" aria-label="Varukorg" class="scp4" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 44px; height: 44px; padding: 0px 14px; border: 1px solid rgb(235, 231, 225); border-radius: 4px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.05em; color: rgb(58, 53, 48); text-decoration: none; white-space: nowrap;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="display: block; flex: 0 0 auto;"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg><span data-cart-label="true">Varukorg</span></a>
+
+      <button data-mobile-toggle="true" aria-label="Meny" style="display: none; align-items: center; justify-content: center; gap: 5px; flex-direction: column; width: 44px; height: 44px; background: none; border: 1px solid rgb(235, 231, 225); border-radius: 4px; cursor: pointer; flex: 0 0 auto;">
+        <span style="display: block; width: 18px; height: 1.5px; background: rgb(58, 53, 48);"></span>
+        <span style="display: block; width: 18px; height: 1.5px; background: rgb(58, 53, 48);"></span>
+        <span style="display: block; width: 18px; height: 1.5px; background: rgb(58, 53, 48);"></span>
+      </button>
+    </div>
+  </div>
+
+  
+    <nav data-mobile-panel="true" style="border-top: 1px solid rgb(235, 231, 225); background: rgb(248, 246, 242); padding: 16px 20px 28px; max-height: 70vh; overflow-y: auto;">
+      <p style="margin: 0px 0px 10px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: rgb(126, 150, 128);">Om oss</p>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 22px; padding: 0px; list-style: none;">
+        <li><a href="/pages/fertilitetplus" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">FertilitetPlus</a></li>
+        <li><a href="/pages/samarbeten" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Våra samarbeten</a></li>
+        <li><a href="/pages/omdomen" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Omdömen</a></li>
+        <li><a href="/pages/kontakt" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Kontakt</a></li>
+      </ul>
+      <p style="margin: 0px 0px 10px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: rgb(126, 150, 128);">Utredning &amp; behandling</p>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 22px; padding: 0px; list-style: none;">
+        <li><a href="/pages/prislista" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);"><strong style="font-weight: 600;">Alla behandlingar och priser</strong></a></li>
+        <li><a href="/pages/fertilitetsutredning" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Fertilitetsutredning</a></li>
+        <li><a href="/pages/immunsuppression" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Autoimmuna sjukdomar och fertilitet</a></li>
+        <li><a href="/pages/lakarkonsultation-och-ultraljud" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Ultraljud under graviditet</a></li>
+        <li><a href="/pages/autoimmuna-sjukdomar-och-graviditet" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Sköldkörtelproblematik</a></li>
+        <li><a href="/pages/lakarkonsultation-och-ultraljud-infor-graviditet" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Ultraljud inför graviditet</a></li>
+        <li><a href="/pages/spermaprov" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Spermaprov</a></li>
+        <li><a href="/pages/provtagning-infor-behandling-utomlands" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">IVF &amp; utlandsbehandlingar</a></li>
+        <li><a href="/pages/nipt-test" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Fostertest NIPT</a></li>
+        <li><a href="/pages/nyhet-dropp" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Vitamindropp</a></li>
+      </ul>
+      <p style="margin: 0px 0px 10px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: rgb(126, 150, 128);">Kunskap &amp; stöd</p>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 22px; padding: 0px; list-style: none;">
+        <li><a href="https://shop.fertilitetplus.se/blogs/news" target="_blank" rel="noopener" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Artiklar</a></li>
+        <li><a href="/pages/om-fertilitet" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Vanliga frågor</a></li>
+        <li><a href="/pages/fertilitet-efter-40" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Barnlängtan efter 40</a></li>
+        <li><a href="/pages/skaffa-barn-sjalv" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Skaffa barn på egen hand</a></li>
+        <li><a href="/pages/immunsuppression" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Missfall</a></li>
+      </ul>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 24px; padding: 0px; list-style: none; border-top: 1px solid rgb(235, 231, 225);">
+        <li><a href="/pages/prislista" style="display: block; padding: 13px 0px; font-size: 16px; font-weight: 600; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Prislista</a></li>
+        <li><a href="/collections/all" style="display: block; padding: 13px 0px; font-size: 16px; font-weight: 600; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Produkter</a></li>
+      </ul>
+      <a href="/pages/boka-tid" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 16px 24px; border-radius: 4px; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none;">Boka här</a>
+    </nav>
+  </header></div><section data-hero="true" style="max-width: 1600px; margin: 0px auto; padding: 112px 40px 64px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 72px; align-items: center;">
+  <div>
+    <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(126, 150, 128);">Kunskap &amp; stöd</p>
+    <h1 style="margin: 0px 0px 26px; font-family: Cormorant, Georgia, serif; font-style: italic; font-weight: 400; font-size: 62px; line-height: 1.08; letter-spacing: -0.01em;">Om fertilitet</h1>
+    <p style="margin: 0px 0px 18px; font-size: 16px; font-weight: 600; color: rgb(58, 53, 48);">Vad kan påverka <a href="/pages/fertilitetsutredning" style="color: rgb(126, 150, 128);">fertiliteten</a>?</p>
+    <p style="margin: 0px 0px 24px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.75); max-width: 40em; text-wrap: pretty;">Om man har försökt att få barn under en lång tid utan att lyckas så kan det till exempel bero på hormonrubbningar hos kvinnan eller att mannens <a href="/pages/spermaprov" style="color: rgb(126, 150, 128);">spermakvalité</a> är nedsatt. Det är av naturlig orsak svårare att bli gravid om kvinnan är äldre då fruktsamheten börjar avta från 30-årsåldern. Ofrivillig barnlöshet kan också bero på livsstil eller faktorer som man inte rår på, som exempelvis medfödda avvikelser eller sjukdomar. Även immunförsvaret kan vara överaktivt och jobba emot eventuella embryon som försöker fästa inuti kvinnan.</p>
+    <p style="margin: 0px 0px 32px; font-size: 16px; font-weight: 600; line-height: 1.75; color: rgb(58, 53, 48); max-width: 40em;">Om du är osäker på vilken bokning som passar dig bäst kan du börja med en konsultation.</p>
+    <a href="/pages/boka-tid" class="scp0" style="display: inline-block; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 15px 32px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none;">Boka tid</a>
+  </div>
+  <img src="https://shop.fertilitetplus.se/cdn/shop/files/hands-hold-pregnancy-test.jpg?v=1679933686&amp;width=1440" srcset="https://shop.fertilitetplus.se/cdn/shop/files/hands-hold-pregnancy-test.jpg?v=1679933686&amp;width=480 480w, https://shop.fertilitetplus.se/cdn/shop/files/hands-hold-pregnancy-test.jpg?v=1679933686&amp;width=768 768w, https://shop.fertilitetplus.se/cdn/shop/files/hands-hold-pregnancy-test.jpg?v=1679933686&amp;width=1024 1024w, https://shop.fertilitetplus.se/cdn/shop/files/hands-hold-pregnancy-test.jpg?v=1679933686&amp;width=1440 1440w" sizes="(max-width: 900px) 100vw, 40vw" decoding="async" alt="Graviditetstest" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px;" fetchpriority="high"></section><section style="background: rgb(235, 231, 225);">
+  <div style="max-width: 1600px; margin: 0px auto; padding: 96px 40px; display: grid; grid-template-columns: minmax(0px, 920px);">
+    <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(126, 150, 128);">Q&amp;A</p>
+    <h2 style="margin: 0px 0px 48px; font-size: 40px; font-weight: 300; line-height: 1.2; letter-spacing: -0.01em;">Vanliga frågor om fertilitet</h2>
+
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <details style="background: rgb(248, 246, 242); border-radius: 4px;">
+        <summary style="cursor: pointer; padding: 26px 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px;">
+          <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.5; color: rgb(58, 53, 48);">Vad är fertilitet?</h3>
+          <span aria-hidden="true" style="flex: 0 0 auto; position: relative; width: 18px; height: 18px;"><span style="position: absolute; left: 0px; right: 0px; top: 50%; height: 1.5px; margin-top: -0.75px; background: rgb(58, 53, 48);"></span><span data-plus="true" style="position: absolute; top: 0px; bottom: 0px; left: 50%; width: 1.5px; margin-left: -0.75px; background: rgb(58, 53, 48);"></span><span data-minus="true" style="display: none;"></span></span>
+        </summary>
+        <div style="padding: 0px 32px 32px; max-width: 52em;">
+        <p style="margin: 0px 0px 16px; font-size: 16px; font-weight: 600; color: rgb(58, 53, 48);">Allt du behöver veta om reproduktiv hälsa</p>
+        <p style="margin: 0px 0px 22px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Fertilitet är förmågan att få barn och påverkas av både mäns och kvinnors reproduktiva hälsa. Faktorer som ålder, livsstil och hälsotillstånd kan ha en stor inverkan på chanserna att bli gravid.</p>
+        <p style="margin: 0px 0px 8px; font-size: 16px; font-weight: 700; color: rgb(58, 53, 48);">Kvinnans fertilitet</p>
+        <p style="margin: 0px 0px 20px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">En kvinnas fertilitet är nära kopplad till hennes äggstockar, som producerar äggceller, samt menstruationscykeln, som styr när befruktning kan ske. Fertiliteten är som högst i yngre år och börjar minska efter 30, med en tydligare nedgång efter 35 års ålder.</p>
+        <p style="margin: 0px 0px 8px; font-size: 16px; font-weight: 700; color: rgb(58, 53, 48);">Männens fertilitet</p>
+        <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Mäns fertilitet beror främst på spermiekvalitet och spermieproduktion i testiklarna. Ålder, kost, stress och hälsotillstånd kan påverka både mängden och rörligheten hos spermierna, vilket i sin tur påverkar chansen till graviditet.</p>
+      </div>
+      </details>
+
+      <details style="background: rgb(248, 246, 242); border-radius: 4px;">
+        <summary style="cursor: pointer; padding: 26px 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px;">
+          <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.5; color: rgb(58, 53, 48);">Vilka faktorer påverkar fertiliteten?</h3>
+          <span aria-hidden="true" style="flex: 0 0 auto; position: relative; width: 18px; height: 18px;"><span style="position: absolute; left: 0px; right: 0px; top: 50%; height: 1.5px; margin-top: -0.75px; background: rgb(58, 53, 48);"></span><span data-plus="true" style="position: absolute; top: 0px; bottom: 0px; left: 50%; width: 1.5px; margin-left: -0.75px; background: rgb(58, 53, 48);"></span><span data-minus="true" style="display: none;"></span></span>
+        </summary>
+        <div style="padding: 0px 32px 32px; max-width: 52em;">
+        <p style="margin: 0px 0px 22px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Fertiliteten kan påverkas av flera faktorer, både genetiska, medicinska och livsstilsrelaterade. Hormonella obalanser, sjukdomar och vissa livsstilsval kan ha en direkt inverkan på chanserna att bli gravid.</p>
+        <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 700; color: rgb(58, 53, 48);">Vanliga orsaker till nedsatt fertilitet</p>
+        <ul style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px;">
+          <li style="font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72);"><strong style="font-weight: 600; color: rgb(58, 53, 48);">Hormonella obalanser</strong> – Påverkar ägglossning och spermieproduktion.</li>
+          <li style="font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72);"><strong style="font-weight: 600; color: rgb(58, 53, 48);">Sjukdomar och medicinska tillstånd</strong> – Exempelvis PCOS, endometrios och infektioner kan påverka fertiliteten.</li>
+          <li style="font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72);"><strong style="font-weight: 600; color: rgb(58, 53, 48);">Genetiska faktorer</strong> – Ärftliga tillstånd kan bidra till svårigheter att bli gravid.</li>
+          <li style="font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72);"><strong style="font-weight: 600; color: rgb(58, 53, 48);">Livsstil och hälsa</strong> – Stress, rökning, alkohol och kosthållning spelar en viktig roll.</li>
+        </ul>
+        <p style="margin: 0px 0px 8px; font-size: 16px; font-weight: 700; color: rgb(58, 53, 48);">Vad är infertilitet?</p>
+        <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Infertilitet innebär att en kvinna inte blivit gravid trots ett års regelbundet och oskyddat sex. Detta kan drabba både män och kvinnor och kan bero på en rad olika medicinska faktorer.</p>
+      </div>
+      </details>
+
+      <details style="background: rgb(248, 246, 242); border-radius: 4px;">
+        <summary style="cursor: pointer; padding: 26px 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px;">
+          <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.5; color: rgb(58, 53, 48);">Vilken ålder är optimal för att lyckas bli gravid?</h3>
+          <span aria-hidden="true" style="flex: 0 0 auto; position: relative; width: 18px; height: 18px;"><span style="position: absolute; left: 0px; right: 0px; top: 50%; height: 1.5px; margin-top: -0.75px; background: rgb(58, 53, 48);"></span><span data-plus="true" style="position: absolute; top: 0px; bottom: 0px; left: 50%; width: 1.5px; margin-left: -0.75px; background: rgb(58, 53, 48);"></span><span data-minus="true" style="display: none;"></span></span>
+        </summary>
+        <div style="padding: 0px 32px 32px; max-width: 52em;">
+        <p style="margin: 0px 0px 22px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Fertiliteten förändras med åldern och påverkar chanserna att bli gravid. För kvinnor är den biologiska klockan en viktig faktor, medan mäns fertilitet ofta förblir stabil längre – men inte oförändrad.</p>
+        <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 700; color: rgb(58, 53, 48);">När är fertiliteten som högst?</p>
+        <p style="margin: 0px 0px 16px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;"><strong style="font-weight: 600; color: rgb(58, 53, 48);">Kvinnor:</strong> Den optimala åldern för graviditet är mellan <strong style="font-weight: 600; color: rgb(58, 53, 48);">20 och 24 år</strong>, då fertiliteten är som högst. Efter <strong style="font-weight: 600; color: rgb(58, 53, 48);">30 års ålder</strong> börjar den gradvis minska, med en snabbare nedgång efter <strong style="font-weight: 600; color: rgb(58, 53, 48);">35</strong>. <a href="/pages/fertilitet-efter-40" style="color: rgb(126, 150, 128); font-weight: 600;">Efter 40 år</a> blir det betydligt svårare att bli spontant gravid.</p>
+        <p style="margin: 0px 0px 22px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;"><strong style="font-weight: 600; color: rgb(58, 53, 48);">Män:</strong> Mäns fertilitet är generellt mer stabil över tid, men spermiekvaliteten kan börja försämras efter <strong style="font-weight: 600; color: rgb(58, 53, 48);">40 års ålder</strong>, vilket kan påverka både graviditetschanser och risken för genetiska förändringar.</p>
+        <p style="margin: 0px 0px 8px; font-size: 16px; font-weight: 700; color: rgb(58, 53, 48);">Hur kan du förbättra dina chanser?</p>
+        <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Oavsett ålder kan en hälsosam livsstil, balanserad kost och att undvika stress förbättra fertiliteten. För par som försöker bli gravida kan det vara bra att söka hjälp, boka en konsultation för att ta reda på hur vi kan hjälpa dig.</p>
+      </div>
+      </details>
+
+      <details style="background: rgb(248, 246, 242); border-radius: 4px;">
+        <summary style="cursor: pointer; padding: 26px 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px;">
+          <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.5; color: rgb(58, 53, 48);">Kan livsstilsförändringar förbättra fertiliteten?</h3>
+          <span aria-hidden="true" style="flex: 0 0 auto; position: relative; width: 18px; height: 18px;"><span style="position: absolute; left: 0px; right: 0px; top: 50%; height: 1.5px; margin-top: -0.75px; background: rgb(58, 53, 48);"></span><span data-plus="true" style="position: absolute; top: 0px; bottom: 0px; left: 50%; width: 1.5px; margin-left: -0.75px; background: rgb(58, 53, 48);"></span><span data-minus="true" style="display: none;"></span></span>
+        </summary>
+        <div style="padding: 0px 32px 32px; max-width: 52em;">
+        <p style="margin: 0px 0px 22px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Livsstilen har en stor inverkan på fertiliteten, både för män och kvinnor. Genom att göra hälsosamma val kan du öka chanserna att bli gravid och förbättra reproduktiv hälsa.</p>
+        <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 700; color: rgb(58, 53, 48);">Bästa livsstilsförändringarna för ökad fertilitet</p>
+        <ul style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px;">
+          <li style="font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72);"><strong style="font-weight: 600; color: rgb(58, 53, 48);">Ät en näringsrik kost</strong> – En balanserad kost rik på vitaminer, mineraler och antioxidanter kan förbättra ägg- och spermiekvalitet.</li>
+          <li style="font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72);"><strong style="font-weight: 600; color: rgb(58, 53, 48);">Minska stress</strong> – Höga stressnivåer kan påverka hormoner och ägglossning negativt. Prova avslappningstekniker som yoga eller meditation.</li>
+          <li style="font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72);"><strong style="font-weight: 600; color: rgb(58, 53, 48);">Undvik rökning, alkohol och droger</strong> – Dessa kan försämra spermiekvalitet och äggreserv, vilket minskar fertiliteten.</li>
+          <li style="font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72);"><strong style="font-weight: 600; color: rgb(58, 53, 48);">Bibehåll en hälsosam vikt</strong> – Både undervikt och övervikt kan påverka hormonbalansen och göra det svårare att bli gravid.</li>
+          <li style="font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72);"><strong style="font-weight: 600; color: rgb(58, 53, 48);">Minska exponering för skadliga ämnen</strong> – Män bör undvika kemikalier och överdriven värmeexponering, eftersom detta kan försämra spermieproduktionen.</li>
+        </ul>
+        <p style="margin: 0px 0px 8px; font-size: 16px; font-weight: 700; color: rgb(58, 53, 48);">Små förändringar kan göra stor skillnad</p>
+        <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Att göra hälsosamma val kan öka fertiliteten och förbättra chanserna till en lyckad graviditet. Vill du optimera din reproduktiva hälsa? Börja idag med små, hållbara förändringar!</p>
+      </div>
+      </details>
+
+      <details style="background: rgb(248, 246, 242); border-radius: 4px;">
+        <summary style="cursor: pointer; padding: 26px 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px;">
+          <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.5; color: rgb(58, 53, 48);">Vad betyder infertilitet?</h3>
+          <span aria-hidden="true" style="flex: 0 0 auto; position: relative; width: 18px; height: 18px;"><span style="position: absolute; left: 0px; right: 0px; top: 50%; height: 1.5px; margin-top: -0.75px; background: rgb(58, 53, 48);"></span><span data-plus="true" style="position: absolute; top: 0px; bottom: 0px; left: 50%; width: 1.5px; margin-left: -0.75px; background: rgb(58, 53, 48);"></span><span data-minus="true" style="display: none;"></span></span>
+        </summary>
+        <div style="padding: 0px 32px 32px; max-width: 52em;">
+        <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Infertilitet är oförmågan att bli gravid eller att få barn, trots regelbundna försök under en längre tid (vanligtvis ett år eller mer), utan att använda preventivmedel. Det kan drabba både kvinnor och män och kan bero på en mängd olika faktorer. Vi rekommenderar att man bokar en fertilitetsutredning hos oss för att ta reda på vad nästa steg i er fertilitetsresa är.</p>
+      </div>
+      </details>
+
+      <details style="background: rgb(248, 246, 242); border-radius: 4px;">
+        <summary style="cursor: pointer; padding: 26px 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px;">
+          <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.5; color: rgb(58, 53, 48);">Vad finns för behandling vid infertilitet?</h3>
+          <span aria-hidden="true" style="flex: 0 0 auto; position: relative; width: 18px; height: 18px;"><span style="position: absolute; left: 0px; right: 0px; top: 50%; height: 1.5px; margin-top: -0.75px; background: rgb(58, 53, 48);"></span><span data-plus="true" style="position: absolute; top: 0px; bottom: 0px; left: 50%; width: 1.5px; margin-left: -0.75px; background: rgb(58, 53, 48);"></span><span data-minus="true" style="display: none;"></span></span>
+        </summary>
+        <div style="padding: 0px 32px 32px; max-width: 52em;">
+        <p style="margin: 0px 0px 16px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Det finns olika behandlingsmetoder för att hjälpa personer med fertilitetsproblem. Bl.a. läkemedel för att stimulera ägglossning, kirurgiska ingrepp eller assisterad befruktning såsom IVF (in vitro-fertilisering).</p>
+        <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Valet av behandling beror på den specifika orsaken till infertiliteten, åldern på den person som behandlas, och deras övergripande hälsa. I vissa fall kan en kombination av behandlingar användas.</p>
+      </div>
+      </details>
+
+      <details style="background: rgb(248, 246, 242); border-radius: 4px;">
+        <summary style="cursor: pointer; padding: 26px 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px;">
+          <h3 style="margin: 0px; font-size: 18px; font-weight: 700; line-height: 1.5; color: rgb(58, 53, 48);">Vilka är vanliga orsaker till ofrivillig barnlöshet?</h3>
+          <span aria-hidden="true" style="flex: 0 0 auto; position: relative; width: 18px; height: 18px;"><span style="position: absolute; left: 0px; right: 0px; top: 50%; height: 1.5px; margin-top: -0.75px; background: rgb(58, 53, 48);"></span><span data-plus="true" style="position: absolute; top: 0px; bottom: 0px; left: 50%; width: 1.5px; margin-left: -0.75px; background: rgb(58, 53, 48);"></span><span data-minus="true" style="display: none;"></span></span>
+        </summary>
+        <div style="padding: 0px 32px 32px; max-width: 52em;">
+        <p style="margin: 0px 0px 16px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">Vanliga orsaker till ofrivillig barnlöshet inkluderar problem med ägglossning, blockeringar i äggledarna, problem med spermierna, hormonella obalanser och sjukdomar som endometrios och PCOS.</p>
+        <p style="margin: 0px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(58, 53, 48, 0.72); text-wrap: pretty;">I vissa fall beror ofrivillig barnlöshet p.g.a immunologiska faktorer, då ett aktivt <a href="/pages/immunsuppression" style="color: rgb(126, 150, 128);">immunförsvar</a> kan hindra graviditet från att uppstå.</p>
+      </div>
+      </details>
+    </div>
+  </div></section><div class="sc-host" data-sc-name="Sidfot"><template id="__bundler_thumbnail"></template><footer style="background: rgb(58, 53, 48); color: rgb(248, 246, 242); font-family: &quot;Plus Jakarta Sans&quot;, system-ui, sans-serif;">
+  <div style="max-width: 1600px; margin: 0px auto; padding: 96px 40px 64px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 48px 40px;">
+    <div>
+      <a href="/" style="display: flex; align-items: center; gap: 14px; color: rgb(248, 246, 242); margin-bottom: 26px; text-decoration: none;">
+        <svg width="36" height="36" viewBox="0 0 38 38" fill="none" style="flex: 0 0 auto; display: block;">
+          <circle cx="19" cy="19" r="17.5" stroke="#7E9680" stroke-width="1.2" fill="none"></circle>
+          <line x1="19" y1="10" x2="19" y2="28" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+          <line x1="10" y1="19" x2="28" y2="19" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+        </svg>
+        <span style="display: flex; flex-direction: column; line-height: 1;">
+          <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.23em; text-transform: uppercase; color: rgb(248, 246, 242);">Fertilitet</span>
+          <span style="font-size: 13px; font-weight: 300; letter-spacing: 0.5em; text-transform: uppercase; color: rgb(126, 150, 128); margin-top: 5px;">Plus</span>
+        </span>
+      </a>
+      <p style="margin: 0px 0px 26px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(248, 246, 242, 0.55); max-width: 26em;">Fertilitetsklinik med mottagning i Stockholm och Göteborg. Ingen remiss, inga väntetider.</p>
+      <a href="/pages/boka-tid" class="scp5" style="display: inline-block; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 28px; border-radius: 4px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.05em; text-decoration: none;">Boka tid här</a>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Stockholm</p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(248, 246, 242, 0.6);">Värtavägen 30<br>115 53 Stockholm</p>
+      <p style="margin: 0px 0px 6px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); overflow-wrap: anywhere;"><a href="mailto:marie@fertilitetplus.se" class="scp1" style="color: rgba(248, 246, 242, 0.6); text-decoration: none;">marie@fertilitetplus.se</a></p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6);"><a href="tel:0708883836" class="scp1" style="color: rgba(248, 246, 242, 0.6); text-decoration: none;">070&nbsp;888 38 36</a></p>
+      <div style="font-size: 14px; font-weight: 300; line-height: 1.5; color: rgba(248, 246, 242, 0.55); max-width: 300px;"><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Mån–tors</span><span style="text-align: right;">09:00–17:00</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Fredag</span><span style="text-align: right;">09:00–16:00</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Lunch</span><span style="text-align: right;">12:00–12:30</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Lör–sön</span><span style="text-align: right;">Efter förfrågan</span></div></div>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Göteborg</p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(248, 246, 242, 0.6);">Askims kyrkväg 46<br>436 42 Askim</p>
+      <p style="margin: 0px 0px 6px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); overflow-wrap: anywhere;"><a href="mailto:gbg.fertilitetplus@outlook.com" class="scp1" style="color: rgba(248, 246, 242, 0.6); text-decoration: none; overflow-wrap: anywhere;">gbg.fertilitetplus@outlook.com</a></p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6);"><a href="tel:0723945023" class="scp1" style="color: rgba(248, 246, 242, 0.6); text-decoration: none;">072&nbsp;394 50 23</a></p>
+      <div style="font-size: 14px; font-weight: 300; line-height: 1.5; color: rgba(248, 246, 242, 0.55); max-width: 300px;"><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Mån–fre</span><span style="text-align: right;">Efter efterfrågan</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Lör–sön</span><span style="text-align: right;">Efter förfrågan</span></div></div>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Utredningar</p>
+      <ul style="display: flex; flex-direction: column; gap: 10px; margin: 0px; padding: 0px; list-style: none;">
+        <li><a href="/pages/fertilitetsutredning" class="scp1" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Fertilitetsutredning</a></li>
+        <li><a href="/pages/immunsuppression" class="scp1" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Autoimmuna sjukdomar och fertilitet</a></li>
+        <li><a href="/pages/spermaprov" class="scp1" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Spermaprov</a></li>
+        <li><a href="/pages/provtagning-infor-behandling-utomlands" class="scp1" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">IVF &amp; utlandsbehandlingar</a></li>
+        <li><a href="/pages/nipt-test" class="scp1" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Fostertest NIPT</a></li>
+        <li><a href="/pages/nyhet-dropp" class="scp1" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Vitamindropp</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Genvägar</p>
+      <ul style="display: flex; flex-direction: column; gap: 10px; margin: 0px 0px 32px; padding: 0px; list-style: none;">
+        <li><a href="/pages/kontakt" class="scp1" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Kontakt</a></li>
+        <li><a href="/pages/om-fertilitet" class="scp1" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Vanliga frågor</a></li>
+        <li><a href="/pages/prislista" class="scp1" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Prislista</a></li>
+        <li><a href="https://shop.fertilitetplus.se/blogs/news" target="_blank" rel="noopener" class="scp1" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Artiklar</a></li>
+        <li><a href="/collections/all" class="scp1" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Produkter</a></li>
+      </ul>
+      <p style="margin: 0px 0px 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Betala på klinik</p>
+      <p style="margin: 0px 0px 12px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(248, 246, 242, 0.45); max-width: 22em;">Endast för dig som ska betala ett besök på kliniken. Betalning här är ingen bokning.</p>
+      <a href="/collections/betala-pa-klinik" class="scp1" style="font-size: 16px; font-weight: 600; color: rgb(248, 246, 242); text-decoration: underline; text-underline-offset: 3px;">Till betalning</a>
+    </div>
+  </div>
+  <div style="max-width: 1600px; margin: 0px auto; padding: 24px 40px 64px; border-top: 1px solid rgba(248, 246, 242, 0.1); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+    <p style="margin: 0px; font-size: 12px; font-weight: 300; letter-spacing: 0.06em; color: rgba(200, 181, 162, 0.4);">© 2026 Fertilitetplus AB · Org.nr 559180-3076 · <a href="/policies/privacy-policy" class="scp6" style="color: rgba(200, 181, 162, 0.6); text-decoration: underline; text-underline-offset: 3px;">Integritetspolicy</a> · <a href="#cookies" class="scp6" style="color: rgba(200, 181, 162, 0.6); text-decoration: underline; text-underline-offset: 3px;">Cookie-inställningar</a></p>
+    <p style="margin: 0px; font-size: 12px; font-weight: 300; letter-spacing: 0.06em; color: rgba(200, 181, 162, 0.4);">Stockholm · Göteborg</p>
+  </div>
+  <div class="sc-host" data-sc-name="Cookiebanner">
+  <div role="dialog" aria-modal="false" aria-labelledby="fp-cookie-title" data-cookie-banner="true" style="position: fixed; left: 24px; bottom: 24px; z-index: 100; width: calc(100% - 48px); max-width: 460px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); border-radius: 4px; box-shadow: rgba(58, 53, 48, 0.35) 0px 24px 60px -24px; font-family: &quot;Plus Jakarta Sans&quot;, system-ui, sans-serif; color: rgb(58, 53, 48); max-height: calc(-48px + 100vh); overflow-y: auto;" hidden="" data-kopplad="">
+    <div style="padding: 28px 28px 24px;">
+      <p style="margin: 0px 0px 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(126, 150, 128);">Cookies</p>
+      <h2 id="fp-cookie-title" style="margin: 0px 0px 12px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48);">Vi använder cookies</h2>
+      <p style="margin: 0px 0px 20px; font-size: 15px; font-weight: 300; line-height: 1.7; color: rgba(58, 53, 48, 0.78);">Nödvändiga cookies behövs för att sajten, varukorgen och bokningen ska fungera. Med ditt samtycke använder vi även cookies för statistik och marknadsföring. Du kan ändra ditt val när som helst. <a href="/policies/privacy-policy" style="color: rgb(58, 53, 48); font-weight: 500; text-decoration: underline; text-underline-offset: 3px;">Läs mer i vår integritetspolicy</a>.</p>
+
+      
+        <div data-kategorier="" style="display: flex; flex-direction: column; border-top: 1px solid rgb(235, 231, 225); margin-bottom: 20px;">
+          
+            <div style="display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; padding: 16px 0px; border-bottom: 1px solid rgb(235, 231, 225);">
+              <div>
+                <p style="margin: 0px 0px 4px; font-size: 15px; font-weight: 600; color: rgb(58, 53, 48);"><span class="sc-interp">Nödvändiga</span></p>
+                <p style="margin: 0px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(58, 53, 48, 0.7);"><span class="sc-interp">Krävs för att sajten, varukorgen och bokningen ska fungera.</span></p>
+              </div>
+              
+                <span style="flex: 0 0 auto; margin-top: 2px; font-size: 12px; font-weight: 600; color: rgb(126, 150, 128); white-space: nowrap;">Alltid på</span>
+              
+              
+              
+            </div>
+          
+            <div style="display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; padding: 16px 0px; border-bottom: 1px solid rgb(235, 231, 225);">
+              <div>
+                <p style="margin: 0px 0px 4px; font-size: 15px; font-weight: 600; color: rgb(58, 53, 48);"><span class="sc-interp">Statistik</span></p>
+                <p style="margin: 0px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(58, 53, 48, 0.7);"><span class="sc-interp">Hjälper oss förstå hur sajten används, samlat och utan att identifiera dig.</span></p>
+              </div>
+              
+              
+              
+                <button role="switch" aria-checked="false" aria-label="Statistik" data-kategori="statistik" style="flex: 0 0 auto; position: relative; width: 44px; height: 26px; border-radius: 13px; border: 0px; background: rgb(200, 181, 162); cursor: pointer; padding: 0px;">
+                  <span style="position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: rgb(248, 246, 242);"></span>
+                </button>
+              
+            </div>
+          
+            <div style="display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; padding: 16px 0px; border-bottom: 1px solid rgb(235, 231, 225);">
+              <div>
+                <p style="margin: 0px 0px 4px; font-size: 15px; font-weight: 600; color: rgb(58, 53, 48);"><span class="sc-interp">Marknadsföring</span></p>
+                <p style="margin: 0px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(58, 53, 48, 0.7);"><span class="sc-interp">Används för att visa och mäta annonser på andra sajter.</span></p>
+              </div>
+              
+              
+              
+                <button role="switch" aria-checked="false" aria-label="Marknadsföring" data-kategori="marknadsforing" style="flex: 0 0 auto; position: relative; width: 44px; height: 26px; border-radius: 13px; border: 0px; background: rgb(200, 181, 162); cursor: pointer; padding: 0px;">
+                  <span style="position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: rgb(248, 246, 242);"></span>
+                </button>
+              
+            </div>
+          
+        </div>
+        <div data-kategorier-knappar="" style="display: flex; flex-direction: column; gap: 10px;">
+          <button class="scp7" data-samtycke="spara" style="font-family: inherit; background: rgb(58, 53, 48); color: rgb(248, 246, 242); border: 1px solid rgb(58, 53, 48); padding: 13px 20px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;">Spara mina val</button>
+          <button class="scp8" data-samtycke="alla" style="font-family: inherit; background: transparent; color: rgb(58, 53, 48); border: 1px solid rgb(58, 53, 48); padding: 13px 20px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;">Acceptera alla</button>
+        </div>
+      
+
+      
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;" data-huvudval="">
+          <button class="scp7" style="font-family: inherit; background: rgb(58, 53, 48); color: rgb(248, 246, 242); border: 1px solid rgb(58, 53, 48); padding: 13px 16px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;" data-samtycke="alla">Acceptera alla</button>
+          <button class="scp7" style="font-family: inherit; background: rgb(58, 53, 48); color: rgb(248, 246, 242); border: 1px solid rgb(58, 53, 48); padding: 13px 16px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;" data-samtycke="nodvandiga">Endast nödvändiga</button>
+        </div><button style="font-family: inherit; background: none; border: 0px; padding: 6px 0px; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); text-decoration: underline; text-underline-offset: 3px; cursor: pointer;" data-samtycke="anpassa">Anpassa</button></div>
+  </div></div></footer></div></div></div>
+
+
+</body></html>
