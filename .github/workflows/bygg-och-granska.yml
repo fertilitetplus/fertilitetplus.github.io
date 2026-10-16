@@ -1,0 +1,121 @@
+# Bygger sajten och kör testerna. Publicerar ingenting av sig själv.
+# ===================================================================
+#
+# Läggs i repot som  .github/workflows/bygg-och-granska.yml
+#
+# Så här hänger det ihop:
+#
+#   någon ändrar i design/ eller bygg/   →  bygget körs  →  testerna körs
+#                                                            ↓
+#                                        resultatet går att ladda ner och titta på
+#                                                            ↓
+#                                        någon godkänner  →  sajten uppdateras
+#
+# Det sista steget händer inte förrän en människa tryckt på knappen.
+# Det är avsiktligt och det är hela poängen: ett bygge som publicerar
+# sig självt är ett bygge som kan ha fel utan att någon hunnit se det.
+#
+# INNAN DEN HÄR FILEN FÅR GÖRA NÅGON NYTTA
+# ----------------------------------------
+# Två saker måste ställas in en gång, av någon med tillgång till repots
+# inställningar:
+#
+#   1. Settings → Environments → New environment → "live"
+#      Kryssa i "Required reviewers" och lägg till Marie, Magnus och
+#      Linnea. Utan det steget publicerar jobbet utan att fråga.
+#
+#   2. Settings → Pages → Source: Deploy from a branch → gren "live",
+#      mapp "/ (root)".
+#      GÖR INTE DET HÄR FÖRRÄN ETT BYGGE HAR GRANSKATS OCH GODKÄNTS.
+#      Fram till dess serveras sajten från `main` precis som i dag, och
+#      ingenting som händer här kan röra den.
+#
+# ORDNINGEN SPELAR ROLL
+# ---------------------
+# Så länge Pages serverar `main` är allt som ligger i `main` offentligt —
+# designexporten inräknad. Därför ska `byggkedjan` inte slås ihop med
+# `main` förrän Pages pekar på `live`. Ordningen blir:
+#
+#   1. Allt ligger på `byggkedjan`. Bygget kör där och testerna går igenom.
+#   2. Ladda ner resultatet och titta igenom det.
+#   3. Peka om Pages till `live`.    ← nu serveras `main` inte längre
+#   4. Slå ihop `byggkedjan` med `main`.
+#   5. Första riktiga bygget från `main`, godkänn, sajten uppdateras.
+
+name: Bygg och granska
+
+on:
+  push:
+    branches: [main, byggkedjan]
+    paths:
+      - "design/**"
+      - "bygg/**"
+      - "data/**"
+  workflow_dispatch:          # går också att starta för hand
+
+permissions:
+  contents: write             # behövs för att skriva till grenen `live`
+
+jobs:
+  bygg:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Installera
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+
+      - name: Bygg
+        run: node bygg/bygg.mjs design ut
+
+      - name: Testa
+        run: node bygg/tester.mjs ut
+
+      # Resultatet sparas oavsett om testerna gick igenom. Ett underkänt
+      # bygge är ofta det man mest behöver titta på.
+      - name: Spara resultatet
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sajten
+          path: ut/
+          retention-days: 14
+
+  publicera:
+    needs: bygg
+    # Bara från `main`. Det är inte en extra försiktighetsåtgärd utan en
+    # nödvändighet: innan sajten flyttats över till grenen `live` är det
+    # `main` GitHub Pages serverar, och då får bygget inte kunna skriva
+    # dit från en arbetsgren. Det gör också att hela kedjan går att prova
+    # färdigt på `byggkedjan` — bygget körs, testerna körs, resultatet går
+    # att ladda ner och titta på — utan att något kan publiceras.
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: live         # <- det är här den väntar på ett godkännande
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: sajten
+          path: ut
+
+      # Historiken i `live` blir en logg över vad varje publicering
+      # faktiskt ändrade. Ändrade bygget fyrtio sidor när någon bara rörde
+      # en rubrik syns det här, innan det syns för en besökare.
+      - name: Skriv till grenen live
+        run: |
+          cd ut
+          cp ../CNAME . 2>/dev/null || true
+          git init -q
+          git config user.name  "FertilitetPlus bygge"
+          git config user.email "noreply@fertilitetplus.se"
+          git add -A
+          git commit -q -m "Bygge från ${GITHUB_SHA::7}"
+          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:live

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F8F6F2;color:#3A3530;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:#7E9680}
+  a:hover{color:#3A3530}
+  ul{margin:0;padding:0;list-style:none}
+  @media (max-width: 960px) {
+    header nav[data-desktop-nav] { display: none !important; }
+    header button[data-mobile-toggle] { display: flex !important; }
+  }
+  @media (max-width: 900px) {
+    [style*="grid-template-columns"]:not([style*="auto-fit"]) { grid-template-columns: 1fr !important; }
+    section, section > div, header > div, footer > div { padding-left: 24px !important; padding-right: 24px !important; }
+    section[data-hero] { padding-top: 0 !important; gap: 32px !important; }
+    section[data-hero] > img { order: -1; width: calc(100% + 48px) !important; max-width: none !important; margin: 0 -24px; border-radius: 0 !important; aspect-ratio: 16/9 !important; }
+  }
+  @media (max-width: 640px) {
+    [data-cookie-banner] { left: 0 !important; bottom: 0 !important; width: 100% !important; max-width: none !important; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+    header [data-cart-label] { display: none !important; }
+    header [data-header-actions] { gap: 8px !important; }
+    header [data-book] { padding: 11px 14px !important; }
+    h1 { font-size: 40px !important; line-height: 1.08 !important; }
+    h2:not([data-h3-style]) { font-size: 28px !important; line-height: 1.2 !important; }
+    h2[style*="font-size: 28px"] { font-size: 24px !important; line-height: 1.3 !important; }
+    h3, h2[data-h3-style] { font-size: 18px !important; }
+    section, section > div { padding-top: 64px !important; padding-bottom: 64px !important; }
+    section[data-hero] { padding-top: 0 !important; }
+    img[style*="aspect-ratio"] { width: 100% !important; }
+  }
+  input,textarea{font-family:inherit}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#F8F6F2"/><circle cx="50" cy="50" r="26" fill="none" stroke="#7E9680" stroke-width="2"/><line x1="50" y1="36" x2="50" y2="64" stroke="#7E9680" stroke-width="2.5"/><line x1="36" y1="50" x2="64" y2="50" stroke="#7E9680" stroke-width="2.5"/></svg></template>
+
+<dc-import name="Sidhuvud" hint-size="100%,84px"></dc-import>
+
+<section style="max-width:1600px;margin:0 auto;padding:112px 40px 64px;display:grid;grid-template-columns:minmax(0,920px)">
+  <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Om oss</p>
+  <h1 style="margin:0 0 26px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:62px;line-height:1.08;letter-spacing:-0.01em">Omdömen</h1>
+  <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:40em;text-wrap:pretty">Läs vad våra patienter säger om oss och ta del av deras erfarenheter av FertilitetPlus. Vill du dela dina erfarenheter för att hjälpa andra, använd formuläret längst ner.</p>
+</section>
+
+<section style="max-width:1600px;margin:0 auto;padding:0 40px 96px;display:grid;grid-template-columns:minmax(0,920px)">
+  <div style="display:flex;flex-direction:column;gap:1px;background:#EBE7E1;padding:1px">
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Charlie · Oktober 2025</p>
+      <p style="margin:0 0 12px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Jag träffade Joanna i Göteborg för en spermaanalys då jag undrat om allt står rätt till. Fick ett sånt otroligt fint och härligt bemötande från henne. Samt kunskap hur allt fungerar. Väldigt proffessionellt. Glad blev jag själv då testet visar sig vara bra.</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78)">Jag rekomenderar verkligen Joanna här i goa Göteborg.</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Tashan A · Januari 2025</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">En helt underbar klinik och team som alla fyller sin funktion. Dem använder metoder och tillvägagångssätt som den vanliga vården förkastar men uppenbarligen så är dem före sin tid då deras metoder fungerar. Förlita er på hela teamet med Dr Frida i spetsen och luta er back så ska det gå bra. Dem vet precis vad dem gör. Jag fick droppar i Göteborg av den underbara Joanna, hon är verkligen rätt person på rätt plats. I helhet rekommenderar jag kliniken och allt om kring starkt.</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Marija I · november 2024</p>
+      <p style="margin:0 0 12px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Jag vill verkligen uttrycka min tacksamhet till Fertilitetplus för all den hjälp och det stöd jag har fått under min resa. Ett så varmt och fint bemötande varje gång. Marie, du är en ängel; ditt empatiska och professionella arbete har gjort en stor skillnad i mitt liv. TACK vare dig och Fertilitetplus har jag idag min efterlängtade son efter flera års kämpande. Enligt landstinget såg allt bra ut, men jag visste att det var något som var fel. Hos er visade det sig att jag har ett överaktivt immunförsvar.</p>
+      <p style="margin:0 0 12px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78)">Endast hos er har jag känt mig förstådd och fått riktig hjälp.</p>
+      <p style="margin:0 0 12px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Ni är kunniga och empatiska, vilket skapar en trygghet. Fertilitetplus skräddarsydda behandlingar och vägledning är något man bör ta del av. Jag är så glad att jag valde Fertilitetplus, och jag rekommenderar dem varmt till alla som söker hjälp med fertilitet.</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78)">Tack, Fertilitetplus, för att ni gör en så viktig insats och fantastiskt jobb! Jag är för evigt tacksam.</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Marie F · februari 2024</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Om du behöver en fertilitetsklinik som gör det alldeles extra så ska du gå till fertilitetplus! De är så omtänksamma och kunniga på sitt område, de har hjälpt mig så mycket under min egen resa till att försöka bli förälder och jag vet många vänner som de har hjälpt att undkomma missfall. Jag hade gärna gett 10 stjärnor om jag kunnat!!</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Sofia · 2022</p>
+      <p style="margin:0 0 12px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78)">Kan inte annat än att vara nöjd, jag har en underbar liten dotter tack vare Fertilitet Plus.</p>
+      <p style="margin:0 0 12px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Marie är fantastisk - tydlig och professionell! Hon förstår vikten av att tänka utanför boxen och se individen. Tyvärr gör inte så många andra i branchen detsamma.</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78)">Jag har varmt rekommenderat Fertiitet Plus till vänner som behöver hjälp på traven till ett barn.</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Therese N · 15 november 2022</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Det är inte lätt att hitta kliniker som verkligen vill hjälpa till vid fertilitetsbehandlingar lite uppåt i åren. Fertilitetplus har en inställning som man sällan stöter på i denna värld. Positiva, omhändertagande, kompetente och flexibla driver de sin mottagning! Som patient känner man sig varmt välkommen varje gång! Behovet av en klinik som bryr sig och stöttar längst vägen är stort. Hos många kvinnor! Hos Fertilitetplus hittar man precis detta. Jag rekommenderar denna klinik varmt! Tack för att ni finns!</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Frida P · 10 november 2022</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Jag vet knappt vart jag ska börja. Fått upprepade missfall i v. 5 och har gjort vad jag kunnat för att det ska gå vägen, men inget har hjälpt. Har även fått hjälp via landstinget utan resultat. Fick tips av en vän som hdae en nära bekant som fått hjälp på FertilitetPlus som nu har en son. Så vi kände, vi provar och ser, för vad ska vi annars göra. Fick missfall senast 7/7-22, blodprov 8/8-22 och sedan första dropp 16/8. 15/9 tog jag ett test för min mens var sen, och det var positivt?! Är nu gravid i v.12. Vi kommer att vara evigt tacksam Marie och Fertilitetplus för deras kunskap och kompetens. Rekommenderar alla jag kan om kliniken och vårat hopp har kommit tillbaks om att vi ska få bli föräldrar. Det vi längtat mest över i flera år och som varit en dröm, verkar nu bli sann tack vare Marie och Fertilitetplus. Stort tack!</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Frat. S · 29 maj 2022</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Vi fick våran dotter nu i februari efter många års försök som slutade i missfall efter missfall. Marie...du räddade allt i vårt liv, dig kan vi aldrig tillräckligt tacka för. Tack så jättemycket för hjälpen &lt;3</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Johanna N · 1 november 2021</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Tack vare Marie har vi vår efterlängtade André här hos oss nu. Jag förstod ganska snabbt att jag hade svårt att bli gravid men landstingets vård sa att allt såg bra ut. Fick av en slump kontakt med Marie och för oss gick det på första försöket med rätt medicinering. Marie inger hopp och har ett vänligt och professionellt bemötande.</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Pia · 5 oktober 2021</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Efter flera IVF behandlingar som ledde till misslyckade försök och flera missfall så hittade jag denna klinik. Ytterligare utredningar gjordes och det visade sig att jag har aktivt immunförsvar. Med rätt behandling sitter jag här nu, gravid i v34 och både jag och barnet i magen mår bra! Är evigt tacksam för att denna hjälp finns att få i Sverige genom FertilitetPlus och Marie. Tack!</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Maria N · 20 juli 2021</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Tack vare Marie (och dr Wang) som tog emot mig och min sambo och lyssnade på oss när ingen annan gjorde det så sitter vi nu här med en liten tjej på 3 månader! Det visade sig att jag har för aktivt immunförsvar och med deras hjälp så lyckades vi till slut få barn. Rekommenderar dom starkt!</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Anonym · 11 februari 2021</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Till Marie - Utan din hjälp är jag ganska så säker på att vi inte hade haft våran Vidar. Tack för din hjälp och ditt stöd längs vägen. Fortsätt med ditt fantastiska jobb och att hjälpa sånna som befinner sig i samma situation som vi gjorde. När allt kändes hopplöst så gav du oss hoppet tillbaka. Mitt liv har fått en mening och jag är så innerligt tacksam för att jag har fått vara med om allt det här. För att jag har fått bära ett barn och för att jag har blivit någons mamma. Tänk att det funkade tillslut! Vem vet, vi kanske ses igen. Tusen miljoner tack!</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Anna B · 5 februari 2021</p>
+      <p style="margin:0 0 12px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Vi vill ge våra starkaste rekommendationer till Marie och FertilitetsPlus. Efter en historik av många missfall och en fertilitetsutredning som i Sverige inte visade på något fel, fick vi tips om att gå till Marie. Vi valde sedan på Maries rekommendation att vända oss till Dr. Gorgy en mycket erfaren läkare som har klinik i England- Fertility Academy. Där gjorde vi en stor fertilitetsutredning (mer omfattande än den som erbjuds via landstinget) visade det sig att jag har en kromosomavvikelse, för högt blodsocker och ett överaktivt immunförsvar, som varit anledningen till våra missfall. Detta hade vi aldrig fått reda på om vi inte vänt oss hit.</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Efter lyckad PGD och Maries hjälp med immunsuppressionsbehandling hemma i Stockholm har vi nu bebis påväg. Vi kunde inte vara mer tacksamma för den fantastiska hjälp vi fått. Marie Har varit helt fantastisk, så flexibel och alltid ställt upp med tider och stöd.</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Maria E · 7 december 2020</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Marie Antonsson (FertilitetsPlus) förmedlar hopp och ger möjligheter som saknas hos andra vårdgivare. Med kunnande och erfarenhet kan hon guida till anpassad behandling inom den egna verksamheten eller vidare vid behov. Som patient känns det tryggt och samtidigt flexibelt utifrån kroppens fysiologi och livet i övrigt. De allra bästa rekommendationerna från tacksam patient.</p>
+    </article>
+    <article style="background:#F8F6F2;padding:36px 34px">
+      <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Christine S · 7 juli 2019</p>
+      <p style="margin:0 0 12px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Efter flera år av ofrivillig barnlöshet och fem IVF-försök som inte gett resultat började vi läsa om att överaktivt immunförsvar kan orsaka oförklarad barnlöshet. Detta utreds och behandlas på många IVF-kliniker utomlands, och det pågår en hel del forskning internationellt inom området (reproduktiv immunologi), men i Sverige är detta inte lika vedertaget inom vården. Till slut hittade vi FertilitetPlus och Marie Antonsson som hjälpte oss. Med hjälp av blodprov (vita blodkroppar) och min sjukdomshistoria kunde hon konstatera att det var motiverat att försöka behandla med läkemedel som lugnar ner immunförsvaret och frågade om vi ville prova det. Vi blev gravida direkt (på sjätte IVF-försöket) med immunbehandlingen, och vi är övertygade om att det var immunbehandlingen som gjorde skillnad. Nu är vårt efterlängtade barn här och det går inte att uttrycka i ord hur tacksamma vi är!</p>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);text-wrap:pretty">Jag kan rekommendera alla som lider av oförklarad barnlöshet eller återkommande missfall att läsa på om detta och ta hjälp av Marie på FertilitetPlus. Hon är en av få i Sverige som tar sig an detta och är dessutom trevlig, klok, omtänksam och flexibel.</p>
+    </article>
+  </div>
+</section>
+
+<section style="background:#EBE7E1;color:#3A3530">
+  <div style="max-width:1600px;margin:0 auto;padding:96px 40px;display:grid;grid-template-columns:minmax(0,920px)">
+    <h2 style="margin:0 0 12px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em;color:#3A3530">Kontaktformulär</h2>
+    <p style="margin:0 0 44px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.72);max-width:34em">Vill du dela din erfarenhet av FertilitetPlus? Skriv till oss här.</p>
+    <form onSubmit="{{ onSubmit }}" style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <label style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Namn</span>
+        <input type="text" name="namn" style="background:#F8F6F2;border:1px solid rgba(58,53,48,0.18);border-radius:4px;padding:14px 16px;font-size:15px;color:#3A3530" style-focus="border-color:#7E9680;outline:none">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">E-postadress *</span>
+        <input type="email" name="epost" required="required" style="background:#F8F6F2;border:1px solid rgba(58,53,48,0.18);border-radius:4px;padding:14px 16px;font-size:15px;color:#3A3530" style-focus="border-color:#7E9680;outline:none">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:10px;grid-column:1/-1">
+        <span style="font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Telefonnummer</span>
+        <input type="tel" name="telefon" style="background:#F8F6F2;border:1px solid rgba(58,53,48,0.18);border-radius:4px;padding:14px 16px;font-size:15px;color:#3A3530" style-focus="border-color:#7E9680;outline:none">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:10px;grid-column:1/-1">
+        <span style="font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Kommentar</span>
+        <textarea name="kommentar" rows="6" style="background:#F8F6F2;border:1px solid rgba(58,53,48,0.18);border-radius:4px;padding:14px 16px;font-size:15px;color:#3A3530;resize:vertical" style-focus="border-color:#7E9680;outline:none"></textarea>
+      </label>
+      <div style="grid-column:1/-1;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+        <button type="submit" style="background:#7E9680;color:#F8F6F2;border:0;padding:15px 34px;border-radius:4px;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:0.04em;cursor:pointer" style-hover="background:#3A3530;color:#F8F6F2">Skicka</button>
+        <sc-if value="{{ sent }}">
+          <p style="margin:0;font-size:16px;font-weight:300;color:#7E9680">Tack, vi har tagit emot ditt omdöme.</p>
+        </sc-if>
+      </div>
+    </form>
+  </div>
+</section>
+
+<dc-import name="Sidfot" hint-size="100%,520px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sent: false };
+  renderVals() {
+    return {
+      sent: this.state.sent,
+      onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F8F6F2;color:#3A3530;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:#7E9680}
+  a:hover{color:#3A3530}
+  ul{margin:0;padding:0;list-style:none}
+  @media (max-width: 960px) {
+    header nav[data-desktop-nav] { display: none !important; }
+    header button[data-mobile-toggle] { display: flex !important; }
+  }
+  @media (max-width: 900px) {
+    [style*="grid-template-columns"]:not([style*="auto-fit"]) { grid-template-columns: 1fr !important; }
+    section, section > div, header > div, footer > div { padding-left: 24px !important; padding-right: 24px !important; }
+    section[data-hero] { padding-top: 0 !important; gap: 32px !important; }
+    section[data-hero] > img { order: -1; width: calc(100% + 48px) !important; max-width: none !important; margin: 0 -24px; border-radius: 0 !important; aspect-ratio: 16/9 !important; }
+  }
+  @media (max-width: 640px) {
+    [data-cookie-banner] { left: 0 !important; bottom: 0 !important; width: 100% !important; max-width: none !important; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+    header [data-cart-label] { display: none !important; }
+    header [data-header-actions] { gap: 8px !important; }
+    header [data-book] { padding: 11px 14px !important; }
+    h1 { font-size: 40px !important; line-height: 1.08 !important; }
+    h2:not([data-h3-style]) { font-size: 28px !important; line-height: 1.2 !important; }
+    h2[style*="font-size: 28px"] { font-size: 24px !important; line-height: 1.3 !important; }
+    h3, h2[data-h3-style] { font-size: 18px !important; }
+    section, section > div { padding-top: 64px !important; padding-bottom: 64px !important; }
+    section[data-hero] { padding-top: 0 !important; }
+    img[style*="aspect-ratio"] { width: 100% !important; }
+  }
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#F8F6F2"/><circle cx="50" cy="50" r="26" fill="none" stroke="#7E9680" stroke-width="2"/><line x1="50" y1="36" x2="50" y2="64" stroke="#7E9680" stroke-width="2.5"/><line x1="36" y1="50" x2="64" y2="50" stroke="#7E9680" stroke-width="2.5"/></svg></template>
+
+<dc-import name="Sidhuvud" hint-size="100%,84px"></dc-import>
+
+<section style="max-width:1600px;margin:0 auto;padding:112px 40px 64px">
+  <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Boka tid</p>
+  <h1 style="margin:0 0 26px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:62px;line-height:1.08;letter-spacing:-0.01em">Boka en tid hos oss</h1>
+  <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:42em;text-wrap:pretty">Ingen remiss och inga väntetider. Välj klinik nedan och boka direkt i vårt bokningssystem. Är du osäker på vilken bokning som passar dig, ring eller mejla oss – vi hjälper dig att hitta rätt.</p>
+</section>
+
+<section style="max-width:1600px;margin:0 auto;padding:0 40px 96px">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;background:#EBE7E1">
+    <div style="background:#EBE7E1;padding:44px 40px">
+      <h2 style="margin:0 0 16px;font-size:28px;font-weight:300;letter-spacing:-0.01em;line-height:1.3">Stockholm</h2>
+      <p style="margin:0 0 24px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.72)">Värtavägen 30, 115 53 Stockholm<br>Mån–tors 09:00–17:00, fre 09:00–16:00</p>
+      <a href="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f#step-1" target="_blank" rel="noopener" style="display:inline-block;background:#7E9680;color:#F8F6F2;padding:15px 32px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-decoration:none" style-hover="background:#3A3530;color:#F8F6F2">Boka tid i Stockholm</a>
+    </div>
+    <div style="background:#EBE7E1;padding:44px 40px">
+      <h2 style="margin:0 0 16px;font-size:28px;font-weight:300;letter-spacing:-0.01em;line-height:1.3">Göteborg</h2>
+      <p style="margin:0 0 24px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.72)">Askims kyrkväg 46, 436 42 Askim<br>Måndag till fredag med skiftande öppettider</p>
+      <a href="https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245#step-1" target="_blank" rel="noopener" style="display:inline-block;background:#7E9680;color:#F8F6F2;padding:15px 32px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-decoration:none" style-hover="background:#3A3530;color:#F8F6F2">Boka tid i Göteborg</a>
+    </div>
+  </div>
+</section>
+
+<section style="background:#3A3530;color:#F8F6F2">
+  <div style="max-width:1600px;margin:0 auto;padding:96px 40px">
+    <h2 style="margin:0 0 48px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em;color:#F8F6F2">Vanliga bokningar</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:rgba(248,246,242,0.12)">
+      <a href="Fertilitetsutredning.dc.html" style="display:block;background:#3A3530;padding:32px;text-decoration:none" style-hover="background:#443e38">
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;color:#F8F6F2;line-height:1.6">Fertilitetsutredning</h3>
+        <p style="margin:0 0 14px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(248,246,242,0.6)">Konsultation, hormonprover, sköldkörtelprov och telefonuppföljning.</p>
+        <p style="margin:0;font-size:16px;font-weight:600;color:#C8B5A2">från 2&nbsp;900 kr · 30 min</p>
+      </a>
+      <a href="Immunologisk-utredning.dc.html" style="display:block;background:#3A3530;padding:32px;text-decoration:none" style-hover="background:#443e38">
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;color:#F8F6F2;line-height:1.6">Immunologisk utredning</h3>
+        <p style="margin:0 0 14px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(248,246,242,0.6)">För dig med upprepade missfall eller IVF utan resultat. NK-celler, sköldkörtel och koagulation.</p>
+        <p style="margin:0;font-size:16px;font-weight:600;color:#C8B5A2">från 5&nbsp;000 kr · 30 min</p>
+      </a>
+      <a href="Spermaprov.dc.html" style="display:block;background:#3A3530;padding:32px;text-decoration:none" style-hover="background:#443e38">
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;color:#F8F6F2;line-height:1.6">Spermaprov</h3>
+        <p style="margin:0 0 14px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(248,246,242,0.6)">Antal, rörlighet och utseende. Utökat prov mäter även oxidativ stress.</p>
+        <p style="margin:0;font-size:16px;font-weight:600;color:#C8B5A2">2&nbsp;200 kr / 3&nbsp;800 kr · 30 min</p>
+      </a>
+      <a href="IVF-och-utlandsbehandlingar.dc.html" style="display:block;background:#3A3530;padding:32px;text-decoration:none" style-hover="background:#443e38">
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;color:#F8F6F2;line-height:1.6">Konsultation vid utlandsbehandling</h3>
+        <p style="margin:0 0 14px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(248,246,242,0.6)">Genomgång av klinikens provprotokoll, remisser och bokning av ultraljud.</p>
+        <p style="margin:0;font-size:16px;font-weight:600;color:#C8B5A2">1&nbsp;200 kr · 30 min</p>
+      </a>
+      <a href="Prislista.dc.html" style="display:block;background:#3A3530;padding:32px;text-decoration:none" style-hover="background:#443e38">
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;color:#F8F6F2;line-height:1.6">Konsultation med barnmorska</h3>
+        <p style="margin:0 0 14px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(248,246,242,0.6)">Ett första besök för att påbörja utredning eller få kontakt med läkare.</p>
+        <p style="margin:0;font-size:16px;font-weight:600;color:#C8B5A2">900 kr · 30 min</p>
+      </a>
+      <a href="Prislista.dc.html" style="display:block;background:#3A3530;padding:32px;text-decoration:none" style-hover="background:#443e38">
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;color:#F8F6F2;line-height:1.6">Ultraljud och läkarkonsultation</h3>
+        <p style="margin:0 0 14px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(248,246,242,0.6)">Inför eller under graviditet, hos läkare på kliniken i Stockholm.</p>
+        <p style="margin:0;font-size:16px;font-weight:600;color:#C8B5A2">1&nbsp;900 kr · 30 min</p>
+      </a>
+    </div>
+    <p style="margin:40px 0 0;font-size:16px;font-weight:300;color:rgba(248,246,242,0.55)">Alla priser och bokningsalternativ finns i <a href="Prislista.dc.html" style="color:#7E9680">prislistan</a>.</p>
+  </div>
+</section>
+
+<section style="max-width:1600px;margin:0 auto;padding:96px 40px">
+  <h2 style="margin:0 0 48px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Innan du bokar</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:#EBE7E1">
+    <div style="background:#EBE7E1;padding:36px 32px">
+      <h3 style="margin:0 0 12px;font-size:18px;font-weight:700;line-height:1.6">Ingen remiss behövs</h3>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Du bokar själv, direkt. Vi har ingen åldersgräns och alla är välkomna, oavsett relation eller livssituation.</p>
+    </div>
+    <div style="background:#EBE7E1;padding:36px 32px">
+      <h3 style="margin:0 0 12px;font-size:18px;font-weight:700;line-height:1.6">Rätt dag i cykeln</h3>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Fertilitetsprover tas dag 2–4 i cykeln. Du får remiss vid besöket så att proverna kan tas när det är rätt tid i cykeln.</p>
+    </div>
+    <div style="background:#EBE7E1;padding:36px 32px">
+      <h3 style="margin:0 0 12px;font-size:18px;font-weight:700;line-height:1.6">Immunologiska prover</h3>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Provtagning kan inte ske på fredagar, dag före röd dag eller på röd dag, på grund av bestämmelser från labbet.</p>
+    </div>
+    <div style="background:#EBE7E1;padding:36px 32px">
+      <h3 style="margin:0 0 12px;font-size:18px;font-weight:700;line-height:1.6">Betalning</h3>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Vid konsultation på telefon betalar du med Swish innan samtalet. På kliniken kan du dela upp betalningen med Klarna – meddela oss vid ditt besök.</p>
+    </div>
+    <div style="background:#EBE7E1;padding:36px 32px">
+      <h3 style="margin:0 0 12px;font-size:18px;font-weight:700;line-height:1.6">Hittar du ingen tid?</h3>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Mejla oss så hittar vi en tid till dig. Lördagar och söndagar är öppet efter förfrågan. <a href="Kontakt.dc.html" style="color:#7E9680">Kontaktuppgifter</a></p>
+    </div>
+  </div>
+</section>
+
+<dc-import name="Sidfot" hint-size="100%,520px"></dc-import>
+</x-dc>
+</body>
+</html>

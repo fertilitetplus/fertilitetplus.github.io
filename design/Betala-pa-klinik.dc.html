@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F8F6F2;color:#3A3530;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:#7E9680;text-decoration:none}
+  a:hover{color:#3A3530}
+  ul{margin:0;padding:0;list-style:none}
+  img{display:block;max-width:100%}
+  @media (max-width: 960px) {
+    header nav[data-desktop-nav] { display: none !important; }
+    header button[data-mobile-toggle] { display: flex !important; }
+  }
+  @media (max-width: 900px) {
+    [style*="grid-template-columns"]:not([style*="auto-fit"]) { grid-template-columns: 1fr !important; }
+    section, section > div, header > div, footer > div { padding-left: 24px !important; padding-right: 24px !important; }
+  }
+  @media (max-width: 640px) {
+    [data-cookie-banner] { left: 0 !important; bottom: 0 !important; width: 100% !important; max-width: none !important; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+    h1 { font-size: 40px !important; line-height: 1.08 !important; }
+    h2:not([data-h3-style]) { font-size: 28px !important; line-height: 1.2 !important; }
+    h3, h2[data-h3-style] { font-size: 18px !important; }
+    section, section > div { padding-top: 64px !important; padding-bottom: 64px !important; }
+    header [data-cart-label] { display: none !important; }
+    header [data-header-actions] { gap: 8px !important; }
+    header [data-book] { padding: 11px 14px !important; }
+  }
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#F8F6F2"/><circle cx="50" cy="50" r="26" fill="none" stroke="#7E9680" stroke-width="2"/><line x1="50" y1="36" x2="50" y2="64" stroke="#7E9680" stroke-width="2.5"/><line x1="36" y1="50" x2="64" y2="50" stroke="#7E9680" stroke-width="2.5"/></svg></template>
+
+<div style="width:100%;overflow-x:hidden">
+  <dc-import name="Sidhuvud" hint-size="100%,84px"></dc-import>
+
+  <section style="max-width:1600px;margin:0 auto;padding:112px 40px 64px">
+    <p style="margin:0 0 22px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Betalning</p>
+    <h1 style="margin:0 0 26px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:62px;line-height:1.08;letter-spacing:-0.01em;color:#3A3530">Betala på klinik</h1>
+    <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:46em;text-wrap:pretty">Observera att detta inte är ett köp eller en bokning, det är bara betalning. Sidan är till för dig som har ett besök på kliniken och vill betala det här, till exempel med Klarna. Alla besök bokas separat via "Boka här".</p>
+  </section>
+  <section style="max-width:1600px;margin:0 auto;padding:0 40px 96px">
+      <div style="border-top:1px solid #C8B5A2;max-width:1040px">
+        <sc-for list="{{ others }}" as="p" hint-placeholder-count="6">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 0;border-bottom:1px solid rgba(58,53,48,0.12);flex-wrap:wrap">
+            <span style="font-size:16px;font-weight:500;color:#3A3530;flex:1 1 280px">{{ p.name }}</span>
+            <span style="font-size:16px;font-weight:600;color:#3A3530;font-variant-numeric:tabular-nums">{{ p.price }}</span>
+            <a href="{{ p.href }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:600;letter-spacing:0.04em;color:#3A3530;text-decoration:underline;text-underline-offset:3px" style-hover="color:#7E9680">Betala</a>
+          </div>
+        </sc-for>
+      </div>
+  </section>
+
+  
+
+  <dc-import name="Sidfot" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const base = 'https://fertilitetplus.se/products/';
+    const list = [
+      ['spermaprov-analys','Spermaprov analys',2200,'Utredning'],
+      ['spermaprov-analys-oxidativ-stress','Spermaprov analys inkl. Oxidativ stress-analys',3800,'Utredning'],
+      ['oxigravide','Oxigravide',699,'Kosttillskott','https://shop.fertilitetplus.se/cdn/shop/products/OxigravideantioxidanterFertilitet.webp?v=1680432107&width=533'],
+      ['sermatrop-alfa-1','Sermatrop Alfa',699,'Kosttillskott','https://shop.fertilitetplus.se/cdn/shop/files/Sermatrop-Fertilitet_Plus_antioxidanter.webp?v=1682579781&width=533'],
+      ['droppbehandling-med-intralipid','Droppbehandling med Intralipid',1600,'Behandling'],
+      ['utredning-vid-upprepade-missfall-misslyckade-ivf-forsok','Utredning vid upprepade missfall / misslyckade IVF-försök',5000,'Utredning'],
+      ['konsultation-via-telefon','Konsultation via telefon',250,'Konsultation'],
+      ['utredningen-av-fertilitet','Fertilitetsutredning',2900,'Utredning'],
+      ['telefonkonsultation-med-lakare-kan-endast-bokas-efter-konsultation-pa-kliniken','Telefonkonsultation med läkare',1200,'Konsultation'],
+      ['droppbehandling-med-ivig','Droppbehandling med IVIG',2500,'Behandling'],
+      ['ultraljud','Konsultation med läkare på kliniken',1900,'Konsultation'],
+      ['droppbehandling-med-intralipid-pa-helger','Droppbehandling med Intralipid (på helger)',2200,'Behandling'],
+      ['konsultation-pa-kliniken','Konsultation på kliniken',900,'Konsultation'],
+      ['konsultation-pa-kliniken-infor-utlandsbehandling','Konsultation på kliniken inför utlandsbehandling',1200,'Konsultation'],
+      ['skoldkortelutredning-i-fertil-alder','Sköldkörtelutredning i fertil ålder',3000,'Utredning'],
+      ['fostertest-harmony-nipt','Fostertest Harmony NIPT',6500,'Utredning']
+    ];
+    const all = list.map(([h, name, price, type, img]) => ({
+      handle: h, href: base + h, name, type, img: img || null, noImg: !img,
+      price: price.toLocaleString('sv-SE').replace(/\u00a0/g, ' ') + ' kr'
+    }));
+    const feat = ['oxigravide', 'sermatrop-alfa-1'];
+    return {
+      featured: all.filter(p => feat.includes(p.handle)),
+      others: all.filter(p => !feat.includes(p.handle))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F8F6F2;color:#3A3530;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:#7E9680}
+  a:hover{color:#3A3530}
+  ul{margin:0;padding:0;list-style:none}
+  img{display:block;max-width:100%}
+  @media (max-width: 960px) {
+    header nav[data-desktop-nav] { display: none !important; }
+    header button[data-mobile-toggle] { display: flex !important; }
+  }
+  @media (max-width: 900px) {
+    [style*="grid-template-columns"]:not([style*="auto-fit"]) { grid-template-columns: 1fr !important; }
+    section, section > div, header > div, footer > div { padding-left: 24px !important; padding-right: 24px !important; }
+    section[data-hero] { padding-top: 0 !important; gap: 32px !important; }
+    section[data-hero] > img { order: -1; width: calc(100% + 48px) !important; max-width: none !important; margin: 0 -24px; border-radius: 0 !important; aspect-ratio: 16/9 !important; }
+  }
+  @media (max-width: 640px) {
+    [data-cookie-banner] { left: 0 !important; bottom: 0 !important; width: 100% !important; max-width: none !important; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+    header [data-cart-label] { display: none !important; }
+    header [data-header-actions] { gap: 8px !important; }
+    header [data-book] { padding: 11px 14px !important; }
+    h1 { font-size: 40px !important; line-height: 1.08 !important; }
+    h2:not([data-h3-style]) { font-size: 28px !important; line-height: 1.2 !important; }
+    h2[style*="font-size: 28px"] { font-size: 24px !important; line-height: 1.3 !important; }
+    h3, h2[data-h3-style] { font-size: 18px !important; }
+    section, section > div { padding-top: 64px !important; padding-bottom: 64px !important; }
+    section[data-hero] { padding-top: 0 !important; }
+    img[style*="aspect-ratio"] { width: 100% !important; }
+  }
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#F8F6F2"/><circle cx="50" cy="50" r="26" fill="none" stroke="#7E9680" stroke-width="2"/><line x1="50" y1="36" x2="50" y2="64" stroke="#7E9680" stroke-width="2.5"/><line x1="36" y1="50" x2="64" y2="50" stroke="#7E9680" stroke-width="2.5"/></svg></template>
+
+<dc-import name="Sidhuvud" hint-size="100%,84px"></dc-import>
+
+<section style="max-width:1600px;margin:0 auto;padding:112px 40px 64px">
+  <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Utredning</p>
+  <h1 style="margin:0 0 26px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:62px;line-height:1.08;letter-spacing:-0.01em;max-width:22em">Sköldkörtelproblematik och fertilitet</h1>
+  <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:42em;text-wrap:pretty">Få hjälp med utredning och behandling vid sköldkörtelrubbningar i fertil ålder. Vi justerar medicinering och ger stöd för en trygg graviditet.</p>
+</section>
+
+<section style="max-width:1600px;margin:0 auto;padding:0 40px 96px;display:grid;grid-template-columns:0.9fr 1.1fr;gap:72px;align-items:center">
+  <img src="https://shop.fertilitetplus.se/cdn/shop/files/pexels-fotios-photos-2721581_1.jpg?v=1743492347&amp;width=1440" srcset="https://shop.fertilitetplus.se/cdn/shop/files/pexels-fotios-photos-2721581_1.jpg?v=1743492347&amp;width=480 480w, https://shop.fertilitetplus.se/cdn/shop/files/pexels-fotios-photos-2721581_1.jpg?v=1743492347&amp;width=768 768w, https://shop.fertilitetplus.se/cdn/shop/files/pexels-fotios-photos-2721581_1.jpg?v=1743492347&amp;width=1024 1024w, https://shop.fertilitetplus.se/cdn/shop/files/pexels-fotios-photos-2721581_1.jpg?v=1743492347&amp;width=1440 1440w" sizes="(max-width: 900px) 100vw, 40vw" loading="eager" fetchpriority="high" decoding="async" alt="Sköldkörtelutredning" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px">
+  <div>
+    <p style="margin:0 0 18px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:38em;text-wrap:pretty">Autoimmuna sjukdomar, inklusive sköldkörtelrubbningar, kan påverka fertiliteten och göra det svårare att bli gravid. När immunförsvaret bildar antikroppar mot kroppens egna celler kan det störa både befruktningen och graviditetens tidiga utveckling. Det kan också öka risken för missfall eller bidra till ofrivillig barnlöshet.</p>
+    <p style="margin:0 0 18px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:38em;text-wrap:pretty">Många med autoimmuna tillstånd lyckas ändå bli gravida på naturlig väg. Men ibland kan det behövas en noggrann genomgång av levnadsvanor, medicinering och <a href="Immunologisk-utredning.dc.html" style="color:#7E9680">immunförsvaret</a> för att skapa de bästa förutsättningarna för en trygg graviditet.</p>
+    <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:38em;text-wrap:pretty">Hos FertilitetPlus erbjuder vi utredning och rådgivning vid autoimmun sjukdom och fertilitet, för att hjälpa dig förstå hur din kropp fungerar och vad du kan göra för att öka chanserna att bli gravid.</p>
+  </div>
+</section>
+
+<section style="background:#3A3530;color:#F8F6F2">
+  <div style="max-width:1600px;margin:0 auto;padding:96px 40px;display:grid;grid-template-columns:minmax(0,920px)">
+    <p style="margin:0 0 24px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#C8B5A2">Sköldkörtelrubbning och ofrivillig barnlöshet</p>
+    <p style="margin:0 0 32px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:30px;line-height:1.45;color:#F8F6F2;text-wrap:pretty">"Sköldkörtelsjukdom är en av Sveriges största kvinnliga folksjukdomar. En studie på Danderyds sjukhus visar att sköldkörtelhormonerna kan inverka på fertilitet, graviditet och embryoutveckling, men att brist på hormonet inte alltid behandlas".</p>
+    <a href="https://skoldkortelforbundet.se/skoldkortelrubbning-kan-forklara-ofrivillig-barnloshet/" target="_blank" rel="noopener" style="font-size:14px;font-weight:600;color:#7E9680;text-decoration:underline;text-underline-offset:3px">Klicka här för att läsa mer om studien</a>
+  </div>
+</section>
+
+<section style="max-width:1600px;margin:0 auto;padding:96px 40px;display:grid;grid-template-columns:1.15fr 0.85fr;gap:72px;align-items:start">
+  <div>
+    <h2 style="margin:0 0 26px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Sköldkörtelutredning</h2>
+    <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:38em;text-wrap:pretty">Vi på FertilitetPlus har gedigen kunskap vad gäller att hjälpa redan gravida kvinnor med sköldkörtelproblematik men också de som önskar bli gravida och som eventuellt hindras av sin sjukdom. Det finns olika typer av sköldkörtelsjukdomar vilket betyder att den behandling vi erbjuder är helt anpassad efter dina behov. Vi hjälper dig att utreda sköldkörteln men också justera medicinering och vi finns här för att svara på dina frågor. Vi är ditt stöd under hela din graviditet.</p>
+  </div>
+  <div style="background:#EBE7E1;padding:40px 36px">
+    <p style="margin:0 0 20px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Rekommenderad bokning</p>
+    <p style="margin:0 0 10px;font-size:19px;font-weight:600;color:#3A3530">Sköldkörtelutredning i fertil ålder</p>
+    <p style="margin:0 0 24px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Pris: 3&nbsp;000 kr<br>Längd: 30 min + 30 min<br>Plats: Värtavägen 30, Stockholm</p>
+    <p style="margin:0 0 24px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.6)">I besöket ingår konsultation med sjuksköterska eller barnmorska, utökad sköldkörtelanalys och ett uppföljande besök med läkare.</p>
+    <a target="_blank" rel="noopener" href="https://patient.nu/portal/public/calendar/268b81a6-cc1f-4694-b2ee-feefea24b5a1#step-1" style="display:inline-block;background:#7E9680;color:#F8F6F2;padding:14px 28px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-decoration:none" style-hover="background:#3A3530;color:#F8F6F2">Boka sköldkörtelutredning</a>
+  </div>
+</section>
+
+<dc-import name="Sidfot" hint-size="100%,520px"></dc-import>
+</x-dc>
+</body>
+</html>

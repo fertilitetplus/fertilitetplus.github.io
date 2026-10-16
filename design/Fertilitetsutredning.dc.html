@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F8F6F2;color:#3A3530;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:#7E9680}
+  a:hover{color:#3A3530}
+  ul{margin:0;padding:0;list-style:none}
+  img{display:block;max-width:100%}
+  @media (max-width: 960px) {
+    header nav[data-desktop-nav] { display: none !important; }
+    header button[data-mobile-toggle] { display: flex !important; }
+  }
+  @media (max-width: 900px) {
+    [style*="grid-template-columns"]:not([style*="auto-fit"]) { grid-template-columns: 1fr !important; }
+    section, section > div, header > div, footer > div { padding-left: 24px !important; padding-right: 24px !important; }
+    section[data-hero] { padding-top: 0 !important; gap: 32px !important; }
+    section[data-hero] > img { order: -1; width: calc(100% + 48px) !important; max-width: none !important; margin: 0 -24px; border-radius: 0 !important; aspect-ratio: 16/9 !important; }
+  }
+  @media (max-width: 640px) {
+    [data-cookie-banner] { left: 0 !important; bottom: 0 !important; width: 100% !important; max-width: none !important; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+    header [data-cart-label] { display: none !important; }
+    header [data-header-actions] { gap: 8px !important; }
+    header [data-book] { padding: 11px 14px !important; }
+    h1 { font-size: 40px !important; line-height: 1.08 !important; }
+    h2:not([data-h3-style]) { font-size: 28px !important; line-height: 1.2 !important; }
+    h2[style*="font-size: 28px"] { font-size: 24px !important; line-height: 1.3 !important; }
+    h3, h2[data-h3-style] { font-size: 18px !important; }
+    section, section > div { padding-top: 64px !important; padding-bottom: 64px !important; }
+    section[data-hero] { padding-top: 0 !important; }
+    img[style*="aspect-ratio"] { width: 100% !important; }
+  }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  details[open] > summary [data-plus] { display: none; }
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#F8F6F2"/><circle cx="50" cy="50" r="26" fill="none" stroke="#7E9680" stroke-width="2"/><line x1="50" y1="36" x2="50" y2="64" stroke="#7E9680" stroke-width="2.5"/><line x1="36" y1="50" x2="64" y2="50" stroke="#7E9680" stroke-width="2.5"/></svg></template>
+
+<dc-import name="Sidhuvud" hint-size="100%,84px"></dc-import>
+
+<section style="max-width:1600px;margin:0 auto;padding:112px 40px 64px">
+  <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Fertilitet</p>
+  <h1 style="margin:0 0 26px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:62px;line-height:1.08;letter-spacing:-0.01em;max-width:20em">Fertilitetsutredning</h1>
+  <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:44em;text-wrap:pretty">En grundlig fertilitetsutredning hjälper oss att förstå orsaken till varför du inte blir gravid eller kan behålla en graviditet och ger dig en tydlig plan för nästa steg.</p>
+</section>
+
+<img src="https://shop.fertilitetplus.se/cdn/shop/files/bebisfot.jpg?v=1693310213&amp;width=1440" srcset="https://shop.fertilitetplus.se/cdn/shop/files/bebisfot.jpg?v=1693310213&amp;width=480 480w, https://shop.fertilitetplus.se/cdn/shop/files/bebisfot.jpg?v=1693310213&amp;width=768 768w, https://shop.fertilitetplus.se/cdn/shop/files/bebisfot.jpg?v=1693310213&amp;width=1024 1024w, https://shop.fertilitetplus.se/cdn/shop/files/bebisfot.jpg?v=1693310213&amp;width=1440 1440w" sizes="100vw" loading="eager" fetchpriority="high" decoding="async" alt="Nyfödd bebis som sover på en fäll" style="width:100%;object-fit:cover;aspect-ratio:2/1;max-height:420px">
+
+<section style="background:#EBE7E1;color:#3A3530">
+  <div style="max-width:1600px;margin:0 auto;padding:96px 40px;display:grid;grid-template-columns:minmax(0,920px)">
+    <p style="margin:0 0 24px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:26px;line-height:1.55;color:#3A3530;text-wrap:pretty">"Fertilitet handlar om kroppens förmåga att bli gravid och få barn. För många sker det naturligt, men för en del kan vägen till graviditet bli längre och mer utmanande. Ofrivillig barnlöshet drabbar många par och ensamstående, och kan bero på flera olika faktorer såsom ålder, hormonella obalanser, livsstil, sjukdomar eller genetiska orsaker. Att ha svårt att bli gravid eller att uppleva upprepade missfall kan vara både fysiskt och känslomässigt påfrestande. Det är viktigt att veta att du inte är ensam och att det finns hjälp att få. Hos FertilitetPlus erbjuder vi fertilitetsutredningar, stöd och individuellt anpassade behandlingar för att hjälpa dig att förstå din kropp och öka dina chanser att bli gravid. Vi möter dig med värme, kunskap och respekt, oavsett var du befinner dig i din resa mot att få barn.”</p>
+    <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">FertilitetPlus</p>
+  </div>
+</section>
+
+<section style="max-width:1600px;margin:0 auto;padding:96px 40px;display:grid;grid-template-columns:1.05fr 0.95fr;gap:72px;align-items:center">
+  <div>
+    <h2 style="margin:0 0 26px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Fertilitetsutredning</h2>
+    <p style="margin:0 0 20px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:38em;text-wrap:pretty">En fertilitetsutredning börjar ofta med en konsultation hos oss. Du och din partner kan få svara på frågor om er medicinska historia, livsstil och hur länge ni har försökt att bli gravida. Utredningen består främst av blodprover men kan kompletteras med ultraljud eller andra nödvändiga tester som t.ex. spermaprov. Vi erbjuder spermaprovsanalys för män både i Stockholm och Göteborg.</p>
+    <p style="margin:0 0 28px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:38em">På Fertilitetplus har vi inga väntetider och du behöver inte ha någon remiss för att söka till oss.</p>
+    <p style="margin:0 0 28px;padding:16px 22px;background:#EBE7E1;border-left:2px solid #7E9680;font-size:16px;font-weight:600;color:#3A3530;display:inline-block">Pris: 2&nbsp;900 kr</p>
+    <div>
+      <a target="_blank" rel="noopener" href="https://patient.nu/portal/public/calendar/44752d1b-7097-499b-8f1a-ee2eafa21127#step-1" style="display:inline-block;background:#7E9680;color:#F8F6F2;padding:14px 30px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-decoration:none" style-hover="background:#6b836d;color:#F8F6F2">Boka fertilitetsutredning</a>
+    </div>
+  </div>
+  <img src="https://shop.fertilitetplus.se/cdn/shop/files/FertilitetPlus_Skaffa_Barn_P__Egen_Hand.png?v=1749562863&amp;width=571" srcset="https://shop.fertilitetplus.se/cdn/shop/files/FertilitetPlus_Skaffa_Barn_P__Egen_Hand.png?v=1749562863&amp;width=480 480w, https://shop.fertilitetplus.se/cdn/shop/files/FertilitetPlus_Skaffa_Barn_P__Egen_Hand.png?v=1749562863&amp;width=571 571w" sizes="(max-width: 900px) 100vw, 50vw" loading="lazy" decoding="async" alt="Bebis inlindad i en stickad filt i en vuxens famn" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px">
+</section>
+
+<section style="background:#EBE7E1">
+  <div style="max-width:1600px;margin:0 auto;padding:96px 40px">
+    <div style="display:grid;grid-template-columns:1fr 0.7fr;gap:64px;align-items:start;margin-bottom:56px">
+      <h2 style="margin:0;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em;max-width:24em">Faktorer som kan påverka fertiliteten hos kvinnor</h2>
+      <img src="https://shop.fertilitetplus.se/cdn/shop/files/pexels-ella-olsson-572949-1640770_a41b1867-0ace-4d48-a588-ef7a7366d2d8.jpg?v=1750155718&amp;width=1440" srcset="https://shop.fertilitetplus.se/cdn/shop/files/pexels-ella-olsson-572949-1640770_a41b1867-0ace-4d48-a588-ef7a7366d2d8.jpg?v=1750155718&amp;width=480 480w, https://shop.fertilitetplus.se/cdn/shop/files/pexels-ella-olsson-572949-1640770_a41b1867-0ace-4d48-a588-ef7a7366d2d8.jpg?v=1750155718&amp;width=768 768w, https://shop.fertilitetplus.se/cdn/shop/files/pexels-ella-olsson-572949-1640770_a41b1867-0ace-4d48-a588-ef7a7366d2d8.jpg?v=1750155718&amp;width=1024 1024w, https://shop.fertilitetplus.se/cdn/shop/files/pexels-ella-olsson-572949-1640770_a41b1867-0ace-4d48-a588-ef7a7366d2d8.jpg?v=1750155718&amp;width=1440 1440w" sizes="(max-width: 900px) 100vw, 50vw" loading="lazy" decoding="async" alt="Skålar med sallad, grönsaker och avokado på ett ljust bord" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px">
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(520px,100%),1fr));gap:12px;align-items:start">
+      <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Ålder</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Fertiliteten är högst i 20-årsåldern och börjar gradvis minska efter 30 års ålder. Efter 35 år minskar fertiliteten snabbare, och <a href="Barnlangtan-efter-40.dc.html" style="color:#7E9680">efter 40</a> år är chanserna att bli gravid spontant betydligt lägre.</p></div>
+        </details>
+      <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Hormonella faktorer</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Tillstånd som påverkar hormonbalansen kan störa ägglossningen. Några exempel är: Polycystiskt ovariesyndrom (PCOS), hypotalamisk amenorré och sköldkörtelproblem</p></div>
+        </details>
+      <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Äggkvalitet och äggreserver</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Äggens kvalitet minskar med åldern, vilket kan leda till svårigheter att bli gravid och ökad risk för missfall.</p></div>
+        </details>
+      <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Livsstil och miljö</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><ul style="display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Rökning:</strong> Kan leda till minskad äggreserv, skador på äggledarna och ökad risk för missfall.</li>
+          <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Alkohol:</strong> Överdriven alkoholkonsumtion kan påverka fertiliteten negativt och öka risken för missfall.</li>
+          <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Drogbruk:</strong> Användning av illegala droger kan påverka fertiliteten genom att störa ägglossningen och hormonbalansen.</li>
+          <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Kost och näring:</strong> En obalanserad kost med brist på viktiga näringsämnen kan påverka fertiliteten. Övervikt eller undervikt kan också påverka hormonbalansen och ägglossningen negativt.</li>
+          <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Stress:</strong> Kronisk stress kan påverka hormonbalansen och störa menstruationscykeln.</li>
+        </ul></div>
+        </details>
+      <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Reproduktiva organ och anatomiska problem</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Äggledarproblem:</strong> Blockerade eller skadade äggledare kan hindra spermier från att nå ägget eller ett befruktat ägg från att nå livmodern. Detta kan orsakas av t.ex. myom eller livmodermissbildningar.</p></div>
+        </details>
+      <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Sjukdomar och medicinska tillstånd</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><ul style="display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Autoimmuna sjukdomar:</strong> Sjukdomar som lupus eller reumatoid artrit kan påverka fertiliteten.</li>
+          <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Diabetes:</strong> Dåligt kontrollerad diabetes kan påverka fertiliteten och öka risken för missfall.</li>
+          <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Celiaki:</strong> Obehandlad celiaki kan leda till näringsbrister som påverkar fertiliteten.</li>
+          <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Sexuellt överförbara infektioner (STI):</strong> Infektioner som klamydia och gonorré kan orsaka ärrvävnad och blockeringar som påverkar fertiliteten.</li>
+        </ul></div>
+        </details>
+      <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Mediciner och behandlingar</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><ul style="display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Vissa läkemedel:</strong> Vissa mediciner, särskilt kemoterapi, kan påverka fertiliteten negativt genom att skada äggstockarna eller störa hormonbalansen.</li>
+          <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Strålbehandling:</strong> Strålning mot bäckenområdet kan skada äggstockarna och påverka fertiliteten.</li>
+        </ul></div>
+        </details>
+      <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Genetiska faktorer</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Genetiska avvikelser:</strong> Vissa genetiska tillstånd kan påverka äggens kvalitet eller orsaka problem med ägglossningen.</p></div>
+        </details>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1600px;margin:0 auto;padding:96px 40px">
+  <div style="display:grid;grid-template-columns:1fr 0.7fr;gap:64px;align-items:start;margin-bottom:56px">
+    <h2 style="margin:0;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em;max-width:24em">Faktorer som kan påverka fertiliteten hos män</h2>
+    <img src="https://shop.fertilitetplus.se/cdn/shop/files/FertilitetPlus_P_verkar_Livsstilen_Spermakvaliten.jpg?v=1749563045&amp;width=1440" srcset="https://shop.fertilitetplus.se/cdn/shop/files/FertilitetPlus_P_verkar_Livsstilen_Spermakvaliten.jpg?v=1749563045&amp;width=480 480w, https://shop.fertilitetplus.se/cdn/shop/files/FertilitetPlus_P_verkar_Livsstilen_Spermakvaliten.jpg?v=1749563045&amp;width=768 768w, https://shop.fertilitetplus.se/cdn/shop/files/FertilitetPlus_P_verkar_Livsstilen_Spermakvaliten.jpg?v=1749563045&amp;width=1024 1024w, https://shop.fertilitetplus.se/cdn/shop/files/FertilitetPlus_P_verkar_Livsstilen_Spermakvaliten.jpg?v=1749563045&amp;width=1440 1440w" sizes="(max-width: 900px) 100vw, 50vw" loading="lazy" decoding="async" alt="Man sitter vid ett skrivbord framför en vit tegelvägg" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px">
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(520px,100%),1fr));gap:12px;align-items:start">
+    <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Livsstil och miljö</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><ul style="display:flex;flex-direction:column;gap:10px">
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Rökning:</strong> Minskar <a href="Spermaprov.dc.html" style="color:#7E9680">spermiekvaliteten</a> och kan leda till färre och mindre rörliga spermier.</li>
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Alkohol:</strong> Överdriven alkoholkonsumtion kan sänka testosteronnivåerna och påverka spermieproduktionen negativt.</li>
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Drogbruk:</strong> Anabola steroider, marijuana och andra droger kan påverka hormonbalansen och spermiekvaliteten.</li>
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Kost och näring:</strong> Brist på viktiga näringsämnen som zink, selen, vitamin C och folsyra kan försämra spermiekvaliteten.</li>
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Värmeexponering:</strong> Hög värme från exempelvis varma bad, bastu, eller laptop i knät kan höja temperaturen i pungen och påverka spermieproduktionen negativt.</li>
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Stress:</strong> Kronisk stress kan påverka hormonbalansen och minska fertiliteten.</li>
+      </ul></div>
+        </details>
+    <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Medicinska tillstånd</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><ul style="display:flex;flex-direction:column;gap:10px">
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Varikocele:</strong> Förstorade vener i pungen kan leda till överhettning och sänkt spermieproduktion.</li>
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Infektioner:</strong> Tidigare eller pågående infektioner kan påverka testiklarna och således spermieproduktionen.</li>
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Hormonella obalanser:</strong> Problem med hormonproduktionen i hypofysen eller testiklarna.</li>
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Sexuellt överförbara infektioner (STI):</strong> Infektioner som klamydia eller gonorré kan orsaka ärrbildning och blockeringar som påverkar fertiliteten.</li>
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Kroniska sjukdomar:</strong> Tillstånd som diabetes, njursjukdomar eller leversjukdomar kan påverka spermiekvaliteten.</li>
+      </ul></div>
+        </details>
+    <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Genetiska faktorer</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Genetiska avvikelser:</strong> Vissa genetiska tillstånd kan påverka spermieproduktionen eller leda till att spermierna är onormala i form eller funktion.</p></div>
+        </details>
+    <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Exponering för skadliga ämnen</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><ul style="display:flex;flex-direction:column;gap:10px">
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Kemikalier och toxiner:</strong> Exponering för bekämpningsmedel, tungmetaller eller andra gifter kan påverka spermiekvaliteten negativt.</li>
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Strålning och cellgifter:</strong> Används vid cancerbehandlingar och kan skada spermieproduktionen.</li>
+      </ul></div>
+        </details>
+    <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Ålder</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Medan män kan behålla fertiliteten längre än kvinnor, börjar spermiekvaliteten ändå minska gradvis efter 40 års ålder, vilket kan göra det svårare att befrukta ett ägg.</p></div>
+        </details>
+    <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Vikt och fysisk hälsa</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><ul style="display:flex;flex-direction:column;gap:10px">
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Övervikt:</strong> Kan leda till hormonella förändringar som minskar spermiekvaliteten och sänker testosteronnivåerna.</li>
+        <li style="font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)"><strong style="font-weight:600;color:#3A3530">Undervikt:</strong> Kan också påverka hormonbalansen och leda till minskad spermieproduktion.</li>
+      </ul></div>
+        </details>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap">
+    <p style="margin:0;font-size:16px;font-weight:600;color:#3A3530">Pris från 2&nbsp;200 kr</p>
+    <a target="_blank" rel="noopener" href="https://patient.nu/portal/public/calendar/690a767f-9a5c-40c3-bc44-036307741fb4#step-1" style="display:inline-block;background:#7E9680;color:#F8F6F2;padding:14px 30px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-decoration:none" style-hover="background:#6b836d;color:#F8F6F2">Boka spermaprov</a>
+  </div>
+</section>
+
+<section style="background:#3A3530;color:#F8F6F2">
+  <div style="max-width:1600px;margin:0 auto;padding:96px 40px">
+    <h2 style="margin:0 0 56px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em;color:#F8F6F2">Fertilitetsutredning steg för steg</h2>
+    <ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:48px">
+      <li>
+        <span style="display:block;font-family:'Cormorant',Georgia,serif;font-size:34px;color:#7E9680;margin-bottom:18px">01</span>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(248,246,242,0.62)">Vi börjar alltid med en konsultation där vi diskuterar de bakomliggande orsakerna till utebliven graviditet samt en allmän genomgång av det generella hälsotillståndet. Båda individerna i ett par rekommenderas att undersökas men första besöket syftar till att påbörja utredning av kvinnan. Hormonprover tas oftast i samband med en fertilitetsutredning och i många fall analyseras även sköldkörteln. Vi rekommenderar männen att lämna spermaprov på vår klinik i Stockholm eller Göteborg.</p>
+      </li>
+      <li>
+        <span style="display:block;font-family:'Cormorant',Georgia,serif;font-size:34px;color:#7E9680;margin-bottom:18px">02</span>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(248,246,242,0.62)">När de önskade undersökningarna är klara har vi ett uppföljande samtal via telefon. Vi går igenom provsvaren och diskuterar fortsatt väg framåt. Om vår rekommendation är att göra ett ultraljud eller konsultera vår läkare för fortsatt behandling så tillkommer en kostnad på 1900 kr för det besöket.</p>
+      </li>
+      <li>
+        <span style="display:block;font-family:'Cormorant',Georgia,serif;font-size:34px;color:#7E9680;margin-bottom:18px">03</span>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(248,246,242,0.62)">När utredningen är klar kan allt som oftast en behandling erbjudas och påbörjas.</p>
+      </li>
+    </ol>
+    <div style="margin-top:56px;display:flex;align-items:center;gap:28px;flex-wrap:wrap">
+      <p style="margin:0;font-size:16px;font-weight:600;color:#F8F6F2">Pris: 2&nbsp;900 kr</p>
+      <a target="_blank" rel="noopener" href="https://patient.nu/portal/public/calendar/44752d1b-7097-499b-8f1a-ee2eafa21127#step-1" style="display:inline-block;background:#7E9680;color:#F8F6F2;padding:14px 30px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-decoration:none" style-hover="background:#F8F6F2;color:#3A3530">Boka tid här</a>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1600px;margin:0 auto;padding:96px 40px">
+  <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">FaQ</p>
+  <h2 style="margin:0 0 48px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Vanliga frågor</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(520px,100%),1fr));gap:12px;align-items:start">
+    <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Vad kostar en fertilitetsutredning?</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Hos FertilitetPlus kostar en Fertilitetsutredning 2&nbsp;900 kr. För mer info, se <a href="Prislista.dc.html" style="color:#7E9680">prislista.</a></p></div>
+        </details>
+    <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Jag är över 35, kan jag söka ändå?</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">FertilitetPlus har ingen specifik åldersgräns för våra patienter utan fokuserar snarare på resultat av hormonanalyser och ultraljudsundersökningar. Fertilitetsutredningen är alltid individuell och kan skilja sig från fall till fall.</p></div>
+        </details>
+    <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">När bör jag söka hjälp?</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Om du har försökt bli gravid i ett år utan framgång, eller sex månader om du är över 35 år, kan det vara dags att söka hjälp. Det är också viktigt att söka hjälp tidigare om du har oregelbundna menstruationer, tidigare har haft missfall, eller om du har en känd medicinsk åkomma som kan påverka fertiliteten.</p></div>
+        </details>
+    <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Hur lång tid tar en utredning på FertilitetPlus?</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.7)">Fertilitetsutredningar är alltid individuella och utredningstiden kan variera men beräknas i de flesta fall vara klara inom 1-2 månader.</p></div>
+        </details>
+  </div>
+<p style="margin:32px 0 0;font-size:16px;font-weight:300;color:rgba(58,53,48,0.75)">Fler frågor och svar om fertilitet finns under <a href="Vanliga-fragor.dc.html" style="color:#7E9680;font-weight:600;text-decoration:underline;text-underline-offset:3px">Vanliga frågor</a>.</p>
+</section>
+
+<dc-import name="Sidfot" hint-size="100%,520px"></dc-import>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#F8F6F2;color:#3A3530;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:#7E9680}
+  a:hover{color:#3A3530}
+  ul,ol{margin:0;padding:0;list-style:none}
+  img{display:block;max-width:100%}
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  #sa-gar-det-till { scroll-margin-top: 96px; }
+  @media (max-width: 960px) {
+    header nav[data-desktop-nav] { display: none !important; }
+    header button[data-mobile-toggle] { display: flex !important; }
+  }
+  @media (max-width: 900px) {
+    [style*="grid-template-columns"]:not([style*="auto-fit"]) { grid-template-columns: 1fr !important; }
+    section, section > div, header > div, footer > div { padding-left: 24px !important; padding-right: 24px !important; }
+  }
+  @media (max-width: 640px) {
+    [data-cookie-banner] { left: 0 !important; bottom: 0 !important; width: 100% !important; max-width: none !important; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+    header [data-cart-label] { display: none !important; }
+    header [data-header-actions] { gap: 8px !important; }
+    header [data-book] { padding: 11px 14px !important; }
+    h1 { font-size: 40px !important; line-height: 1.08 !important; }
+    h2:not([data-h3-style]) { font-size: 28px !important; line-height: 1.2 !important; }
+    h3 { font-size: 18px !important; }
+    section, section > div { padding-top: 64px !important; padding-bottom: 64px !important; }
+    [data-price-row] { flex-direction: column !important; align-items: flex-start !important; gap: 6px !important; }
+  }
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#F8F6F2"/><circle cx="50" cy="50" r="26" fill="none" stroke="#7E9680" stroke-width="2"/><line x1="50" y1="36" x2="50" y2="64" stroke="#7E9680" stroke-width="2.5"/><line x1="36" y1="50" x2="64" y2="50" stroke="#7E9680" stroke-width="2.5"/></svg></template>
+
+<div style="width:100%;overflow-x:hidden">
+  <dc-import name="Sidhuvud" hint-size="100%,84px"></dc-import>
+
+  <section style="max-width:1600px;margin:0 auto;padding:112px 40px 96px">
+    <p style="margin:0 0 22px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">IVF &amp; utlandsbehandlingar</p>
+    <h1 style="margin:0 0 28px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:62px;line-height:1.08;letter-spacing:-0.01em;color:#3A3530;max-width:16em;text-wrap:balance">Provtagning och kontroller inför din behandling utomlands</h1>
+    <p style="margin:0 0 40px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);max-width:42em;text-wrap:pretty">Ska du genomgå fertilitetsbehandling utomlands behöver du ofta göra vissa undersökningar först. Hos FertilitetPlus tar du dina ultraljud, blodprover och andra kontroller här i Sverige – så slipper du resa fram och tillbaka till kliniken utomlands. Vi hjälper dig inför bland annat provrörsbefruktning (IVF), äggdonation och embryodonation.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="https://patient.nu/portal/public/calendar/290c221b-9612-435b-adaa-f28ccc6f6875#step-1" target="_blank" rel="noopener" style="display:inline-block;background:#7E9680;color:#F8F6F2;padding:14px 30px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-decoration:none" style-hover="background:#3A3530;color:#F8F6F2">Boka en konsultation</a>
+      <a href="#sa-gar-det-till" style="display:inline-block;border:1px solid #3A3530;color:#3A3530;padding:13px 28px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-decoration:none" style-hover="background:#3A3530;color:#F8F6F2">Så går det till</a>
+    </div>
+  </section>
+
+  <section id="sa-gar-det-till" style="background:#EBE7E1">
+    <div style="max-width:1600px;margin:0 auto;padding:96px 40px">
+      <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Så går det till</p>
+      <h2 style="margin:0 0 48px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Fyra enkla steg</h2>
+      <ol style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:20px">
+        <li style="background:#F8F6F2;border-radius:4px;padding:32px 28px">
+          <span style="display:block;font-family:'Cormorant',Georgia,serif;font-size:34px;line-height:1;color:#7E9680;margin-bottom:20px">1</span>
+          <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Boka konsultation</h3>
+          <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Boka din konsultation och skicka med listan/protokollet på de prover din klinik efterfrågar direkt i bokningen – inte via mejl.</p>
+        </li>
+        <li style="background:#F8F6F2;border-radius:4px;padding:32px 28px">
+          <span style="display:block;font-family:'Cormorant',Georgia,serif;font-size:34px;line-height:1;color:#7E9680;margin-bottom:20px">2</span>
+          <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Konsultation &amp; genomgång</h3>
+          <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">En barnmorska går igenom dina prover och planerar tillsammans med dig, på kliniken eller via telefon.</p>
+        </li>
+        <li style="background:#F8F6F2;border-radius:4px;padding:32px 28px">
+          <span style="display:block;font-family:'Cormorant',Georgia,serif;font-size:34px;line-height:1;color:#7E9680;margin-bottom:20px">3</span>
+          <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Betalning &amp; remiss</h3>
+          <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Efter genomförd konsultation utfärdas remiss för provtagning i Sverige och eventuell bokning av ultraljud.</p>
+        </li>
+        <li style="background:#F8F6F2;border-radius:4px;padding:32px 28px">
+          <span style="display:block;font-family:'Cormorant',Georgia,serif;font-size:34px;line-height:1;color:#7E9680;margin-bottom:20px">4</span>
+          <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Provtagning</h3>
+          <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Du går sedan till anvisat laboratorium för att lämna dina prover.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section style="max-width:1600px;margin:0 auto;padding:96px 40px">
+    <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Så hjälper vi dig</p>
+    <h2 style="margin:0 0 48px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Det här kan vi hjälpa dig med</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:20px">
+      <div style="background:#EBE7E1;border-radius:4px;padding:32px 28px">
+        <div style="width:32px;height:2px;background:#7E9680;margin-bottom:22px"></div>
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Ultraljud &amp; monitorering</h3>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Ultraljudskontroller och uppföljning i samband med din behandling utomlands.</p>
+      </div>
+      <div style="background:#EBE7E1;border-radius:4px;padding:32px 28px">
+        <div style="width:32px;height:2px;background:#7E9680;margin-bottom:22px"></div>
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Blodprover &amp; remisser</h3>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Vi skriver svenska remisser för de prover din klinik efterfrågar och koordinerar provtagningen.</p>
+      </div>
+      <div style="background:#EBE7E1;border-radius:4px;padding:32px 28px">
+        <div style="width:32px;height:2px;background:#7E9680;margin-bottom:22px"></div>
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Immunologisk behandling</h3>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Intralipid-dropp och annan immunologisk behandling som en del av din fertilitetsbehandling.</p>
+      </div>
+      <div style="background:#EBE7E1;border-radius:4px;padding:32px 28px">
+        <div style="width:32px;height:2px;background:#7E9680;margin-bottom:22px"></div>
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Barnmorska &amp; vägledning</h3>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Konsultation med barnmorska, samt stöd och vägledning inför behandlingen.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#EBE7E1">
+    <div style="max-width:1600px;margin:0 auto;padding:96px 40px">
+      <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Priser</p>
+      <h2 style="margin:0 0 40px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Vad det kostar</h2>
+      <div style="max-width:1040px;border-top:1px solid #C8B5A2">
+        <div data-price-row="true" style="display:flex;justify-content:space-between;align-items:baseline;gap:32px;padding:20px 0;border-bottom:1px solid rgba(58,53,48,0.12)">
+          <div>
+            <h3 style="margin:0 0 4px;font-size:18px;font-weight:700;line-height:1.5">Konsultation vid utlandsbehandling</h3>
+            <p style="margin:0;font-size:16px;font-weight:300;line-height:1.7;color:rgba(58,53,48,0.72);text-wrap:pretty">På kliniken eller via telefon · genomgång av protokoll &amp; planering. Kostnad för själva proverna tillkommer.</p>
+          </div>
+          <span style="flex:none;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap">1&nbsp;200 kr</span>
+        </div>
+        <div data-price-row="true" style="display:flex;justify-content:space-between;align-items:baseline;gap:32px;padding:20px 0;border-bottom:1px solid rgba(58,53,48,0.12)">
+          <div>
+            <h3 style="margin:0 0 4px;font-size:18px;font-weight:700;line-height:1.5">Ultraljud</h3>
+            <p style="margin:0;font-size:16px;font-weight:300;line-height:1.7;color:rgba(58,53,48,0.72)">Kontroll och uppföljning, utfört av läkare</p>
+          </div>
+          <span style="flex:none;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap">1&nbsp;900 kr</span>
+        </div>
+        <div data-price-row="true" style="display:flex;justify-content:space-between;align-items:baseline;gap:32px;padding:20px 0;border-bottom:1px solid rgba(58,53,48,0.12)">
+          <div>
+            <h3 style="margin:0 0 4px;font-size:18px;font-weight:700;line-height:1.5">Spermaprov (klassiskt)</h3>
+            <p style="margin:0;font-size:16px;font-weight:300;line-height:1.7;color:rgba(58,53,48,0.72)">För den manliga partnern</p>
+          </div>
+          <span style="flex:none;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap">2&nbsp;200 kr</span>
+        </div>
+        <div data-price-row="true" style="display:flex;justify-content:space-between;align-items:baseline;gap:32px;padding:20px 0;border-bottom:1px solid rgba(58,53,48,0.12)">
+          <div>
+            <h3 style="margin:0 0 4px;font-size:18px;font-weight:700;line-height:1.5">Utökat spermaprov</h3>
+            <p style="margin:0;font-size:16px;font-weight:300;line-height:1.7;color:rgba(58,53,48,0.72)">Utökad analys där även mätning av oxidativ stress ingår</p>
+          </div>
+          <span style="flex:none;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap">3&nbsp;800 kr</span>
+        </div>
+        <div data-price-row="true" style="display:flex;justify-content:space-between;align-items:baseline;gap:32px;padding:20px 0;border-bottom:1px solid rgba(58,53,48,0.12)">
+          <div>
+            <h3 style="margin:0 0 4px;font-size:18px;font-weight:700;line-height:1.5">Intralipid-dropp</h3>
+            <p style="margin:0;font-size:16px;font-weight:300;line-height:1.7;color:rgba(58,53,48,0.72)">Immunologisk behandling i form av dropp · vardag / helg</p>
+          </div>
+          <span style="flex:none;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap">1&nbsp;600 / 2&nbsp;200 kr</span>
+        </div>
+      </div>
+      <p style="margin:24px 0 40px;max-width:1040px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.72);text-wrap:pretty">Priser i SEK. Kostnaden för prover varierar beroende på vilka analyser din klinik efterfrågar och lämnas individuellt under din konsultation.</p>
+      <p style="margin:0 0 16px;font-size:16px;font-weight:600;line-height:1.6;color:#3A3530">Exempel på prover vi ofta hjälper till med:</p>
+      <ul style="display:flex;flex-wrap:wrap;gap:8px;max-width:1040px">
+        <li style="font-size:14px;font-weight:500;padding:8px 14px;border-radius:4px;background:#F8F6F2;color:#3A3530">AMH</li>
+        <li style="font-size:14px;font-weight:500;padding:8px 14px;border-radius:4px;background:#F8F6F2;color:#3A3530">TSH</li>
+        <li style="font-size:14px;font-weight:500;padding:8px 14px;border-radius:4px;background:#F8F6F2;color:#3A3530">FSH/LH</li>
+        <li style="font-size:14px;font-weight:500;padding:8px 14px;border-radius:4px;background:#F8F6F2;color:#3A3530">Vitamin D</li>
+        <li style="font-size:14px;font-weight:500;padding:8px 14px;border-radius:4px;background:#F8F6F2;color:#3A3530">HIV/Hepatit</li>
+        <li style="font-size:14px;font-weight:500;padding:8px 14px;border-radius:4px;background:#F8F6F2;color:#3A3530">Koagulationsprover</li>
+        <li style="font-size:14px;font-weight:500;padding:8px 14px;border-radius:4px;background:#F8F6F2;color:#3A3530">Immunologiska prover</li>
+      </ul>
+    </div>
+  </section>
+
+  <section style="background:#3A3530;color:#F8F6F2">
+    <div style="max-width:1600px;margin:0 auto;padding:96px 40px">
+      <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#C8B5A2">Bra att känna till</p>
+      <h2 style="margin:0 0 48px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em;color:#F8F6F2;max-width:22em">Varför lägga det i bokningen och inte via mejl?</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:48px;max-width:1200px">
+        <div>
+          <h3 style="margin:0 0 12px;font-size:18px;font-weight:700;line-height:1.5;color:#F8F6F2">Dataskydd (GDPR).</h3>
+          <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(248,246,242,0.72);text-wrap:pretty">För att skydda dina personuppgifter kan vi inte ta emot medicinska dokument via mejl. Att lägga ditt provprotokoll säkert i bokningen är det trygga och lagliga sättet – och det gör att vi kan ta ett riktigt ansvar för din vård.</p>
+        </div>
+        <div>
+          <h3 style="margin:0 0 12px;font-size:18px;font-weight:700;line-height:1.5;color:#F8F6F2">Vår roll.</h3>
+          <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(248,246,242,0.72);text-wrap:pretty">FertilitetPlus hjälper till med remisshantering och koordinering av provtagning. All medicinsk rådgivning, bedömning och tolkning av provsvar görs av ansvarig läkare på kliniken där behandlingen genomförs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1600px;margin:0 auto;padding:96px 40px">
+    <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Praktiskt</p>
+    <h2 style="margin:0 0 40px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Bra att veta</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:1px;background:#EBE7E1;border:1px solid #EBE7E1;border-radius:4px;overflow:hidden">
+      <div style="background:#F8F6F2;padding:32px 28px">
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Konsultation</h3>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">På kliniken eller via telefon, med barnmorska.</p>
+      </div>
+      <div style="background:#F8F6F2;padding:32px 28px">
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Var vi finns</h3>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Vi tar emot i Stockholm och Göteborg. Alla tjänster erbjuds inte på båda orterna – du ser vad som finns var när du bokar.</p>
+      </div>
+      <div style="background:#F8F6F2;padding:32px 28px">
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Ta med dig</h3>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Ditt provprotokoll läggs i bokningen. Ta med giltig legitimation.</p>
+      </div>
+      <div style="background:#F8F6F2;padding:32px 28px">
+        <h3 style="margin:0 0 10px;font-size:18px;font-weight:700;line-height:1.5">Ingen väntetid</h3>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Ingen remiss krävs för att boka – boka online när som helst.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#EBE7E1">
+    <div style="max-width:1600px;margin:0 auto;padding:96px 40px">
+      <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Frågor &amp; svar</p>
+      <h2 style="margin:0 0 40px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Behöver du hjälp?</h2>
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:1040px">
+        <details style="background:#F8F6F2;border-radius:4px">
+          <summary style="cursor:pointer;padding:26px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px">
+            <h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Vilka kliniker samarbetar ni med?</h3>
+            <span aria-hidden="true">+</span>
+          </summary>
+          <div style="padding:0 32px 32px;max-width:52em"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Vi har erfarenhet av de vanligaste provprotokollen från internationella fertilitetskliniker, bland annat Trianglen Fertility Clinic, O.L.G.A Fertility Clinic och Life Clinic.</p></div>
+        </details>
+        <details style="background:#F8F6F2;border-radius:4px">
+          <summary style="cursor:pointer;padding:26px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px">
+            <h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Kan ni hjälpa mig även om min klinik inte finns med?</h3>
+            <span aria-hidden="true">+</span>
+          </summary>
+          <div style="padding:0 32px 32px;max-width:52em"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Ja. Vi hjälper även patienter från andra fertilitetskliniker utomlands. Skicka med ditt provprotokoll i bokningen så gör vi en bedömning.</p></div>
+        </details>
+        <details style="background:#F8F6F2;border-radius:4px">
+          <summary style="cursor:pointer;padding:26px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px">
+            <h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Hur vet jag vilka prover jag behöver ta?</h3>
+            <span aria-hidden="true">+</span>
+          </summary>
+          <div style="padding:0 32px 32px;max-width:52em"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Din fertilitetsklinik skickar vanligtvis ett provprotokoll eller en lista med analyser som behöver tas. Vi hjälper dig att gå igenom underlaget inför remisskrivningen.</p></div>
+        </details>
+        <details style="background:#F8F6F2;border-radius:4px">
+          <summary style="cursor:pointer;padding:26px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px">
+            <h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Hur lång tid tar processen?</h3>
+            <span aria-hidden="true">+</span>
+          </summary>
+          <div style="padding:0 32px 32px;max-width:52em"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Efter genomförd konsultation och betalning skickas remissen vanligtvis inom kort. Därefter kan du boka eller besöka laboratorium för provtagning.</p></div>
+        </details>
+        <details style="background:#F8F6F2;border-radius:4px">
+          <summary style="cursor:pointer;padding:26px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px">
+            <h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Kan ni hjälpa till att tolka mina provsvar?</h3>
+            <span aria-hidden="true">+</span>
+          </summary>
+          <div style="padding:0 32px 32px;max-width:52em"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Medicinsk rådgivning och bedömning av provsvar görs av ansvarig läkare på din fertilitetsklinik. FertilitetPlus hjälper till med remisshantering och koordinering av provtagning.</p></div>
+        </details>
+        <details style="background:#F8F6F2;border-radius:4px">
+          <summary style="cursor:pointer;padding:26px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px">
+            <h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Kan jag göra ultraljud hos er inför min behandling?</h3>
+            <span aria-hidden="true">+</span>
+          </summary>
+          <div style="padding:0 32px 32px;max-width:52em"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Ja, vi erbjuder ultraljud i samband med fertilitetsbehandling och hjälper många patienter som behandlas utomlands med uppföljning och monitorering i Sverige. Pris för ultraljud är 1&nbsp;900 kr.</p></div>
+        </details>
+        <details style="background:#F8F6F2;border-radius:4px">
+          <summary style="cursor:pointer;padding:26px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px">
+            <h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Kan jag kombinera flera tjänster vid samma besök?</h3>
+            <span aria-hidden="true">+</span>
+          </summary>
+          <div style="padding:0 32px 32px;max-width:52em"><p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">I många fall går det bra att kombinera exempelvis ultraljud, konsultation och provtagning. Du bokar enkelt behandlingarna efter varandra själv här på hemsidan.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1600px;margin:0 auto;padding:112px 40px">
+    <h2 style="margin:0 0 20px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Redo att boka?</h2>
+    <p style="margin:0 0 36px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.78);max-width:40em;text-wrap:pretty">Boka din konsultation online – ingen remiss och inga väntetider. Glöm inte att bifoga ditt provprotokoll från din klinik.</p>
+    <a href="https://patient.nu/portal/public/calendar/290c221b-9612-435b-adaa-f28ccc6f6875#step-1" target="_blank" rel="noopener" style="display:inline-block;background:#7E9680;color:#F8F6F2;padding:15px 32px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-decoration:none" style-hover="background:#3A3530;color:#F8F6F2">Boka en konsultation</a>
+  </section>
+
+  <dc-import name="Sidfot" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+</body>
+</html>

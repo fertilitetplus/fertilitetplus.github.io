@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F8F6F2;color:#3A3530;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:#7E9680}
+  a:hover{color:#3A3530}
+  ul{margin:0;padding:0;list-style:none}
+  img{display:block;max-width:100%}
+  @media (max-width: 960px) {
+    header nav[data-desktop-nav] { display: none !important; }
+    header button[data-mobile-toggle] { display: flex !important; }
+  }
+  @media (max-width: 900px) {
+    [style*="grid-template-columns"]:not([style*="auto-fit"]) { grid-template-columns: 1fr !important; }
+    section, section > div, header > div, footer > div { padding-left: 24px !important; padding-right: 24px !important; }
+    section[data-hero] { padding-top: 0 !important; gap: 32px !important; }
+    section[data-hero] > img { order: -1; width: calc(100% + 48px) !important; max-width: none !important; margin: 0 -24px; border-radius: 0 !important; aspect-ratio: 16/9 !important; }
+  }
+  @media (max-width: 640px) {
+    [data-cookie-banner] { left: 0 !important; bottom: 0 !important; width: 100% !important; max-width: none !important; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+    header [data-cart-label] { display: none !important; }
+    header [data-header-actions] { gap: 8px !important; }
+    header [data-book] { padding: 11px 14px !important; }
+    h1 { font-size: 40px !important; line-height: 1.08 !important; }
+    h2:not([data-h3-style]) { font-size: 28px !important; line-height: 1.2 !important; }
+    h2[style*="font-size: 28px"] { font-size: 24px !important; line-height: 1.3 !important; }
+    h3, h2[data-h3-style] { font-size: 18px !important; }
+    section, section > div { padding-top: 64px !important; padding-bottom: 64px !important; }
+    section[data-hero] { padding-top: 0 !important; }
+    img[style*="aspect-ratio"] { width: 100% !important; }
+  }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  details[open] > summary [data-plus] { display: none; }
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#F8F6F2"/><circle cx="50" cy="50" r="26" fill="none" stroke="#7E9680" stroke-width="2"/><line x1="50" y1="36" x2="50" y2="64" stroke="#7E9680" stroke-width="2.5"/><line x1="36" y1="50" x2="64" y2="50" stroke="#7E9680" stroke-width="2.5"/></svg></template>
+
+<dc-import name="Sidhuvud" hint-size="100%,84px"></dc-import>
+
+<section data-hero="true" style="max-width:1600px;margin:0 auto;padding:112px 40px 64px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:72px;align-items:center">
+  <div>
+    <p style="margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Om oss</p>
+    <h1 style="margin:0 0 26px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:62px;line-height:1.08;letter-spacing:-0.01em">FertilitetPlus</h1>
+    <p style="margin:0 0 20px;font-size:19px;font-weight:600;color:#3A3530">Inte som alla andra</p>
+    <p style="margin:0 0 32px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:40em;text-wrap:pretty">FertilitetPlus utför <a href="Fertilitetsutredning.dc.html" style="color:#7E9680">fertilitetsutredningar</a> och behandlingar för dig som har svårt att bli gravid eller behålla din graviditet. Vi kan även hjälpa till vid upprepade missfall eller utebliven graviditet orsakat av ett <a href="Immunologisk-utredning.dc.html" style="color:#7E9680">överaktivt immunförsvar</a>. FertilitetPlus är en mindre och diskret mottagning med ett stort personligt engagemang. Som patient hos oss har du tillgång till behandling alla dagar i veckan samt nära kontakt med barnmorska och sjuksköterska. Hos oss har vi inga väntetider och du behöver ingen remiss, du behöver heller inte uppfylla några specifika krav. Vi är helt enkelt till för alla!</p>
+    <a href="Boka-tid.dc.html" style="display:inline-block;background:#7E9680;color:#F8F6F2;padding:15px 32px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-decoration:none" style-hover="background:#3A3530;color:#F8F6F2">Boka tid</a>
+  </div>
+  <img src="https://shop.fertilitetplus.se/cdn/shop/files/immunforsvar.png?v=1749561244&amp;width=574" srcset="https://shop.fertilitetplus.se/cdn/shop/files/immunforsvar.png?v=1749561244&amp;width=300 300w, https://shop.fertilitetplus.se/cdn/shop/files/immunforsvar.png?v=1749561244&amp;width=574 574w" sizes="(max-width: 900px) 100vw, 40vw" loading="eager" fetchpriority="high" decoding="async" alt="FertilitetPlus" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px">
+</section>
+
+<section style="background:#EBE7E1">
+  <div style="max-width:1600px;margin:0 auto;padding:96px 40px;display:grid;grid-template-columns:minmax(0,920px)">
+    <h2 style="margin:0 0 28px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Vi hjälper dig!</h2>
+    <p style="margin:0 0 20px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Med 30 års erfarenhet inom reproduktiv medicin och immunologi matchar vi kunskap med medkänsla för patienter samt hängivenhet till deras vård. Vårt specialistområde är förutom fertilitet även immunologi och att hjälpa dig som har upplevt återkommande <a href="Immunologisk-utredning.dc.html" style="color:#7E9680">missfall</a> och oförklarlig infertilitet. Vi utvärderar din fertila status och ditt immunförsvar för att skapa en skräddarsydd behandling för varje enskild individ.</p>
+    <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">Vi erbjuder vård i Stockholm och Göteborg både på vardagar och helger eftersom kvinnans ägglossning inte alltid infaller på veckodagar. Har du frågor kan du kontakta oss via vårt <a href="Kontakt.dc.html" style="color:#7E9680">kontaktformulär</a> eller boka en tid.</p>
+  </div>
+</section>
+
+<section style="max-width:1600px;margin:0 auto;padding:96px 40px">
+  <h2 style="margin:0 0 56px;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:-0.01em">Våra medarbetare</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;background:#EBE7E1">
+    <article style="background:#EBE7E1">
+      <img src="https://fertilitetplus.se/bilder/marie-antonsson.webp" sizes="(max-width: 900px) 100vw, 33vw" loading="lazy" decoding="async" alt="Marie Antonsson" style="width:100%;aspect-ratio:4/5;object-fit:cover">
+      <div style="padding:36px 32px">
+        <p style="margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Ägare/Grundare av FertilitetPlus samt Barnmorska</p>
+        <h3 style="margin:0 0 18px;font-size:18px;font-weight:700;line-height:1.6">Marie Antonsson</h3>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.72);text-wrap:pretty">Marie har tidigare arbetat 25 år på Sophiahemmet/Andrologmottagningen med infertilitetsutredningar. Hennes expertis inom reproduktiv medicin och immunologi matchas bara av hennes djupa medkänsla för hennes patienter och hängivenhet till deras vård. Maries specialistområde är immunologi och att hjälpa par som har upplevt återkommande missfall och oförklarlig infertilitet. Hon fokuserar mycket på kvinnans immunförsvar och har gjort det möjligt att behandla kvinnor med ett överaktivt immunförsvar. Hon skräddarsyr dessutom behandlingen för varje enskild individ.</p>
+      </div>
+    </article>
+    <article style="background:#EBE7E1">
+      <img src="https://shop.fertilitetplus.se/cdn/shop/files/Frida_Hosseini-Akram_Foto_Cecilia_Larsson_Lantz_1_3835fafe-33f3-4863-a224-2b2d6b360ae2.jpg?v=1642339595&amp;width=768" srcset="https://shop.fertilitetplus.se/cdn/shop/files/Frida_Hosseini-Akram_Foto_Cecilia_Larsson_Lantz_1_3835fafe-33f3-4863-a224-2b2d6b360ae2.jpg?v=1642339595&amp;width=480 480w, https://shop.fertilitetplus.se/cdn/shop/files/Frida_Hosseini-Akram_Foto_Cecilia_Larsson_Lantz_1_3835fafe-33f3-4863-a224-2b2d6b360ae2.jpg?v=1642339595&amp;width=768 768w" sizes="(max-width: 900px) 100vw, 33vw" loading="lazy" decoding="async" alt="Frida Hosseini Akram" style="width:100%;aspect-ratio:4/5;object-fit:cover">
+      <div style="padding:36px 32px">
+        <p style="margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Doktor i gynekologi och expert på sköldkörteln</p>
+        <h3 style="margin:0 0 18px;font-size:18px;font-weight:700;line-height:1.6">Frida Hosseini Akram</h3>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.72);text-wrap:pretty">Dr Frida Hosseini Akram är överläkare och medicinsk doktor i gynekologi och obstetrik vid Danderyds sjukhus. Hon har lång erfarenhet inom gynekologi och är expert på sköldkörteln och dess påverkan på kvinnors fertilitet. Vill du komma i kontakt med Frida, hör först av dig till Marie. <a href="Kontakt.dc.html" style="color:#7E9680">Kontaktuppgifter hittar du här.</a></p>
+      </div>
+    </article>
+    <article style="background:#EBE7E1">
+      <img src="https://shop.fertilitetplus.se/cdn/shop/files/Joanna_bild_Large_07c9d266-50cd-4fde-ad05-e65e118e8b07.jpg?v=1786013355&amp;width=960" srcset="https://shop.fertilitetplus.se/cdn/shop/files/Joanna_bild_Large_07c9d266-50cd-4fde-ad05-e65e118e8b07.jpg?v=1786013355&amp;width=480 480w, https://shop.fertilitetplus.se/cdn/shop/files/Joanna_bild_Large_07c9d266-50cd-4fde-ad05-e65e118e8b07.jpg?v=1786013355&amp;width=960 960w" sizes="(max-width: 900px) 100vw, 33vw" loading="lazy" decoding="async" alt="Joanna Fial Karlsson" style="width:100%;aspect-ratio:4/5;object-fit:cover">
+      <div style="padding:36px 32px">
+        <p style="margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Barnmorska</p>
+        <h3 style="margin:0 0 18px;font-size:18px;font-weight:700;line-height:1.6">Joanna Fial Karlsson</h3>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.72)">Joanna är barnmorska med mångårig erfarenhet inom fertilitet och förlossningsvård. Joanna arbetar på kliniken i Göteborg.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section style="background:#EBE7E1;color:#3A3530">
+  <div style="max-width:1600px;margin:0 auto;padding:96px 40px">
+    <div style="display:grid;grid-template-columns:0.8fr 1.2fr;gap:64px;align-items:start"><img src="https://shop.fertilitetplus.se/cdn/shop/files/fertilitet_stockholm.jpg?v=1679594965&amp;width=1024" srcset="https://shop.fertilitetplus.se/cdn/shop/files/fertilitet_stockholm.jpg?v=1679594965&amp;width=480 480w, https://shop.fertilitetplus.se/cdn/shop/files/fertilitet_stockholm.jpg?v=1679594965&amp;width=768 768w, https://shop.fertilitetplus.se/cdn/shop/files/fertilitet_stockholm.jpg?v=1679594965&amp;width=1024 1024w" sizes="(max-width: 900px) 100vw, 40vw" loading="lazy" decoding="async" alt="Vuxen hand håller en nyfödd bebis hand" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px"><div><h2 style="margin:0 0 28px;font-weight:300;font-size:40px;line-height:1.2;letter-spacing:-0.01em;color:#3A3530">Välkomna till oss!</h2><div style="display:flex;flex-direction:column;gap:12px;align-items:start">
+      <details open style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Vår bakgrund</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0 0 16px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">Med 30-års erfarenhet inom reproduktiv medicin och immunologi matchar vi kunskap och medkänsla för patienter samt hängivenhet till deras vård. Vårt specialområde är immunologi och att hjälpa dig som har upplevt återkommande missfall och oförklarlig infertilitet.</p>
+        <p style="margin:0 0 16px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">Termen reproduktiv medicin &amp; immunologi grundades redan 1987 vid Rosalind Franklin University of Medicine and Science i North Chicago, USA.</p>
+        <p style="margin:0 0 16px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">I mer än 30 år har programmet utvärderat behandlingar till patienter från hela USA och runt om i världen. Reproduktionsmedicin och immunologi strävar efter att hjälpa kvinnor som har upplevt <a href="Immunologisk-utredning.dc.html" style="color:#7E9680">återkommande missfall, oförklarlig infertilitet eller upprepat misslyckade IVF-behandlingar</a>.</p>
+        <p style="margin:0 0 16px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">Vi på FertilitetPlus har jobbat med utredning av barnlöshet och fertilitetsproblem sedan 1989 - de första 25 åren på Sophiahemmet, sen Akademikliniken och sedan Specialistklinikerna.</p>
+        <p style="margin:0 0 16px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">Verksamheten är belägen på Värtavägen 30 i nära anslutning till Tessinparken på Östermalm/Gärdet.</p>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">Vi erbjuder även vård i Göteborg. Adress: Askims kyrkväg 46&nbsp;436 42 Askim, Göteborg.</p></div>
+        </details>
+      <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Marie Antonsson</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0 0 16px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">Marie har jobbat med fertilitet i över 30 år. Hennes expertis inom reproduktiv medicin och immunologi matchas bara av hennes djupa medkänsla för hennes patienter och hängivenhet till deras vård.</p>
+        <p style="margin:0 0 16px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">Maries specialistområde är <a href="Immunologisk-utredning.dc.html" style="color:#7E9680">immunologi</a> och att hjälpa dem som har upplevt återkommande missfall och oförklarlig infertilitet.</p>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">Genom att titta närmare på kvinnans immunförsvar och analysera dess påverkan på fertiliteten så kan hon skapa en skräddarsydd behandling för varje enskild individ.</p></div>
+        </details>
+      <details style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px">
+          <summary style="cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px"><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.5;color:#3A3530">Vad är immunologi?</h3><span aria-hidden="true" style="flex:none;position:relative;width:16px;height:16px"><span style="position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-0.75px;background:#3A3530"></span><span data-plus="true" style="position:absolute;top:0;bottom:0;left:50%;width:1.5px;margin-left:-0.75px;background:#3A3530"></span></span></summary>
+          <div style="padding:0 26px 26px"><p style="margin:0 0 16px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)"><a href="Immunologisk-utredning.dc.html" style="color:#7E9680">Immunologi</a> är läran om immunförsvaret och dess reaktion på smittämnen. Ett exempel på när immunförsvaret inte fungerar som det ska är vid autoimmuna sjukdomar, allergier eller avstötning av transplanterade organ. FertilitetPlus behandlar patienter med aktivt immunförsvar eller autoimmun sjukdom.</p>
+        <p style="margin:0 0 16px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">Många kvinnor som drabbas av återkommande missfall och/eller misslyckade IVF-försök får inte alltid tydliga skäl till varför detta sker just dem.</p>
+        <p style="margin:0 0 16px;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">Då ett foster till viss del är främmande för mammans immunsystem (eftersom det till hälften ärver sina gener från pappan) finns därför en risk att fostret stöts bort ungefär som ett transplanterat organ kan göra.</p>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.74)">En gravid kvinnas immunsystem har därför den svåra uppgiften att både undvika avstötning av fostret och samtidigt bibehålla motståndskraften mot infektioner.</p></div>
+        </details>
+    </div></div></div>
+  </div>
+</section>
+
+<dc-import name="Sidfot" hint-size="100%,520px"></dc-import>
+</x-dc>
+</body>
+</html>
