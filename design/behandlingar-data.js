@@ -82,6 +82,7 @@ export const GRUPPER = [
   "id": "kons",
   "titel": "Konsultationer",
   "plats": [
+   "Göteborg",
    "Stockholm"
   ],
   "lank": "https://patient.nu/portal/public/calendar/3210099f-2fa3-492d-8d51-d9b4088e4118#step-1",
@@ -92,6 +93,7 @@ export const GRUPPER = [
     "namn": "Konsultation med barnmorska",
     "pris": "900 kr",
     "stader": [
+     "Göteborg",
      "Stockholm"
     ],
     "tid": "30 min",
@@ -101,6 +103,7 @@ export const GRUPPER = [
     "namn": "Telefonkonsultation med barnmorska",
     "pris": "250 kr",
     "stader": [
+     "Göteborg",
      "Stockholm"
     ],
     "tid": "15 min",
@@ -160,13 +163,30 @@ export const GRUPPER = [
     "text": "Vårt klassiska spermaprov: bestämning av antal och koncentration, klassificering av rörlighet och bedömning av spermiernas utseende. Avhållsamhet 2–5 dagar (inte längre än 5) inför provet."
    },
    {
-    "namn": "Utökat spermaprov",
+    "namn": "Spermaprov + oxidativ stress",
     "pris": "3 800 kr",
+    "stader": [
+     "Göteborg"
+    ],
+    "tid": "30 min",
+    "text": "Ett fullständigt spermaprov med konsultation samt analys av volym, rörelse och utseende – och dessutom analys av oxidativ stress, som kan påverka spermiekvaliteten även vid normala värden i ett vanligt prov. Referensvärden enligt WHO:s riktlinjer. Avhållsamhet 2–5 dagar (inte längre än 5)."
+   },
+   {
+    "namn": "Spermaprov + DNA-fragmentering",
+    "pris": "7 900 kr",
     "stader": [
      "Stockholm"
     ],
     "tid": "30 min",
-    "text": "Ett fullständigt spermaprov med konsultation samt analys av volym, rörelse och utseende – och dessutom analys av oxidativ stress, som kan påverka spermiekvaliteten även vid normala värden i ett vanligt prov. Referensvärden enligt WHO:s riktlinjer. Avhållsamhet 2–5 dagar (inte längre än 5)."
+    "text": "Fördjupat prov av spermiernas DNA-kvalitet. DNA-fragmentering betyder att arvsmassan i spermierna har skador. Det kan påverka möjligheten att bli gravid och risken för missfall, även när ett vanligt spermaprov ser normalt ut.",
+    "kort": "Fördjupat prov av spermiernas DNA-kvalitet. DNA-fragmentering betyder att arvsmassan i spermierna har skador. Det kan påverka möjligheten att bli gravid och risken för missfall, även när ett vanligt spermaprov ser normalt ut.",
+    "mer": [
+     "Ingår: konsultation, klassiskt spermaprov och två DNA-tester.",
+     "SCD (Sperm Chromatin Dispersion) mäter den totala DNA-skadan, brott på en eller båda DNA-strängarna.",
+     "SDFR (Sperm DNA Fragmentation Releasing) mäter brott på båda DNA-strängarna, de allvarligaste skadorna.",
+     "Resultatet bedöms tillsammans med spermaprovet.",
+     "Avstå från utlösning 2 till 5 dagar före provet, inte längre."
+    ]
    }
   ]
  },
@@ -195,6 +215,7 @@ export const GRUPPER = [
   "id": "utland",
   "titel": "Provtagning inför behandling utomlands",
   "plats": [
+   "Göteborg",
    "Stockholm"
   ],
   "lank": "https://patient.nu/portal/public/calendar/dbd1fde4-26a3-47d1-8fd6-bd271e01e411#step-1",
@@ -205,6 +226,7 @@ export const GRUPPER = [
     "namn": "Konsultation vid utlandsbehandling",
     "pris": "1 200 kr",
     "stader": [
+     "Göteborg",
      "Stockholm"
     ],
     "tid": "30 min",
