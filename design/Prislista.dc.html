@@ -44,7 +44,7 @@
 <div style="width:100%;overflow-x:hidden">
   <dc-import name="Sidhuvud" hint-size="100%,84px"></dc-import>
 
-  <section style="max-width:1600px;margin:0 auto;padding:112px 40px 64px">
+  <section style="max-width:1600px;margin:0 auto;padding:56px 40px 32px">
     <p style="margin:0 0 22px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Priser &amp; tjänster</p>
     <h1 style="margin:0 0 26px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:62px;line-height:1.08;letter-spacing:-0.01em;color:#3A3530">Prislista</h1>
     <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:40em;text-wrap:pretty">Alla utredningar och behandlingar bokas utan remiss. Välj Stockholm eller Göteborg för att se vad som finns på respektive klinik, eller se allt samtidigt. Varje tjänst visar var den finns.</p>
@@ -98,9 +98,9 @@
                 </sc-if>
                 <sc-if value="{{ t.open }}">
                   <div style="display:flex;flex-direction:column;gap:12px;padding-top:12px;border-top:1px solid rgba(58,53,48,0.12)">
-                    <sc-if value="{{ t.mer }}">
-                      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">{{ t.mer }}</p>
-                    </sc-if>
+                    <sc-for list="{{ t.merList }}" as="m">
+                      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);text-wrap:pretty">{{ m }}</p>
+                    </sc-for>
                     <sc-if value="{{ t.info }}">
                       <a href="{{ t.info }}" style="font-size:14px;font-weight:600;color:#7E9680;text-decoration:underline;text-underline-offset:3px">Läs mer om behandlingen</a>
                     </sc-if>
@@ -152,9 +152,12 @@ class Component extends DCLogic {
     const groups = (data || []).map(g => {
       const tj = g.tjanster.filter(t => filter === 'Alla' || t.stader.includes(filter)).map((t, i) => {
         const key = g.id + i;
-        const { kort, mer } = this.split(t.text);
+        const auto = this.split(t.text);
+        const kort = t.kort || auto.kort;
+        const merList = Array.isArray(t.mer) ? t.mer : (auto.mer ? [auto.mer] : []);
+        const mer = merList.length > 0;
         const isOpen = !!open[key];
-        return { ...t, kort, mer, hasMer: !!mer || !!g.info, info: g.info, open: isOpen, expanded: String(isOpen), lank: g.lank,
+        return { ...t, kort, mer, merList, hasMer: mer || !!g.info, info: g.info, open: isOpen, expanded: String(isOpen), lank: g.lank,
           toggleLabel: isOpen ? 'Visa mindre' : 'Läs mer', toggleIcon: isOpen ? '−' : '+',
           toggle: () => this.setState(s => ({ open: { ...s.open, [key]: !s.open[key] } })) };
       });
