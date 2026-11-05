@@ -25,6 +25,7 @@
   @media (max-width: 900px) {
     [style*="grid-template-columns"]:not([style*="auto-fit"]) { grid-template-columns: 1fr !important; }
     section, section > div, header > div, footer > div { padding-left: 24px !important; padding-right: 24px !important; }
+    section > div[data-intro] { padding: 0 !important; }
   }
   @media (max-width: 640px) {
     [data-cookie-banner] { left: 0 !important; bottom: 0 !important; width: 100% !important; max-width: none !important; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
@@ -35,6 +36,7 @@
     header [data-cart-label] { display: none !important; }
     header [data-header-actions] { gap: 8px !important; }
     header [data-book] { padding: 11px 14px !important; }
+    section > div[data-intro] { padding: 0 !important; }
   }
 </style>
 </helmet>
@@ -43,17 +45,23 @@
 <div style="width:100%;overflow-x:hidden">
   <dc-import name="Sidhuvud" hint-size="100%,84px"></dc-import>
 
-  <section style="max-width:1600px;margin:0 auto;padding:112px 40px 64px">
-    <p style="margin:0 0 22px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Priser &amp; tjänster</p>
-    <h1 style="margin:0 0 26px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:62px;line-height:1.08;letter-spacing:-0.01em;color:#3A3530">Våra produkter</h1>
-    <p style="margin:0;font-size:16px;font-weight:300;line-height:1.75;color:rgba(58,53,48,0.75);max-width:46em;text-wrap:pretty">Observera att köp av produkter här på sidan <strong style="font-weight:600">inte</strong> innebär att en bokning av tid görs. Alla besök och konsultationer bokas separat via "Boka här"-knappen högst upp på sidan.</p>
+  <section style="max-width:1600px;margin:0 auto;padding:56px 40px 40px">
+    <p style="margin:0 0 16px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#7E9680">Priser &amp; tjänster</p>
+    <h1 style="margin:0 0 20px;font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:400;font-size:62px;line-height:1.08;letter-spacing:-0.01em;color:#3A3530">Våra produkter</h1>
+    <div data-intro="true" style="display:flex;flex-wrap:wrap;gap:20px 48px;align-items:flex-end;justify-content:space-between">
+      <div style="display:flex;flex-direction:column;gap:10px;max-width:46em">
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.7;color:rgba(58,53,48,0.75);text-wrap:pretty">Vitaminer, mineraler och antioxidanter som bidrar till normal fertilitet och reproduktion. Oxigravide för kvinnor och Sermatrop Alfa för män. En tablett om dagen i 3 månader eller längre.</p>
+        <p style="margin:0;font-size:16px;font-weight:300;line-height:1.7;color:rgba(58,53,48,0.75);text-wrap:pretty">Tillskotten ersätter inte en varierad kost, och en hälsosam livsstil är fortfarande viktig. Undrar du vilket tillskott som passar dig? Fråga gärna barnmorskan eller sjuksköterskan vid ditt besök.</p>
+      </div>
+      <a href="Boka-tid.dc.html" style="flex:none;display:inline-block;background:#7E9680;color:#F8F6F2;padding:14px 30px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-decoration:none" style-hover="background:#3A3530;color:#F8F6F2">Boka tid</a>
+    </div>
   </section>
 
   <section style="max-width:1600px;margin:0 auto;padding:0 40px 96px">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));max-width:1040px;gap:32px">
       <sc-for list="{{ featured }}" as="p" hint-placeholder-count="2">
         <article style="background:#F8F6F2;border:1px solid #EBE7E1;border-radius:4px;overflow:hidden;display:flex;flex-direction:column">
-          <a href="{{ p.href }}" target="_blank" rel="noopener" style="display:block;aspect-ratio:4/5;background:#EBE7E1;overflow:hidden">
+          <a href="{{ p.href }}" target="_blank" rel="noopener" style="display:block;aspect-ratio:1/1;background:#EBE7E1;overflow:hidden">
             <sc-if value="{{ p.img }}">
               <img src="{{ p.img }}" alt="{{ p.name }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:24px">
             </sc-if>
