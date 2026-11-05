@@ -1,0 +1,560 @@
+/* =====================================================================
+   FertilitetPlus — rättningar som läggs på vid konvertering
+   Skrivs inte i Claude Design. Appliceras varje gång exporten körs om,
+   så de kan inte regrera.
+   ===================================================================== */
+
+/* --- 1. Sidhuvudet spiller ut ---------------------------------------
+   Uppmätt: skrivbordsmenyn slår på vid 1024 px men behöver 1160.
+   Mellan dem går raden 94 px utanför skärmen. Och under ~437 px
+   får innehållet inte plats alls — 23 px spill vid 390, 53 vid 360.
+   Det gav vågrät scroll på 18 av 25 sidor.                           */
+
+/* Menyn viker ihop till hamburgare först när den faktiskt får plats. */
+@media (max-width: 1199px) {
+  [data-desktop-nav] { display: none !important; }
+  [data-mobile-toggle] { display: flex !important; }
+}
+@media (min-width: 1200px) {
+  [data-mobile-toggle] { display: none !important; }
+}
+
+/* Raden ska aldrig kunna bli bredare än skärmen. */
+header > div {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+header > div > * { min-width: 0 !important; }
+
+/* Under 480 px krymps luften och loggan så att allt ryms. */
+@media (max-width: 479px) {
+  header > div { padding-left: 16px !important; padding-right: 16px !important; gap: 10px !important; }
+  [data-header-actions] { gap: 8px !important; }
+  header [data-logotyp] svg,
+  header a[href="/"] svg { width: 34px !important; height: 34px !important; }
+  header a[href="/"] { font-size: 13px !important; }
+}
+
+/* --- 2. Tabeller på små skärmar --------------------------------------
+   Cookietabellen i integritetspolicyn tappar sin rubrikrad på mobil:
+   NAMN/FRÅN/SYFTE/LAGRAS hamnar som en lös lista högst upp, skild från
+   sina värden. Under 768 px blir varje rad ett kort i stället, med
+   etiketten inline framför värdet.                                    */
+@media (max-width: 767px) {
+  /* Rubrikraden faller till en spalt och blir en lös lista — dölj den. */
+  [data-tabellrubrik] { display: none !important; }
+  /* Varje rad blir ett kort med etiketten inline framför värdet. */
+  [data-tabellrad] {
+    display: block !important;
+    border: 1px solid rgba(58,53,48,0.12); border-radius: 4px;
+    padding: 14px 16px !important; margin-bottom: 12px;
+  }
+  [data-tabellrad] > * { display: block; padding: 3px 0; }
+  [data-tabellrad] > *[data-etikett]::before {
+    content: attr(data-etikett);
+    display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #7E9680; margin-bottom: 2px;
+  }
+  /* Tabeller utan etiketter får hellre scrolla än spilla ut. */
+  table { display: block; overflow-x: auto; }
+}
+
+/* --- 3. Ingen sida får orsaka vågrät scroll -------------------------- */
+html, body { overflow-x: clip; }
+
+/* --- 4. Omdömen som karusell -----------------------------------------
+   Rubriken "Recensioner" tas bort i markupen, ögonbrynet OMDÖMEN står
+   kvar. Korten ligger i en rad som scrollar i sidled och klickar på
+   plats. Första kortet i linje med innehållets vänsterkant, raden
+   fortsätter ut genom högerkanten så att det syns att det finns mer.  */
+/* Upprepad attributselektor för att höja specificiteten. Sidans egen CSS
+   har under 900 px regeln
+
+     [style*="grid-template-columns"]:not([style*="auto-fit"])
+       { grid-template-columns: 1fr !important; }
+
+   som är till för att stapla rutnät på mobil. Den träffar karusellen också
+   och väger tyngre än en ensam [data-karusell]. Resultatet blev att första
+   kortet hamnade i mallens enda kolumn och klämdes till noll bredd medan
+   övriga kort blev implicita kolumner med rätt mått. */
+[data-karusell][data-karusell][data-karusell] {
+  display: grid !important;
+  grid-auto-flow: column !important;
+  /* Mallen måste bort helt: grid-auto-columns gäller bara kolumner
+     UTÖVER mallen, så med en mall kvar får de första korten fel bredd. */
+  grid-template-columns: none !important;
+  grid-auto-columns: clamp(280px, 82vw, 380px) !important;
+  gap: 24px !important;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: max(20px, calc((100vw - 1200px) / 2));
+  padding-inline: max(20px, calc((100vw - 1200px) / 2)) !important;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+[data-karusell]::-webkit-scrollbar { display: none; }
+[data-karusell] > * { scroll-snap-align: start; }
+/* Sektionen som håller karusellen får gå ut i kanterna. */
+/* padding-inline nollställdes förr här — det tog även bort marginalen
+   för rubriken ovanför karusellen. Se rättningen längre ner. */
+[data-karusell-yta] { max-width: 100% !important; }
+
+/* Den som hellre har lugn rörelse ska slippa. */
+@media (prefers-reduced-motion: reduce) {
+  [data-karusell] { scroll-behavior: auto; }
+}
+
+/* =====================================================================
+   Utfällbara menyer utan React
+   ---------------------------------------------------------------------
+   Panelerna packas ut av konverteraren och ligger permanent i koden.
+   Här bestäms när de syns. Datormenyn klarar sig helt utan JavaScript;
+   bara hamburgaren behöver fp-meny.js.
+   ===================================================================== */
+
+[data-meny-grupp] > [data-meny-panel] { display: none; }
+[data-meny-grupp]:hover > [data-meny-panel],
+[data-meny-grupp]:focus-within > [data-meny-panel] { display: block; }
+
+/* Mobilpanelen: dold som standard, och aldrig synlig på dator. */
+[data-mobile-panel] { display: none !important; }
+@media (max-width: 1199px) {
+  [data-mobile-panel][data-oppen] { display: block !important; }
+}
+
+/* =====================================================================
+   Cookiebanner
+   ---------------------------------------------------------------------
+   Bannern har inline-stilar från designen, och de vinner över vanliga
+   CSS-regler. Därför !important här — annars går delarna inte att dölja.
+   Att visa dem kräver inget: då låter vi designens egna display-värden
+   gälla.
+   ===================================================================== */
+
+[data-cookie-banner][hidden] { display: none !important; }
+
+/* Inställningarna syns först när man tryckt Anpassa. */
+[data-cookie-banner]:not([data-lage="installningar"]) [data-kategorier],
+[data-cookie-banner]:not([data-lage="installningar"]) [data-kategorier-knappar] {
+  display: none !important;
+}
+
+/* ...och då försvinner huvudvalet. */
+[data-cookie-banner][data-lage="installningar"] [data-huvudval] {
+  display: none !important;
+}
+
+/* På små skärmar ska bannern gå kant i kant längst ner. */
+@media (max-width: 599px) {
+  [data-cookie-banner] {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 0 !important;
+    max-height: 85vh !important;
+  }
+}
+
+/* =====================================================================
+   Prislistan
+   ---------------------------------------------------------------------
+   Filtret och utfällningarna sköttes av React i designen. Här bestäms
+   hur de ser ut; fp-prislista.js sköter klicken.
+
+   !important genomgående: knapparnas utseende ligger som inline-stilar
+   från designen, och bara en av de två varianterna (vald/ovald) finns
+   kvar i den statiska koden. Reglerna nedan normaliserar båda hållen så
+   att rätt knapp ser vald ut oavsett vad som råkade renderas.
+   ===================================================================== */
+
+[data-filter] {
+  background: transparent !important;
+  color: #3A3530 !important;
+  border: 1px solid #C8B5A2 !important;
+  font-weight: 500 !important;
+}
+[data-filter][data-aktiv] {
+  background: #3A3530 !important;
+  color: #F8F6F2 !important;
+  border-color: #3A3530 !important;
+  font-weight: 600 !important;
+}
+[data-filter]:hover { border-color: #3A3530 !important; }
+
+/* Bortfiltrerade tjänster och tomma grupper. */
+[data-tjanst][hidden], [data-grupp][hidden] { display: none !important; }
+
+/* Utfällningen under "Läs mer". */
+[data-mer-panel] { display: none !important; }
+[data-mer-panel][data-oppen] { display: flex !important; }
+
+/* =====================================================================
+   Rättningar efter genomgång på mobil 2026-09-30
+   ---------------------------------------------------------------------
+   Fyra fel Marie hittade i förhandsvisningen. Alla ligger här och inte i
+   designen, så att de läggs på automatiskt vid varje bygge.
+   ===================================================================== */
+
+/* --- 1. Bokningsknappen satt kant i kant mot innehållet ovanför ------ */
+[data-prisrad] {
+  margin-top: 40px !important;
+  padding-top: 8px;
+}
+
+/* --- 2. Startsidans första vy på mobil ------------------------------
+   Bilden tog så mycket höjd att ögonbryn, rubrik och brödtext hamnade
+   under vikningen. Telefonens adressfält och verktygsrad äter dessutom
+   omkring 150 px som en mätning i webbläsaren inte ser. Bilden kortas
+   och luften mellan bild och text stramas åt. */
+@media (max-width: 640px) {
+  section[data-hero] img {
+    height: 200px !important;
+    aspect-ratio: auto !important;
+    object-fit: cover !important;
+  }
+  section[data-hero] {
+    gap: 24px !important;
+    padding-bottom: 56px !important;
+  }
+}
+
+/* --- 3. Omdömeskarusellen -------------------------------------------
+   Korten var 838–2199 px höga eftersom de växte med textens längd.
+   Nu har alla samma mått, bilden ligger kant i kant överst, och den
+   text som inte får plats scrollar inuti kortet i stället för att
+   trycka ner hela sidan. */
+[data-omdomeskort] {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 460px !important;
+}
+[data-omdomesbild] {
+  flex: none !important;
+  display: block !important;
+  width: 100% !important;
+  height: 180px !important;
+  aspect-ratio: auto !important;
+  object-fit: cover !important;
+  margin: 0 !important;
+}
+[data-omdomestext] {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  padding: 24px 26px 26px !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+/* Diskret markering av att texten går att scrolla. */
+[data-omdomestext] { scrollbar-width: thin; scrollbar-color: rgba(58,53,48,0.25) transparent; }
+[data-omdomestext]::-webkit-scrollbar { width: 4px; }
+[data-omdomestext]::-webkit-scrollbar-thumb { background: rgba(58,53,48,0.25); border-radius: 2px; }
+
+@media (min-width: 900px) {
+  [data-omdomeskort] { height: 520px !important; }
+  [data-omdomesbild] { height: 220px !important; }
+}
+
+/* --- 4. Partnerkorten ------------------------------------------------
+   Kortet låg som en ljus platta ovanpå den mörkare sektionsfärgen, och
+   logotypen hade dessutom en egen ram. Två lager för mycket. Kortet blir
+   genomskinligt och ramen försvinner; multiply gör att logotypernas vita
+   bakgrund smälter in i sektionsfärgen i stället för att bli en vit ruta. */
+[data-partnerkort] { background: transparent !important; }
+[data-partnerlogga] {
+  border: 0 !important;
+  border-radius: 0 !important;
+  /* Får logotypens vita filbakgrund att smälta in i sektionsfärgen.
+     Används bara på kvadratiska logotyper — på ett fotografi skulle det
+     mörka ner bilden. */
+  mix-blend-mode: multiply;
+}
+
+/* Porträtt: bara ramen bort, ingen blandning och ingen ändrad bakgrund. */
+[data-personbild] {
+  border: 0 !important;
+}
+
+/* =====================================================================
+   Rättningar efter genomgång på mobil 2026-10-01
+   ===================================================================== */
+
+/* --- 1. Bildernas höjd ------------------------------------------------
+   Konverteraren skriver width och height på varje bild för att hindra
+   att layouten hoppar medan bilden laddar. Men sidans egen mobil-CSS
+   skriver om bredden till 100 %, och då stod höjdattributet kvar: en
+   bild på 612×765 blev 294×765 i stället för 294×367, och Klarna-märket
+   plattades till 150×26. height:auto låter webbläsaren räkna ut höjden
+   ur bildens riktiga proportion — attributen fyller fortfarande sin
+   uppgift som mått medan bilden laddar. */
+img[width][height] { height: auto; }
+
+/* Ingen bild ska äga hela mobilskärmen. */
+@media (max-width: 640px) {
+  img:not([data-omdomesbild]):not([data-partnerlogga]) {
+    max-height: 62vh;
+    object-fit: cover;
+  }
+}
+
+/* --- 2. Cookiereglagen ------------------------------------------------
+   Av-läget var inbakat som inline-färg från designen, så när skriptet
+   vippade aria-checked hände ingenting synligt. Valet registrerades,
+   men knappen såg död ut. Nu styrs både färg och knopp av tillståndet. */
+[data-kategori][aria-checked="false"] { background: #C8B5A2 !important; }
+[data-kategori][aria-checked="true"]  { background: #7E9680 !important; }
+[data-kategori] > span {
+  transition: left 0.16s ease;
+  left: 3px !important;
+}
+[data-kategori][aria-checked="true"] > span { left: 21px !important; }
+[data-kategori]:focus-visible { outline: 2px solid #3A3530; outline-offset: 2px; }
+
+/* --- 3. Ögonbrynet över karusellen ------------------------------------
+   Karusellsektionen fick padding-inline: 0 för att korten skulle nå
+   kanten. Det tog även bort marginalen för rubriken ovanför, som hamnade
+   på 0 px medan alla andra ögonbryn låg på 48. Nu följer både rubrik och
+   kort sektionens vanliga marginal. */
+[data-karusell-yta] { max-width: 100% !important; }
+[data-karusell][data-karusell][data-karusell] { padding-inline: 0 !important; }
+[data-karusell][data-karusell][data-karusell] { scroll-padding-left: 0; }
+
+/* --- 4. Stora kursiva citat på mobil ---------------------------------- */
+@media (max-width: 640px) {
+  [data-stortcitat] {
+    font-size: 22px !important;
+    line-height: 1.5 !important;
+  }
+}
+
+/* Ögonbrynet och korten i linje med sektionerna omkring.
+   Karusellsektionen har bara en nivå av marginal, medan övriga sektioner
+   har två (sektionen 24 px + innehållsytan 24 px = 48). Här läggs den
+   saknade nivån till så att rubriken hamnar på samma linje som alla andra. */
+[data-karusell-rubrik] { padding-inline: 24px !important; }
+/* Korten börjar i linje med rubriken: sektionens egen marginal saknas
+   här, så hela avståndet läggs på karusellen. */
+[data-karusell][data-karusell][data-karusell] { padding-inline: 48px !important; }
+@media (min-width: 901px) {
+  [data-karusell-rubrik] { padding-inline: 40px !important; }
+  [data-karusell][data-karusell][data-karusell] { padding-inline: 80px !important; }
+}
+
+/* =====================================================================
+   Omdömen, omgjort 2026-10-01
+   ---------------------------------------------------------------------
+   Det som stod här innan gav alla kort samma höjd och lät den text som
+   inte fick plats scrolla inuti kortet. Höjdskillnaden försvann, men ett
+   värre problem tog dess plats: en 300 px hög ruta med 700 px text i,
+   utan synlig rullningslist, inuti en karusell som också scrollar.
+
+   Marijas omdöme visade mindre än halva texten. Ingenting på skärmen
+   berättade att resten fanns. Alla fyra korten var klippta — även det
+   kortaste, med tio pixlar.
+
+   Tre ändringar:
+
+   1. Ingenting döljs. Varken scroll inuti kortet eller kapning med "…".
+      Ett avklippt omdöme ser oavslutat ut, och det var hela poängen med
+      omdömet från början — att man ska kunna läsa klart det.
+
+   2. Ingen fast korthöjd, och inga sträckta kort. Varje kort är så högt
+      som sin egen text. Ett sträckt kort får tom kortyta i botten när
+      grannen är längre, och tom kortyta ser ut som ett fel; ett kort som
+      slutar där texten slutar gör det inte.
+
+   3. På skärmar över 900 px är det ingen karusell. Det finns fyra
+      omdömen; de får plats två och två. Då är ingenting klippt i sidled
+      heller, och den halvsynliga kanten som såg ut som ett fel är borta.
+      Karusellen är kvar på mobil, där den hör hemma.
+
+   Knappen "Läs alla omdömen" under korten står kvar. Den leder till
+   sidan med alla omdömen — inte till resten av en avklippt mening.
+
+   Blocket ligger sist i filen med flit: det ska väga tyngre än
+   karusellreglerna längre upp.
+   ===================================================================== */
+
+[data-omdomeskort] { height: auto !important; }
+[data-omdomestext] { overflow: visible !important; }
+
+/* Ingen kapning. Ett omdöme som slutar med "…" ser oavslutat ut, och det
+   var hela invändningen mot den gamla lösningen: man vill kunna läsa klart
+   det som står. Korten får i stället vara så höga som texten kräver.
+   Knappen under korten är kvar — den leder till sidan med alla omdömen,
+   inte till resten av ett avklippt stycke. */
+
+/* Raden under korten bär länken. Pilarna sitter inte här utan på
+   sektionens kanter — se nedan. Raden byggs av fp-omdomen.js; finns inte
+   skriptet står länken ensam och stilarna skadar inget. */
+[data-omdomesrad] {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 24px 0 0;
+}
+
+/* Pilarna ligger ovanpå kortens vänstra och högra kant, lodrätt mitt för
+   kortet. Höjden sätts av fp-omdomen.js, som mäter karusellen — den är
+   olika hög i olika bredder och ett tal i CSS hade bara kunnat bli fel.
+
+   De låg först under korten, bredvid länken. Då hamnade de utanför
+   skärmen tillsammans med kortets nederkant, och syntes inte förrän man
+   redan scrollat förbi det man skulle scrolla i. */
+[data-karusell-yta] { position: relative; }
+
+[data-omdomesknappar] {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;   /* bara knapparna ska fånga klick, inte ytan */
+  z-index: 2;
+}
+[data-omdomesrad][data-kan-scrolla="nej"] [data-omdomesknappar] { display: none; }
+
+/* Bara pilen, ingen cirkel. Ytan är ändå 44 px så att den går att träffa
+   med tummen — det är bakgrunden som är borta, inte träffytan. */
+[data-omdomespil] {
+  pointer-events: auto;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: rgb(58, 53, 48);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transform: translateY(-50%);
+  transition: opacity .15s;
+}
+/* Pilen byter inte färg vid hover. Den ska se likadan ut hela tiden. */
+[data-omdomespil]:disabled { opacity: 0; pointer-events: none; }
+/* Fokusringen finns kvar för den som navigerar med tangentbord, men i
+   pilens egen färg — inget på knappen blir grönt. */
+[data-omdomespil]:focus-visible { outline: 2px solid rgb(58, 53, 48); outline-offset: 2px; }
+
+/* Länken under korten. */
+[data-omdomeslank] {
+  display: block;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgb(126, 150, 128);
+  text-decoration: none;
+}
+[data-omdomeslank]:hover { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  /* Karusellen är kvar här: ett omdöme i taget är rätt på en telefon.
+
+     Priset är att alla fyra korten ligger i EN rad, och en rad är lika
+     hög som sitt högsta kort. Tre saker håller den höjden nere:
+
+     1. Mindre text i just omdömena (14px/1.6 i stället för 16/1.75).
+        Det är det enda stället på sajten där storleken ändras.
+     2. Bilden får ta den höjd som blir över i de korta korten, i stället
+        för att lämna tom kortyta i botten. Den har tak så att den inte
+        beskärs till en smal remsa.
+     3. Det längsta omdömet ligger som nummer två (se ORDNINGEN nedan),
+        så att det första kortet man möter är ett kort man hinner läsa. */
+  [data-karusell][data-karusell][data-karusell] { align-items: stretch !important; }
+
+  /* Luften i de korta korten läggs jämnt över och under texten, i
+     stället för att samlas i botten. Ett kort med lika mycket luft runt
+     texten ser luftigt ut; samma luft i en klump under texten ser ut som
+     att något fattas. */
+  [data-omdomestext] {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    flex: 1 1 auto !important;
+  }
+  [data-omdomestext] > p + p {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Bilden tar en del av överskottet, men inte allt. Utan tak växte det
+     kortaste kortets bild till 490 px: en 16:9-bild beskuren till en hög
+     smal remsa, där motivet kan hamna utanför. 300 px är ungefär en
+     kvadrat på ett 320 px brett kort. */
+  [data-omdomesbild] {
+    flex: 1 1 auto !important;
+    height: auto !important;
+    min-height: 180px !important;
+    max-height: 300px !important;
+  }
+
+  [data-omdomesrad] { padding-inline: 24px; padding-block: 0 !important; margin-top: 20px !important; }
+
+  /* 256 px ren luft, borttagen.
+
+     Sidans egen CSS ger sektionens barn `padding: 64px 24px` på mobil.
+     Karusellen fick därmed 64 px över och under korten, och raden under
+     dem lika mycket — nästan en tredjedels skärm luft som ingen bett om.
+     Sektionens egen luft dras samtidigt ner från 64 till 48. */
+  [data-karusell-yta] { padding-block: 48px !important; }
+  [data-karusell][data-karusell][data-karusell] { padding-block: 0 8px !important; }
+
+  /* DET LÄNGSTA OMDÖMET VISAS INTE HÄR.
+
+     Marijas omdöme är 936 tecken — 2,7 gånger de andra — och sätter hela
+     karusellradens höjd, eftersom en rad alltid är lika hög som sitt
+     högsta kort. Med det kortet med blir sektionen 983 px och ryms inte
+     på en telefonskärm; utan det blir den 670 px och gör det.
+
+     Det går inte förlorat: knappen "Läs alla omdömen" leder till
+     /pages/omdomen där alla fyra står hela. På dator visas alla fyra.
+
+     OBS: regeln pekar ut kort nummer tre i markupen. Byts omdömena ut är
+     det inte längre det längsta — kontrollera då vilket som är det. */
+  [data-omdomeskort]:nth-of-type(3) { display: none !important; }
+}
+
+/* ORDNINGEN: det längsta omdömet sist.
+
+   I 2×2-rutnätet på dator är korten i en rad olika höga, och det korta
+   kortet slutar där texten slutar. Låg det långa omdömet som nummer två
+   blev det ett hål mitt i rutnätet, under kortet bredvid. Sist blir den
+   ojämna kanten i stället rutnätets underkant, där den läses som ett
+   avslut och inte som ett fel.
+
+   En enda regel räcker: alla kort har order 0 från början, så det kort
+   som får order 1 hamnar sist och de övriga behåller sin inbördes
+   ordning. Ordningen sätts i CSS och inte i markupen, eftersom markupen
+   kommer från Claude Design och skrivs över vid varje bygge.
+
+   På mobil är kortet dolt, så regeln gör ingen skillnad där. */
+[data-omdomeskort]:nth-of-type(3) { order: 1; }
+
+@media (min-width: 901px) {
+  /* Ingen karusell: fyra kort, två kolumner, allt synligt. */
+  [data-karusell][data-karusell][data-karusell] {
+    grid-auto-flow: row !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-auto-columns: auto !important;
+    align-items: start !important;
+    gap: 32px !important;
+    overflow-x: visible !important;
+    scroll-snap-type: none !important;
+    padding-inline: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  /* Inga sträckta kort. Ett sträckt kort får tom kortyta i botten när
+     grannen är längre, och tom kortyta ser ut som ett fel. Ett kort som
+     slutar där texten slutar gör det inte. */
+  /* Sektionen får tillbaka sin vanliga bredd; den gjordes helbred för
+     att karusellen skulle kunna gå ut i kanterna. */
+  [data-karusell-yta] { max-width: 1600px !important; }
+  [data-karusell-rubrik] { padding-inline: 0 !important; }
+}
