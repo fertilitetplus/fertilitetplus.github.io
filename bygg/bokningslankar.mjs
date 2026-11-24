@@ -44,9 +44,18 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-/** Bokningsadress med valfritt #step-N på slutet. */
-const BOKNING = /(https:\/\/patient\.nu\/portal\/public\/calendar\/[0-9a-fA-F-]{36})(#step-\d+)?/g;
+/** Bokningsadress med valfritt #step-N på slutet.
+ *
+ * Två sorter sedan 24 november 2026:
+ *   …/calendar/<kalender>#step-1           hela tidboken, börjar på "Välj typ"
+ *   …/calendar/<kalender>/<tidstyp>#step-3  en enda tidstyp, rakt till tiderna
+ *
+ * Den andra sorten väljer tidstypen i adressen. Den ska ha #step-3: med
+ * #step-1 visas "Välj typ" igen. Provat som ny besökare 24/11. Utan steg
+ * skickar patient.nu själv vidare till #step-3. */
+const BOKNING = /(https:\/\/patient\.nu\/portal\/public\/calendar\/[0-9a-fA-F-]{36})(\/\d+)?(#step-\d+)?/g;
 const RATT = "#step-1";
+const RATT_TYP = "#step-3";
 
 async function* filer(katalog) {
   for (const p of await fs.readdir(katalog, { withFileTypes: true })) {
@@ -67,14 +76,16 @@ export async function normaliseraBokningslankar(rot = ".") {
   for await (const fil of filer(rot)) {
     const fore = await fs.readFile(fil, "utf8");
 
-    const efter = fore.replace(BOKNING, (hel, adress, steg) => {
-      if (steg === RATT) return hel;
+    const efter = fore.replace(BOKNING, (hel, adress, typ, steg) => {
+      const ratt = typ ? RATT_TYP : RATT;
+      if (steg === ratt) return hel;
       rapport.push({
         fil: path.relative(rot, fil),
-        kalender: adress.slice(-36),
+        kalender: adress.slice(-36) + (typ || ""),
         fran: steg ?? "(inget steg)",
+        till: ratt,
       });
-      return adress + RATT;
+      return adress + (typ || "") + ratt;
     });
 
     if (efter !== fore) await fs.writeFile(fil, efter, "utf8");

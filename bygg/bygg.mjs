@@ -98,13 +98,24 @@ try {
   console.log(`remissidor:          HOPPADES ÖVER — ${e.message}`);
 }
 
+/* 2b. Nya bokningssidan -------------------------------------------
+   Förslag A. Mittpartiet byggs i bygg-bokasidan.mjs, skalet tas ur den
+   byggda Boka tid-sidan. Måste köras före bokningslänkarna nedan. */
+try {
+  const { byggBokasidan } = await import(path.join(HÄR, "..", "bygg-bokasidan.mjs"));
+  const r = await byggBokasidan(UT);
+  console.log(`bokningssidan:       ${r.fil}`);
+} catch (e) {
+  console.log(`bokningssidan:       HOPPADES ÖVER — ${e.message}`);
+}
+
 /* 3. Bokningslänkarna ----------------------------------------------- */
 const bokningar = await normaliseraBokningslankar(UT);
 if (!bokningar.length) {
-  console.log("bokningslänkar:      alla pekar redan på #step-1");
+  console.log("bokningslänkar:      alla har rätt steg (#step-1, eller #step-3 för direktlänk till tidstyp)");
 } else {
   console.log(`bokningslänkar:      ${bokningar.length} RÄTTADE — felet står kvar i Claude Design:`);
-  for (const b of bokningar) console.log(`   ${b.fil}  ${b.kalender}  ${b.fran} → #step-1`);
+  for (const b of bokningar) console.log(`   ${b.fil}  ${b.kalender}  ${b.fran} → ${b.till}`);
 }
 
 /* 4. Kartan --------------------------------------------------------- */
