@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="sv"><head><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>x-dc{display:none!important}</style>
+<style></style><style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F8F6F2;color:#3A3530;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:#7E9680}
+  a:hover{color:#3A3530}
+  ul{margin:0;padding:0;list-style:none}
+  @media (max-width: 960px) {
+    header nav[data-desktop-nav] { display: none !important; }
+    header button[data-mobile-toggle] { display: flex !important; }
+  }
+  @media (max-width: 900px) {
+    [style*="grid-template-columns"]:not([style*="auto-fit"]) { grid-template-columns: 1fr !important; }
+    section, section > div, header > div, footer > div { padding-left: 24px !important; padding-right: 24px !important; }
+    section[data-hero] { padding-top: 0 !important; gap: 32px !important; }
+    section[data-hero] > img { order: -1; width: calc(100% + 48px) !important; max-width: none !important; margin: 0 -24px; border-radius: 0 !important; aspect-ratio: 16/9 !important; }
+  }
+  @media (max-width: 640px) {
+    [data-cookie-banner] { left: 0 !important; bottom: 0 !important; width: 100% !important; max-width: none !important; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+    header [data-cart-label] { display: none !important; }
+    header [data-header-actions] { gap: 8px !important; }
+    header [data-book] { padding: 11px 14px !important; }
+    h1 { font-size: 40px !important; line-height: 1.08 !important; }
+    h2:not([data-h3-style]) { font-size: 28px !important; line-height: 1.2 !important; }
+    h2[style*="font-size: 28px"] { font-size: 24px !important; line-height: 1.3 !important; }
+    h3, h2[data-h3-style] { font-size: 18px !important; }
+    section, section > div { padding-top: 64px !important; padding-bottom: 64px !important; }
+    section[data-hero] { padding-top: 0 !important; }
+    img[style*="aspect-ratio"] { width: 100% !important; }
+  }
+</style>
+<title>Boka tid | FertilitetPlus</title>
+<meta name="description" content="Välj klinik och tjänst och boka direkt i vår kalender. Ingen remiss, inga väntetider.">
+<link rel="canonical" href="https://fertilitetplus.se/pages/boka-tid">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:site_name" content="FertilitetPlus">
+<meta property="og:title" content="Boka tid | FertilitetPlus">
+<meta property="og:description" content="Välj klinik och tjänst och boka direkt i vår kalender. Ingen remiss, inga väntetider.">
+<meta property="og:url" content="https://fertilitetplus.se/pages/boka-tid">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/typsnitt/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/typsnitt/cormorant-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fp-typsnitt.css">
+<link rel="stylesheet" href="/fp-fixar.css">
+<script src="/fp-samtycke.js"></script>
+<script>(function(w,d,s,l,i){if(["fertilitetplus.se","www.fertilitetplus.se"].indexOf(location.hostname)<0)return;
+w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KVBBJLL');</script>
+<script src="/fp-meny.js" defer></script>
+<script src="/fp-korg.js" defer></script>
+<script src="https://chatt.varden.se/widget-embed.js" widget-id="fertilitetplus.se"></script>
+<script src="/fp-chatt.js" defer></script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVBBJLL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id="dc-root"><div class="sc-host" data-sc-name="Boka-tid"><template id="__bundler_thumbnail"></template><div class="sc-host" data-sc-name="Sidhuvud"><template id="__bundler_thumbnail"></template><header style="position: sticky; top: 0px; z-index: 50; background: rgba(248, 246, 242, 0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgb(235, 231, 225); font-family: &quot;Plus Jakarta Sans&quot;, system-ui, sans-serif;">
+  <div style="max-width: 1600px; margin: 0px auto; padding: 16px 40px; min-height: 84px; display: flex; align-items: center; gap: 24px; flex-wrap: nowrap;">
+    <a href="/" style="display: flex; align-items: center; gap: 14px; color: rgb(58, 53, 48); text-decoration: none; flex: 0 0 auto;">
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none" style="flex: 0 0 auto; display: block;">
+        <circle cx="19" cy="19" r="17.5" stroke="#7E9680" stroke-width="1.2" fill="none"></circle>
+        <line x1="19" y1="10" x2="19" y2="28" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+        <line x1="10" y1="19" x2="28" y2="19" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+      </svg>
+      <span style="display: flex; flex-direction: column; line-height: 1;">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.23em; text-transform: uppercase; color: rgb(58, 53, 48);">Fertilitet</span>
+        <span style="font-size: 13px; font-weight: 300; letter-spacing: 0.5em; text-transform: uppercase; color: rgb(126, 150, 128); margin-top: 5px;">Plus</span>
+      </span>
+    </a>
+
+    <div data-header-actions="true" style="margin-left: auto; display: flex; align-items: center; gap: 20px; flex-wrap: nowrap;">
+      <nav data-desktop-nav="true" style="display: flex; align-items: center; gap: 2px; position: relative; flex-wrap: nowrap;">
+        <div style="position: relative;" data-meny-grupp="">
+          <button class="scp3" style="display: flex; align-items: center; gap: 6px; background: none; border: 0px; padding: 12px 10px; font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); cursor: pointer; white-space: nowrap;" aria-haspopup="true" aria-expanded="false">Om oss<svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="display: block; flex: 0 0 auto;"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+          
+        <div style="position: absolute; top: 100%; left: 0px; min-width: 250px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); box-shadow: rgba(58, 53, 48, 0.24) 0px 20px 44px -20px; padding: 10px;" data-meny-panel="">
+              <ul style="display: flex; flex-direction: column; margin: 0px; padding: 0px; list-style: none;">
+                <li><a href="/pages/fertilitetplus" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">FertilitetPlus</a></li>
+                <li><a href="/pages/samarbeten" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Våra samarbeten</a></li>
+                <li><a href="/pages/omdomen" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Omdömen</a></li>
+                <li><a href="/pages/kontakt" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Kontakt</a></li>
+              </ul>
+            </div></div>
+
+        <div style="position: relative;" data-meny-grupp="">
+          <button class="scp3" style="display: flex; align-items: center; gap: 6px; background: none; border: 0px; padding: 12px 10px; font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); cursor: pointer; white-space: nowrap;" aria-haspopup="true" aria-expanded="false">Utredning &amp; behandling<svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="display: block; flex: 0 0 auto;"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+          
+        <div style="position: absolute; top: 100%; left: 0px; min-width: 360px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); box-shadow: rgba(58, 53, 48, 0.24) 0px 20px 44px -20px; padding: 10px;" data-meny-panel="">
+              <ul style="display: flex; flex-direction: column; margin: 0px; padding: 0px; list-style: none;">
+                <li><a href="/pages/prislista" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;"><strong style="font-weight: 600;">Alla behandlingar och priser</strong></a></li>
+                <li><a href="/pages/fertilitetsutredning" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Fertilitetsutredning</a></li>
+                <li><a href="/pages/immunsuppression" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Autoimmuna sjukdomar och fertilitet</a></li>
+                <li><a href="/pages/lakarkonsultation-och-ultraljud" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Ultraljud/läkarkonsultation under graviditet</a></li>
+                <li><a href="/pages/autoimmuna-sjukdomar-och-graviditet" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Sköldkörtelproblematik i fertil ålder</a></li>
+                <li><a href="/pages/lakarkonsultation-och-ultraljud-infor-graviditet" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Ultraljud/läkarkonsultation inför graviditet</a></li>
+                <li><a href="/pages/spermaprov" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Spermaprov</a></li>
+                <li><a href="/pages/provtagning-infor-behandling-utomlands" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">IVF &amp; utlandsbehandlingar</a></li>
+                <li><a href="/pages/nipt-test" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Fostertest NIPT</a></li>
+                <li><a href="/pages/nyhet-dropp" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Vitamindropp</a></li>
+              </ul>
+            </div></div>
+
+        <div style="position: relative;" data-meny-grupp="">
+          <button class="scp3" style="display: flex; align-items: center; gap: 6px; background: none; border: 0px; padding: 12px 10px; font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); cursor: pointer; white-space: nowrap;" aria-haspopup="true" aria-expanded="false">Kunskap &amp; stöd<svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="display: block; flex: 0 0 auto;"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+          
+        <div style="position: absolute; top: 100%; left: 0px; min-width: 270px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); box-shadow: rgba(58, 53, 48, 0.24) 0px 20px 44px -20px; padding: 10px;" data-meny-panel="">
+              <ul style="display: flex; flex-direction: column; margin: 0px; padding: 0px; list-style: none;">
+                <li><a href="https://shop.fertilitetplus.se/blogs/news" target="_blank" rel="noopener" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Artiklar</a></li>
+                <li><a href="/pages/om-fertilitet" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Vanliga frågor</a></li>
+                <li><a href="/pages/fertilitet-efter-40" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Barnlängtan efter 40</a></li>
+                <li><a href="/pages/skaffa-barn-sjalv" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Skaffa barn på egen hand</a></li>
+                <li><a href="/pages/immunsuppression" class="scp5" style="display: block; padding: 10px 14px; font-size: 14px; color: rgb(58, 53, 48); text-decoration: none;">Missfall</a></li>
+              </ul>
+            </div></div>
+
+        <div>
+          <a href="/pages/prislista" class="scp3" style="display: block; padding: 12px 10px; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); text-decoration: none; white-space: nowrap;">Prislista</a>
+        </div>
+        <div>
+          <a href="/collections/all" class="scp3" style="display: block; padding: 12px 10px; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: rgb(58, 53, 48); text-decoration: none; white-space: nowrap;">Produkter</a>
+        </div>
+      </nav>
+
+      <a data-book="true" href="/pages/boka-tid" class="scp6" style="flex: 0 0 auto; background: rgb(58, 53, 48); color: rgb(248, 246, 242); padding: 12px 22px; border-radius: 4px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.05em; text-decoration: none; white-space: nowrap;">Boka här</a>
+
+      <a href="https://shop.fertilitetplus.se/cart" target="_blank" rel="noopener" aria-label="Varukorg" class="scp7" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 44px; height: 44px; padding: 0px 14px; border: 1px solid rgb(235, 231, 225); border-radius: 4px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.05em; color: rgb(58, 53, 48); text-decoration: none; white-space: nowrap;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="display: block; flex: 0 0 auto;"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg><span data-cart-label="true">Varukorg</span></a>
+
+      <button data-mobile-toggle="true" aria-label="Meny" style="display: none; align-items: center; justify-content: center; gap: 5px; flex-direction: column; width: 44px; height: 44px; background: none; border: 1px solid rgb(235, 231, 225); border-radius: 4px; cursor: pointer; flex: 0 0 auto;">
+        <span style="display: block; width: 18px; height: 1.5px; background: rgb(58, 53, 48);"></span>
+        <span style="display: block; width: 18px; height: 1.5px; background: rgb(58, 53, 48);"></span>
+        <span style="display: block; width: 18px; height: 1.5px; background: rgb(58, 53, 48);"></span>
+      </button>
+    </div>
+  </div>
+
+  
+    <nav data-mobile-panel="true" style="border-top: 1px solid rgb(235, 231, 225); background: rgb(248, 246, 242); padding: 16px 20px 28px; max-height: 70vh; overflow-y: auto;">
+      <p style="margin: 0px 0px 10px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: rgb(126, 150, 128);">Om oss</p>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 22px; padding: 0px; list-style: none;">
+        <li><a href="/pages/fertilitetplus" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">FertilitetPlus</a></li>
+        <li><a href="/pages/samarbeten" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Våra samarbeten</a></li>
+        <li><a href="/pages/omdomen" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Omdömen</a></li>
+        <li><a href="/pages/kontakt" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Kontakt</a></li>
+      </ul>
+      <p style="margin: 0px 0px 10px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: rgb(126, 150, 128);">Utredning &amp; behandling</p>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 22px; padding: 0px; list-style: none;">
+        <li><a href="/pages/prislista" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);"><strong style="font-weight: 600;">Alla behandlingar och priser</strong></a></li>
+        <li><a href="/pages/fertilitetsutredning" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Fertilitetsutredning</a></li>
+        <li><a href="/pages/immunsuppression" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Autoimmuna sjukdomar och fertilitet</a></li>
+        <li><a href="/pages/lakarkonsultation-och-ultraljud" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Ultraljud under graviditet</a></li>
+        <li><a href="/pages/autoimmuna-sjukdomar-och-graviditet" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Sköldkörtelproblematik</a></li>
+        <li><a href="/pages/lakarkonsultation-och-ultraljud-infor-graviditet" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Ultraljud inför graviditet</a></li>
+        <li><a href="/pages/spermaprov" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Spermaprov</a></li>
+        <li><a href="/pages/provtagning-infor-behandling-utomlands" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">IVF &amp; utlandsbehandlingar</a></li>
+        <li><a href="/pages/nipt-test" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Fostertest NIPT</a></li>
+        <li><a href="/pages/nyhet-dropp" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Vitamindropp</a></li>
+      </ul>
+      <p style="margin: 0px 0px 10px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: rgb(126, 150, 128);">Kunskap &amp; stöd</p>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 22px; padding: 0px; list-style: none;">
+        <li><a href="https://shop.fertilitetplus.se/blogs/news" target="_blank" rel="noopener" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Artiklar</a></li>
+        <li><a href="/pages/om-fertilitet" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Vanliga frågor</a></li>
+        <li><a href="/pages/fertilitet-efter-40" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Barnlängtan efter 40</a></li>
+        <li><a href="/pages/skaffa-barn-sjalv" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Skaffa barn på egen hand</a></li>
+        <li><a href="/pages/immunsuppression" style="display: block; padding: 11px 0px; font-size: 16px; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Missfall</a></li>
+      </ul>
+      <ul style="display: flex; flex-direction: column; gap: 1px; margin: 0px 0px 24px; padding: 0px; list-style: none; border-top: 1px solid rgb(235, 231, 225);">
+        <li><a href="/pages/prislista" style="display: block; padding: 13px 0px; font-size: 16px; font-weight: 600; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Prislista</a></li>
+        <li><a href="/collections/all" style="display: block; padding: 13px 0px; font-size: 16px; font-weight: 600; color: rgb(58, 53, 48); text-decoration: none; border-bottom: 1px solid rgb(235, 231, 225);">Produkter</a></li>
+      </ul>
+      <a href="/pages/boka-tid" style="display: block; text-align: center; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 16px 24px; border-radius: 4px; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none;">Boka här</a>
+    </nav>
+  </header></div>
+<div id="fp-boka" data-klinik="sthlm">
+<style>
+#fp-boka{--kol:#3A3530;--linne:#F8F6F2;--sten:#EBE7E1;--salvia:#7E9680;--morksalvia:#566B59;--text2:#57524D;--text3:#615B55;--linje:#E4E1DB;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--kol);background:var(--linne)}
+#fp-boka *{box-sizing:border-box}
+#fp-boka a{color:var(--kol)}
+#fp-boka .fpb-wrap{max-width:1200px;margin:0 auto;padding:28px 20px 8px}
+#fp-boka .fpb-etikett{margin:0;font-size:12px;letter-spacing:.18em;font-weight:600;color:var(--morksalvia);text-transform:uppercase}
+#fp-boka h1{margin:10px 0 0;font-family:Cormorant,Georgia,serif;font-style:italic;font-weight:400;font-size:40px!important;line-height:1.05!important;letter-spacing:-.01em}
+#fp-boka .fpb-intro{margin:10px 0 0;font-size:16px;line-height:1.5;color:var(--text2);max-width:36em}
+#fp-boka .fpb-steg{margin:16px 0 0;padding:0;list-style:none;display:flex;gap:6px;font-size:13px;color:#3E3934}
+#fp-boka .fpb-steg li{flex:1;padding:8px 10px;background:var(--sten);border-radius:8px}
+#fp-boka .fpb-steg strong{font-weight:600}
+#fp-boka .fpb-klinik{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+#fp-boka .fpb-klinikrubrik{display:none;font-size:14px;font-weight:600}
+#fp-boka .fpb-seg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:4px;background:var(--sten);border-radius:12px}
+#fp-boka .fpb-seg button{min-height:44px;border:0;border-radius:9px;font:inherit;font-size:15px;font-weight:500;cursor:pointer;background:transparent;color:var(--text2)}
+#fp-boka .fpb-seg button[aria-pressed="true"]{background:#fff;color:var(--kol);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+#fp-boka .fpb-seg button:focus-visible,#fp-boka a:focus-visible,#fp-boka summary:focus-visible{outline:2px solid var(--kol);outline-offset:2px}
+#fp-boka .fpb-plats{display:flex;gap:8px;font-size:14px;line-height:1.45;color:var(--text2)}
+#fp-boka .fpb-plats svg{flex:none;margin-top:2px}
+#fp-boka[data-klinik="sthlm"] [data-visa="gbg"],#fp-boka[data-klinik="gbg"] [data-visa="sthlm"]{display:none}
+#fp-boka .fpb-lista{margin-top:24px}
+#fp-boka h2.fpb-sm{margin:0 0 6px;font-size:13px!important;line-height:1.4!important;letter-spacing:.14em;font-weight:600;color:var(--morksalvia);text-transform:uppercase}
+#fp-boka .fpb-rader{list-style:none;margin:0;padding:0;border-top:1px solid var(--linje)}
+#fp-boka .fpb-rad{border-bottom:1px solid var(--linje)}
+#fp-boka .fpb-radknapp{display:flex;align-items:center;gap:14px;padding:18px 0;text-decoration:none;min-height:44px}
+#fp-boka .fpb-radtext{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+#fp-boka .fpb-namn{font-size:17px;font-weight:500}
+#fp-boka .fpb-kort{font-size:14px;line-height:1.4;color:var(--text3)}
+#fp-boka .fpb-pris{font-size:14px;margin-top:2px}
+#fp-boka .fpb-pris strong{font-weight:600}
+#fp-boka .fpb-pris span{color:var(--text3);margin-left:8px}
+#fp-boka .fpb-bara{display:none;align-self:flex-start;margin-top:4px;font-size:12px;font-weight:500;color:#8A4B2E;background:#F4E6DD;padding:3px 8px;border-radius:99px}
+#fp-boka[data-klinik="gbg"] [data-bara-sthlm]{opacity:.6}
+#fp-boka[data-klinik="gbg"] [data-bara-sthlm] .fpb-bara{display:inline-block}
+#fp-boka[data-klinik="gbg"] [data-bara-sthlm] .fpb-radknapp{pointer-events:none;cursor:default}
+#fp-boka[data-klinik="gbg"] [data-bara-sthlm] .fpb-pil{visibility:hidden}
+#fp-boka .fpb-ikon{flex:none;display:flex}
+#fp-boka .fpb-plus{display:none;width:20px;text-align:center;font-size:22px;font-weight:300;color:var(--morksalvia)}
+#fp-boka .fpb-plus::before{content:"+"}
+#fp-boka [aria-expanded="true"] .fpb-plus::before{content:"–"}
+#fp-boka .fpb-allalank{margin-top:14px;font-size:15px;font-weight:500;min-height:44px;display:inline-flex;align-items:center;text-underline-offset:4px}
+#fp-boka .fpb-osaker{margin-top:16px;padding:22px 20px;background:#E6ECE5;border-radius:16px;display:flex;flex-direction:column;gap:12px}
+#fp-boka .fpb-osaker h2{margin:0;font-family:Cormorant,Georgia,serif;font-style:italic;font-weight:400;font-size:28px!important;line-height:1.1!important}
+#fp-boka .fpb-osaker p{margin:0;font-size:15px;line-height:1.5;color:#3E4A40}
+#fp-boka .fpb-knapp{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:0 18px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:500;border:1px solid var(--kol)}
+#fp-boka .fpb-knapp.fyllt{background:var(--kol);color:#F8F6F2}
+#fp-boka .fpb-knapp.fyllt span:last-child{opacity:.85;font-weight:400}
+#fp-boka .fpb-knapp:not(.fyllt) span:last-child{font-weight:400}
+#fp-boka .fpb-veta{margin-top:32px}
+#fp-boka .fpb-veta details{border-bottom:1px solid var(--linje)}
+#fp-boka .fpb-veta summary{list-style:none;min-height:56px;padding:14px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:16px;font-weight:500;cursor:pointer}
+#fp-boka .fpb-veta summary::-webkit-details-marker{display:none}
+#fp-boka .fpb-veta summary::after{content:"+";font-size:20px;font-weight:300;color:var(--morksalvia)}
+#fp-boka .fpb-veta details[open] summary::after{content:"–"}
+#fp-boka .fpb-veta details p{margin:0 0 16px;font-size:15px;line-height:1.55;color:var(--text2)}
+#fp-boka .fpb-trygg{margin-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#fp-boka .fpb-trygg div{display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;font-size:13px;line-height:1.35;color:#3E3934}
+#fp-boka .fpb-kliniker{margin-top:32px;padding-bottom:40px;display:flex;flex-direction:column;gap:12px}
+#fp-boka .fpb-kortklinik{padding:18px;background:#fff;border:1px solid var(--linje);border-radius:14px;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:1.5;color:var(--text2)}
+#fp-boka .fpb-kortklinik strong{font-size:17px;font-weight:500;color:var(--kol)}
+#fp-boka .fpb-kortklinik a{margin-top:6px;font-weight:500;min-height:44px;display:inline-flex;align-items:center}
+#fp-boka .fpb-betala{margin:8px 0 0;font-size:14px;line-height:1.5;color:var(--text2)}
+#fp-boka .fpb-betala a{font-weight:500}
+/* Panelinnehåll, används både i arket och i dragspelet */
+#fp-boka .fpb-info{display:flex;flex-direction:column;gap:14px}
+#fp-boka .fpb-fakta{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:15px}
+#fp-boka .fpb-fakta strong{font-weight:600}
+#fp-boka .fpb-fakta span{color:var(--text3)}
+#fp-boka .fpb-info h3{margin:0 0 6px;font-size:15px!important;font-weight:600}
+#fp-boka .fpb-knapp span:last-child{white-space:nowrap}
+#fp-boka .fpb-knapp{padding-top:10px;padding-bottom:10px}
+#fp-boka .fpb-dator{display:none}
+#fp-boka .fpb-info p{margin:0;font-size:15px;line-height:1.5;color:var(--text2)}
+#fp-boka .fpb-regel{padding:14px 16px;background:#FBF1E8;border-radius:12px;display:flex;gap:12px;align-items:flex-start}
+#fp-boka .fpb-regel p{color:#4A2A1B}
+#fp-boka .fpb-regel strong{font-weight:600}
+#fp-boka .fpb-info ol{margin:0;padding-left:20px;font-size:15px;line-height:1.55;color:var(--text2)}
+#fp-boka .fpb-info ol strong{font-weight:600;color:var(--kol)}
+#fp-boka .fpb-villkor{font-size:13px!important;color:var(--text3)!important;margin-top:4px!important}
+#fp-boka .fpb-boka svg{flex:none}
+#fp-boka .fpb-boka{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:0 24px;background:var(--kol);color:#fff!important;border-radius:12px;text-decoration:none;font-size:16px;font-weight:500}
+#fp-boka .fpb-ring{margin:-4px 0 0;text-align:center;font-size:14px;color:var(--text3)}
+#fp-boka .fpb-bokval{display:flex;flex-direction:column;gap:8px}
+#fp-boka .fpb-knappnamn{margin:-2px 0 6px!important;font-size:13px!important;color:var(--text3)!important;text-align:center}
+#fp-boka .fpb-knappnamn strong{color:var(--kol)}
+#fp-boka .fpb-ring a{font-weight:600}
+/* Bottenarket på mobil */
+#fp-boka dialog.fpb-ark{margin:auto 0 0;padding:0;width:100%;max-width:100%;max-height:calc(100dvh - 40px);border:0;border-radius:20px 20px 0 0;background:#fff;color:var(--kol)}
+#fp-boka dialog.fpb-ark::backdrop{background:rgba(47,43,40,.45)}
+#fp-boka .fpb-arkinre{padding:10px 20px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:16px}
+#fp-boka .fpb-handtag{align-self:center;width:40px;height:4px;border-radius:4px;background:#D6D2CB}
+#fp-boka .fpb-arktopp{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+#fp-boka .fpb-arktopp h2{margin:4px 0 0;font-family:Cormorant,Georgia,serif;font-style:italic;font-weight:400;font-size:32px!important;line-height:1.05!important}
+#fp-boka .fpb-stang{width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:22px;background:#F1EFEA;border:0;cursor:pointer}
+@media (min-width:900px){
+  #fp-boka .fpb-wrap{padding:56px 32px 8px}
+  #fp-boka .fpb-topp{display:flex;gap:56px;align-items:flex-start}
+  #fp-boka .fpb-vanster{flex:1 1 320px;min-width:0}
+  #fp-boka .fpb-hoger{flex:999 1 560px;min-width:0}
+  #fp-boka h1{font-size:56px!important;line-height:1!important}
+  #fp-boka .fpb-mobil{display:none}
+  #fp-boka .fpb-dator{display:inline}
+  #fp-boka p.fpb-dator{display:block}
+  #fp-boka .fpb-knapp{font-size:14px;padding:0 16px}
+  #fp-boka .fpb-intro{font-size:17px;line-height:1.55}
+  #fp-boka .fpb-steg{display:none}
+  #fp-boka .fpb-klinikrubrik{display:block}
+  #fp-boka .fpb-lista{margin-top:0}
+  #fp-boka .fpb-radknapp{padding:18px 20px;min-height:72px}
+  #fp-boka .fpb-radknapp .fpb-radtext{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:24px}
+  #fp-boka .fpb-namn{font-size:18px;grid-column:1}
+  #fp-boka .fpb-kort{grid-column:1}
+  #fp-boka .fpb-pris{grid-column:2;grid-row:1 / span 2;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;margin:0;white-space:nowrap}
+  #fp-boka .fpb-pris strong{font-size:16px}
+  #fp-boka .fpb-pris span{margin:0;font-size:13px}
+  #fp-boka .fpb-bara{grid-column:1}
+  #fp-boka .fpb-pil{display:none}
+  #fp-boka .fpb-plus{display:block}
+  #fp-boka[data-klinik="gbg"] [data-bara-sthlm] .fpb-plus{visibility:hidden}
+  #fp-boka .fpb-rad.oppen{background:#fff}
+  #fp-boka .fpb-panel{padding:0 20px 22px}
+  #fp-boka .fpb-panel .fpb-info{flex-direction:row;flex-wrap:wrap;gap:24px;align-items:flex-end}
+  #fp-boka .fpb-panel .fpb-infotext{flex:1 1 320px;display:flex;flex-direction:column;gap:10px}
+  #fp-boka .fpb-panel .fpb-fakta,#fp-boka .fpb-panel .fpb-ring,#fp-boka .fpb-panel .fpb-steglista{display:none}
+  #fp-boka .fpb-panel .fpb-boka{flex:none;min-height:52px;font-size:15px;border-radius:10px}
+  #fp-boka .fpb-panel .fpb-bokval{flex:0 0 340px}
+  #fp-boka .fpb-panel .fpb-bokval .fpb-boka{justify-content:space-between;text-align:left;padding:10px 18px}
+  #fp-boka .fpb-panel .fpb-fakta{display:none}
+  #fp-boka .fpb-panel .fpb-regel{padding:10px 14px;border-radius:10px}
+  #fp-boka .fpb-panel .fpb-regel svg{display:none}
+  #fp-boka .fpb-osaker{margin-top:24px;padding:24px}
+  #fp-boka .fpb-veta{margin-top:40px}
+  #fp-boka .fpb-veta .fpb-vetagrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  #fp-boka .fpb-veta details{padding:20px;background:#fff;border:1px solid var(--linje);border-radius:14px}
+  #fp-boka .fpb-veta summary{min-height:0;padding:0 0 6px;font-weight:600;cursor:default;pointer-events:none}
+  #fp-boka .fpb-veta summary::after{display:none}
+  #fp-boka .fpb-veta details p{margin:0;font-size:14px}
+  #fp-boka .fpb-trygg{max-width:640px}
+  #fp-boka .fpb-kliniker .fpb-klinikgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+}
+</style>
+
+<div class="fpb-wrap">
+  <div class="fpb-topp">
+    <div class="fpb-vanster">
+      <p class="fpb-etikett">Boka tid</p>
+      <h1>Vad vill du boka?</h1>
+      <p class="fpb-intro">Ingen remiss och inga väntetider. Välj klinik och tjänst och boka direkt i vårt bokningssystem. Är du osäker på vilken bokning som passar dig, ring eller mejla oss – vi hjälper dig att hitta rätt.</p>
+      <ol class="fpb-steg">
+        <li><strong>1</strong> Välj klinik</li>
+        <li><strong>2</strong> Välj tjänst</li>
+        <li><strong>3</strong> Välj tid</li>
+      </ol>
+      <div class="fpb-klinik">
+        <span class="fpb-klinikrubrik" id="fpb-klinikrubrik">Klinik</span>
+        <div class="fpb-seg" role="group" aria-label="Välj klinik">
+          <button type="button" data-valj="sthlm" aria-pressed="true">Stockholm</button>
+          <button type="button" data-valj="gbg" aria-pressed="false">Göteborg</button>
+        </div>
+        <div class="fpb-plats">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#566B59" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <span data-visa="sthlm">Värtavägen 30, Stockholm<br>Mån–tors 09:00–17:00, fre 09:00–16:00</span>
+          <span data-visa="gbg">Askims kyrkväg 46, Askim<br>Mån–fre efter förfrågan, lör–sön efter förfrågan</span>
+        </div>
+      </div>
+      <div class="fpb-osaker fpb-osaker-dator" hidden></div>
+    </div>
+
+    <div class="fpb-hoger">
+      <div class="fpb-lista" aria-labelledby="fpb-listrubrik">
+        <h2 class="fpb-sm" id="fpb-listrubrik"><span class="fpb-mobilrubrik">Vanligaste bokningarna</span></h2>
+        <ul class="fpb-rader">
+      <li class="fpb-rad">
+        <a class="fpb-radknapp" href="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10292#step-3" data-tjanst="fert" data-lank-sthlm="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10292#step-3" data-lank-gbg="https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10168#step-3" aria-expanded="false" aria-controls="fpb-panel-fert">
+          <span class="fpb-radtext">
+            <span class="fpb-namn">Fertilitetsutredning</span>
+            <span class="fpb-kort">Konsultation, hormonprover, sköldkörtelprov och telefonuppföljning.</span>
+            <span class="fpb-pris"><strong>från 2 900 kr</strong><span>30 min</span></span>
+            
+          </span>
+          <span class="fpb-ikon" aria-hidden="true"><span class="fpb-pil"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span><span class="fpb-plus"></span></span>
+        </a>
+        <div class="fpb-panel" id="fpb-panel-fert" hidden></div>
+      </li>
+      <li class="fpb-rad">
+        <a class="fpb-radknapp" href="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10305#step-3" data-tjanst="sperma" data-lank-sthlm="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10305#step-3" data-lank-gbg="https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10162#step-3" aria-expanded="false" aria-controls="fpb-panel-sperma">
+          <span class="fpb-radtext">
+            <span class="fpb-namn">Spermaprov</span>
+            <span class="fpb-kort">Antal, rörlighet och utseende. Uppföljning sker oftast samma dag eller dagen efter.</span>
+            <span class="fpb-pris"><strong>från 2 200 kr</strong><span>30 min</span></span>
+            
+          </span>
+          <span class="fpb-ikon" aria-hidden="true"><span class="fpb-pil"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span><span class="fpb-plus"></span></span>
+        </a>
+        <div class="fpb-panel" id="fpb-panel-sperma" hidden></div>
+      </li>
+      <li class="fpb-rad">
+        <a class="fpb-radknapp" href="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10311#step-3" data-tjanst="immun" data-lank-sthlm="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10311#step-3" data-lank-gbg="https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10147#step-3" aria-expanded="false" aria-controls="fpb-panel-immun">
+          <span class="fpb-radtext">
+            <span class="fpb-namn">Immunologisk utredning</span>
+            <span class="fpb-kort">För dig med upprepade missfall eller IVF utan resultat. NK-celler, sköldkörtel och koagulation.</span>
+            <span class="fpb-pris"><strong>från 5 000 kr</strong><span>30 min</span></span>
+            
+          </span>
+          <span class="fpb-ikon" aria-hidden="true"><span class="fpb-pil"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span><span class="fpb-plus"></span></span>
+        </a>
+        <div class="fpb-panel" id="fpb-panel-immun" hidden></div>
+      </li>
+      <li class="fpb-rad" data-bara-sthlm>
+        <a class="fpb-radknapp" href="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10301#step-3" data-tjanst="lakare" data-lank-sthlm="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10301#step-3" aria-expanded="false" aria-controls="fpb-panel-lakare">
+          <span class="fpb-radtext">
+            <span class="fpb-namn">Läkarbesök med ultraljud</span>
+            <span class="fpb-kort">Inför eller under graviditet, hos läkare på kliniken i Stockholm.</span>
+            <span class="fpb-pris"><strong>1 900 kr</strong><span>30 min</span></span>
+            <span class="fpb-bara">Endast i Stockholm</span>
+          </span>
+          <span class="fpb-ikon" aria-hidden="true"><span class="fpb-pil"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span><span class="fpb-plus"></span></span>
+        </a>
+        <div class="fpb-panel" id="fpb-panel-lakare" hidden></div>
+      </li>
+      <li class="fpb-rad">
+        <a class="fpb-radknapp" href="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10308#step-3" data-tjanst="utland" data-lank-sthlm="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10308#step-3" data-lank-gbg="https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/12376#step-3" aria-expanded="false" aria-controls="fpb-panel-utland">
+          <span class="fpb-radtext">
+            <span class="fpb-namn">Konsultation vid utlandsbehandling</span>
+            <span class="fpb-kort">Genomgång av klinikens provprotokoll, remisser och bokning av ultraljud.</span>
+            <span class="fpb-pris"><strong>1 200 kr</strong><span>30 min</span></span>
+            
+          </span>
+          <span class="fpb-ikon" aria-hidden="true"><span class="fpb-pil"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span><span class="fpb-plus"></span></span>
+        </a>
+        <div class="fpb-panel" id="fpb-panel-utland" hidden></div>
+      </li>
+      <li class="fpb-rad" data-bara-sthlm>
+        <a class="fpb-radknapp" href="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10293#step-3" data-tjanst="nipt" data-lank-sthlm="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10293#step-3" aria-expanded="false" aria-controls="fpb-panel-nipt">
+          <span class="fpb-radtext">
+            <span class="fpb-namn">Fostertest Harmony NIPT</span>
+            <span class="fpb-kort">Från graviditetsvecka 11. Blodprov som kompletteras med ett ultraljud.</span>
+            <span class="fpb-pris"><strong>6 500 kr</strong><span>30 min</span></span>
+            <span class="fpb-bara">Endast i Stockholm</span>
+          </span>
+          <span class="fpb-ikon" aria-hidden="true"><span class="fpb-pil"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span><span class="fpb-plus"></span></span>
+        </a>
+        <div class="fpb-panel" id="fpb-panel-nipt" hidden></div>
+      </li>
+      <li class="fpb-rad">
+        <a class="fpb-radknapp" href="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10299#step-3" data-tjanst="dropp" data-lank-sthlm="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10299#step-3" data-lank-gbg="https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10149#step-3" aria-expanded="false" aria-controls="fpb-panel-dropp">
+          <span class="fpb-radtext">
+            <span class="fpb-namn">Droppbehandling</span>
+            <span class="fpb-kort">Immunologiska dropp och vitamindropp.</span>
+            <span class="fpb-pris"><strong>från 850 kr</strong><span>45–120 min</span></span>
+            
+          </span>
+          <span class="fpb-ikon" aria-hidden="true"><span class="fpb-pil"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span><span class="fpb-plus"></span></span>
+        </a>
+        <div class="fpb-panel" id="fpb-panel-dropp" hidden></div>
+      </li>
+        </ul>
+        <a class="fpb-allalank" href="/pages/prislista">Se alla tjänster och priser</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="fpb-osaker" aria-labelledby="fpb-osakerrubrik">
+    <h2 id="fpb-osakerrubrik">Osäker på vad du ska boka?</h2>
+    <p>Börja med en konsultation med barnmorska – ett första besök för att påbörja en utredning eller få kontakt med läkare. Du kan också ringa eller mejla oss, så hjälper vi dig att hitta rätt.</p>
+    <a class="fpb-knapp fyllt" href="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10300#step-3" data-tjanst="bm" data-lank-sthlm="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10300#step-3" data-lank-gbg="https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/12375#step-3"><span>Konsultation med barnmorska</span><span>900 kr</span></a>
+    <a class="fpb-knapp" href="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10306#step-3" data-tjanst="telefon" data-lank-sthlm="https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10306#step-3" data-lank-gbg="https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/12371#step-3"><span>Telefonkonsultation, 15 min</span><span>250 kr</span></a>
+    <p style="font-size:14px">Eller ring oss på <a href="tel:+46101903690" style="font-weight:600">010 190 36 90</a></p>
+  </div>
+
+  <div class="fpb-veta" aria-labelledby="fpb-vetarubrik">
+    <h2 class="fpb-sm" id="fpb-vetarubrik">Bra att veta innan du bokar</h2>
+    <div class="fpb-vetagrid">
+      <details open><summary>Ingen remiss behövs</summary><p>Du bokar själv, direkt. Vi har ingen åldersgräns och alla är välkomna, oavsett relation eller livssituation.</p></details>
+      <details><summary>Rätt dag i cykeln</summary><p>Fertilitetsprover tas dag 2–4 i cykeln. Du får remiss vid besöket så att proverna kan tas när det är rätt tid i cykeln.</p></details>
+      <details><summary>Immunologiska prover</summary><p>Provtagning kan inte ske på fredagar, dag före röd dag eller på röd dag, på grund av bestämmelser från labbet.</p></details>
+      <details><summary>Betalning</summary><p>Vid konsultation på telefon betalar du med Swish innan samtalet. På kliniken kan du dela upp betalningen med Klarna – meddela oss vid ditt besök.</p></details>
+    </div>
+  </div>
+
+  <div class="fpb-trygg">
+    <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#566B59" stroke-width="1.5" aria-hidden="true"><path d="M5 12l4 4 10-10"/></svg>Ingen remiss</div>
+    <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#566B59" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Inga väntetider</div>
+    <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#566B59" stroke-width="1.5" aria-hidden="true"><path d="M4 7h16v10H4z"/><path d="M4 11h16"/></svg>Delbetala med Klarna</div>
+  </div>
+
+  <div class="fpb-kliniker" aria-labelledby="fpb-klinikerrubrik">
+    <h2 class="fpb-sm" id="fpb-klinikerrubrik">Våra kliniker</h2>
+    <div class="fpb-klinikgrid">
+      <div class="fpb-kortklinik"><strong>Stockholm</strong><span>Värtavägen 30, 115 53 Stockholm</span><span>Mån–tors 09:00–17:00, fre 09:00–16:00</span><span>Lunch 12:00–12:30. Lör–sön efter förfrågan.</span><a href="https://www.google.com/maps/search/?api=1&amp;query=V%C3%A4rtav%C3%A4gen+30%2C+115+53+Stockholm" target="_blank" rel="noopener">Vägbeskrivning</a></div>
+      <div class="fpb-kortklinik"><strong>Göteborg</strong><span>Askims kyrkväg 46, 436 42 Askim</span><span>Mån–fre efter förfrågan, lör–sön efter förfrågan</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Askims+kyrkv%C3%A4g+46%2C+436+42+Askim" target="_blank" rel="noopener">Vägbeskrivning</a></div>
+    </div>
+    <p class="fpb-betala">Ska du betala för ett besök du redan gjort? <a href="/collections/betala-pa-klinik">Betala här</a></p>
+  </div>
+</div>
+
+<dialog class="fpb-ark" aria-labelledby="fpb-arkrubrik">
+  <div class="fpb-arkinre">
+    <div class="fpb-handtag" aria-hidden="true"></div>
+    <div class="fpb-arktopp">
+      <div><p class="fpb-etikett" id="fpb-arkplats"></p><h2 id="fpb-arkrubrik"></h2></div>
+      <button type="button" class="fpb-stang" aria-label="Stäng"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A3530" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="fpb-arkinnehall"></div>
+  </div>
+</dialog>
+
+<script type="application/json" id="fpb-data">{"tjanster":{"fert":{"namn":"Fertilitetsutredning","pris":"från 2 900 kr","tid":"30 min","ingar":{"sthlm":"En utredning med konsultation, hormonprover, sköldkörtelprov och uppföljning av blodprov via telefon. Om ultraljud/läkarkonsultation rekommenderas i förlängningen tillkommer 1 900 kr.","gbg":"En utredning med konsultation, hormonprover, sköldkörtelprov och uppföljning av blodprov via telefon. Om ultraljud/läkarkonsultation rekommenderas i förlängningen tillkommer 1 900 kr."},"regel":"Fertilitetsprover tas dag 2–4 i cykeln. Du får remiss vid besöket så att proverna kan tas när det är rätt tid i cykeln.","bokning":{"sthlm":[{"text":"","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10292#step-3"}],"gbg":[{"text":"","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10168#step-3"}]},"mer":null},"sperma":{"namn":"Spermaprov","pris":"från 2 200 kr","tid":"30 min","ingar":{"sthlm":"Spermaprovsanalys 2 200 kr: bestämning av antal och koncentration, klassificering av rörlighet och bedömning av spermiernas utseende. Spermaprov + DNA-fragmentering 7 900 kr: fördjupat prov av spermiernas DNA-kvalitet, svar nästa dag.","gbg":"Spermaprovsanalys 2 200 kr: bestämning av antal och koncentration, klassificering av rörlighet och bedömning av spermiernas utseende. Spermaprov + oxidativ stress 3 800 kr: utökad analys där även mätning av oxidativ stress ingår."},"regel":"Avhållsamhet inför provet är 2–5 dagar. Provet lämnas på kliniken, eller medhavt hemifrån – då behöver det vara hos oss senast en timme efter provtagning.","bokning":{"sthlm":[{"text":"Spermaprov, 2 200 kr","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10305#step-3"},{"text":"Spermaprov + DNA-fragmentering, 7 900 kr","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/12529#step-3"}],"gbg":[{"text":"Spermaprov, 2 200 kr","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10162#step-3"},{"text":"Spermaprov + oxidativ stress, 3 800 kr","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/12546#step-3"}]},"mer":null},"immun":{"namn":"Immunologisk utredning","pris":"från 5 000 kr","tid":"30 min","ingar":{"sthlm":"Konsultation på kliniken med immunologiska prover (bl.a. NK-celler), sköldkörtelprover och koagulationsprover, samt uppföljning av blodprov via telefon. Om ultraljud/läkarkonsultation rekommenderas i förlängningen tillkommer 1 900 kr.","gbg":"Konsultation på kliniken med immunologiska prover (bl.a. NK-celler), sköldkörtelprover och koagulationsprover, samt uppföljning av blodprov via telefon. Om ultraljud/läkarkonsultation rekommenderas i förlängningen tillkommer 1 900 kr."},"regel":"Provtagning kan inte ske på fredagar, dag före röd dag eller på röd dag, på grund av bestämmelser från labbet.","bokning":{"sthlm":[{"text":"","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10311#step-3"}],"gbg":[{"text":"","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10147#step-3"}]},"mer":null},"lakare":{"namn":"Läkarbesök med ultraljud","pris":"1 900 kr","tid":"30 min","ingar":{"sthlm":"Ett fysiskt besök hos vår läkare där både läkarkonsultation och ultraljud ingår. Passar dig som vill ha en kontroll inför en graviditet (livmoder och äggstockar, planering inför t.ex. IVF) eller extra trygghet under graviditeten. Ingen remiss behövs.","gbg":"Ett fysiskt besök hos vår läkare där både läkarkonsultation och ultraljud ingår. Passar dig som vill ha en kontroll inför en graviditet (livmoder och äggstockar, planering inför t.ex. IVF) eller extra trygghet under graviditeten. Ingen remiss behövs."},"regel":"","bokning":{"sthlm":[{"text":"","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10301#step-3"}],"gbg":null},"mer":null},"utland":{"namn":"Konsultation vid utlandsbehandling","pris":"1 200 kr","tid":"30 min","ingar":{"sthlm":"För dig som genomgår fertilitetsbehandling utomlands och vill göra undersökningar och provtagning i Sverige. Konsultation på kliniken eller via telefon där en barnmorska går igenom ditt protokoll och skriver blodprovsremisser, med uppföljning via telefon. Kostnad för blodprover eller ultraljud tillkommer.","gbg":"För dig som genomgår fertilitetsbehandling utomlands och vill göra undersökningar och provtagning i Sverige. Konsultation på kliniken eller via telefon där en barnmorska går igenom ditt protokoll och skriver blodprovsremisser, med uppföljning via telefon. Kostnad för blodprover eller ultraljud tillkommer."},"regel":"","bokning":{"sthlm":[{"text":"","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10308#step-3"}],"gbg":[{"text":"","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/12376#step-3"}]},"mer":{"text":"Mer om IVF och utlandsbehandlingar","href":"/pages/provtagning-infor-behandling-utomlands"}},"nipt":{"namn":"Fostertest Harmony NIPT","pris":"6 500 kr","tid":"30 min","ingar":{"sthlm":"Blodprovtagning, ultraljud utfört av läkare och uppföljning av testet via telefon.","gbg":"Blodprovtagning, ultraljud utfört av läkare och uppföljning av testet via telefon."},"regel":"","bokning":{"sthlm":[{"text":"","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10293#step-3"}],"gbg":null},"mer":null},"dropp":{"namn":"Droppbehandling","pris":"från 850 kr","tid":"45–120 min","ingar":{"sthlm":"Intralipid 1 600 kr (vardag) / 2 200 kr (helg), du behöver tåla ägg och soja. IVIG 2 500 kr, för dig som fått det utskrivet av läkare – du tar med ditt eget preparat. Multivitamindropp 900 kr. C-vitamindropp 850 kr. Alla dropp ges av barnmorska eller sjuksköterska.","gbg":"Intralipid 1 600 kr (vardag) / 2 200 kr (helg), du behöver tåla ägg och soja. IVIG 2 500 kr, för dig som fått det utskrivet av läkare – du tar med ditt eget preparat. Multivitamindropp 900 kr. C-vitamindropp 850 kr. Alla dropp ges av barnmorska eller sjuksköterska."},"regel":"","bokning":{"sthlm":[{"text":"Intralipid, 1 600 kr","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10299#step-3"},{"text":"Intralipid helg, 2 200 kr","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10298#step-3"},{"text":"IVIG, 2 500 kr","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10304#step-3"},{"text":"Multivitamin, 900 kr","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10319#step-3"},{"text":"C-vitamin, 850 kr","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10317#step-3"}],"gbg":[{"text":"Intralipid, 1 600 kr","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10149#step-3"},{"text":"Intralipid helg, 2 200 kr","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10150#step-3"},{"text":"IVIG, 2 500 kr","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10156#step-3"},{"text":"Multivitamin, 900 kr","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10171#step-3"},{"text":"C-vitamin, 850 kr","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/10169#step-3"}]},"mer":null},"bm":{"namn":"Konsultation med barnmorska","pris":"900 kr","tid":"30 min","ingar":{"sthlm":"Ett första besök på kliniken för att påbörja en utredning eller undersökning, eller för att få kontakt med läkare. Den som tar emot dig är barnmorska eller sjuksköterska.","gbg":"Ett första besök på kliniken för att påbörja en utredning eller undersökning, eller för att få kontakt med läkare. Den som tar emot dig är barnmorska eller sjuksköterska."},"regel":"","bokning":{"sthlm":[{"text":"","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10300#step-3"}],"gbg":[{"text":"","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/12375#step-3"}]},"mer":null},"telefon":{"namn":"Telefonkonsultation med barnmorska","pris":"250 kr","tid":"15 min","ingar":{"sthlm":"Ett telefonsamtal med en barnmorska för råd och vägledning kring din fertilitet och dina nästa steg, utan att du behöver besöka kliniken. Vid konsultation på telefon betalar du med Swish innan samtalet.","gbg":"Ett telefonsamtal med en barnmorska för råd och vägledning kring din fertilitet och dina nästa steg, utan att du behöver besöka kliniken. Vid konsultation på telefon betalar du med Swish innan samtalet."},"regel":"","bokning":{"sthlm":[{"text":"","url":"https://patient.nu/portal/public/calendar/0379a26c-f48f-4891-b471-6cae888ed84f/10306#step-3"}],"gbg":[{"text":"","url":"https://patient.nu/portal/public/calendar/748d53eb-37d6-4359-9a49-2b2f62b73245/12371#step-3"}]},"mer":null}},"klinik":{"sthlm":{"namn":"Stockholm","adress":"Värtavägen 30, 115 53 Stockholm","kort":"Värtavägen 30, Stockholm","tider":"Mån–tors 09:00–17:00, fre 09:00–16:00","extra":"Lunch 12:00–12:30. Lör–sön efter förfrågan.","karta":"https://www.google.com/maps/search/?api=1&query=V%C3%A4rtav%C3%A4gen+30%2C+115+53+Stockholm"},"gbg":{"namn":"Göteborg","adress":"Askims kyrkväg 46, 436 42 Askim","kort":"Askims kyrkväg 46, Askim","tider":"Mån–fre efter förfrågan, lör–sön efter förfrågan","extra":"","karta":"https://www.google.com/maps/search/?api=1&query=Askims+kyrkv%C3%A4g+46%2C+436+42+Askim"}}}</script>
+<script>
+(function(){
+  var rot=document.getElementById('fp-boka'); if(!rot) return;
+  var D=JSON.parse(document.getElementById('fpb-data').textContent);
+  var ark=rot.querySelector('dialog.fpb-ark');
+  var dator=window.matchMedia('(min-width: 900px)');
+  function klinik(){return rot.getAttribute('data-klinik');}
+  function e(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  var kal='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A4B2E" stroke-width="1.6" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>';
+  var utpil='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>';
+  function info(id){
+    var t=D.tjanster[id], k=klinik(), K=D.klinik[k], v=t.bokning[k]||[], en=v.length===1;
+    var h='<div class="fpb-info"><div class="fpb-infotext">';
+    h+='<div class="fpb-fakta"><strong>'+e(t.pris)+'</strong><span>'+e(t.tid)+'</span><span>Delbetala med Klarna</span></div>';
+    h+='<div><h3>Det här ingår</h3><p>'+e(t.ingar[k]||t.ingar.sthlm)+'</p></div>';
+    if(t.regel) h+='<div class="fpb-regel">'+kal+'<p><strong>Tänk på:</strong> '+e(t.regel)+'</p></div>';
+    h+='<div><div class="fpb-steglista"><h3>Så går bokningen till</h3><ol><li>Du kommer direkt till lediga tider i vår bokningskalender (patient.nu).</li>';
+    h+= en ? '<li>Välj en av de lediga tiderna.</li>' : '<li>Tryck på det du vill boka nedan och välj en av de lediga tiderna.</li>';
+    h+='<li>Fyll i dina uppgifter och bekräfta.</li></ol></div>';
+    h+='<p class="fpb-villkor">'+'Avbokning sker senast 24 timmar innan ditt bokade besöks starttid. Vid uteblivet besök debiteras en kostnad på 450 kr via faktura.</p></div>';
+    if(t.mer) h+='<p><a href="'+e(t.mer.href)+'">'+e(t.mer.text)+'</a></p>';
+    h+='</div><div class="fpb-bokval">';
+    v.forEach(function(o){
+      h+='<a class="fpb-boka" href="'+e(o.url)+'" target="_blank" rel="noopener" data-bokning="'+e(id)+'">'+(en?'Välj tid i '+e(K.namn):e(o.text))+' '+utpil+'</a>';
+    });
+    h+='</div><p class="fpb-ring">Frågor? Ring <a href="tel:+46101903690">010 190 36 90</a></p>';
+    return h+'</div>';
+  }
+  function stangPaneler(){
+    rot.querySelectorAll('.fpb-rad.oppen').forEach(function(r){r.classList.remove('oppen');var p=r.querySelector('.fpb-panel');p.hidden=true;p.innerHTML='';r.querySelector('.fpb-radknapp').setAttribute('aria-expanded','false');});
+  }
+  function oppnaArk(id){
+    var t=D.tjanster[id], K=D.klinik[klinik()];
+    ark.querySelector('#fpb-arkplats').textContent=(K.namn+', '+K.kort.split(',')[0]).toUpperCase();
+    ark.querySelector('#fpb-arkrubrik').textContent=t.namn;
+    ark.querySelector('.fpb-arkinnehall').innerHTML=info(id);
+    if(typeof ark.showModal==='function'){ark.showModal();}else{return false;}
+    return true;
+  }
+  rot.addEventListener('click',function(ev){
+    var val=ev.target.closest('[data-valj]');
+    if(val){var k=val.getAttribute('data-valj');rot.setAttribute('data-klinik',k);
+      rot.querySelectorAll('[data-valj]').forEach(function(b){b.setAttribute('aria-pressed',String(b===val));});
+      rot.querySelectorAll('[data-lank-sthlm]').forEach(function(a){var l=a.getAttribute('data-lank-'+k);if(l)a.setAttribute('href',l);});
+      rot.querySelectorAll('.fpb-rad.oppen').forEach(function(r){var id=r.querySelector('[data-tjanst]').getAttribute('data-tjanst');if(r.hasAttribute('data-bara-sthlm')&&k==='gbg'){stangPaneler();}else{r.querySelector('.fpb-panel').innerHTML=info(id);}});
+      return;}
+    if(ev.target.closest('.fpb-stang')){ark.close();return;}
+    var a=ev.target.closest('a[data-tjanst]');
+    if(!a) return;
+    var id=a.getAttribute('data-tjanst'), rad=a.closest('.fpb-rad');
+    if(rad&&rad.hasAttribute('data-bara-sthlm')&&klinik()==='gbg'){ev.preventDefault();return;}
+    if(dator.matches&&rad){
+      ev.preventDefault();
+      var var_oppen=rad.classList.contains('oppen'); stangPaneler();
+      if(!var_oppen){rad.classList.add('oppen');var p=rad.querySelector('.fpb-panel');p.innerHTML=info(id);p.hidden=false;a.setAttribute('aria-expanded','true');}
+      return;
+    }
+    if(oppnaArk(id)) ev.preventDefault();
+  });
+  ark.addEventListener('click',function(ev){if(ev.target===ark) ark.close();});
+  /* Bra att veta: på dator syns allt, som i förslaget */
+  function vetaLage(){rot.querySelectorAll('.fpb-veta details').forEach(function(d,i){if(dator.matches)d.open=true;});}
+  vetaLage(); if(dator.addEventListener) dator.addEventListener('change',function(){vetaLage();if(!dator.matches)stangPaneler();else if(ark.open)ark.close();});
+  /* Osäker-rutan ligger i vänsterspalten på dator */
+  var osaker=rot.querySelector('.fpb-osaker:not(.fpb-osaker-dator)'), vanster=rot.querySelector('.fpb-vanster'), plats=rot.querySelector('.fpb-osaker-dator');
+  function flytta(){ if(dator.matches){ if(osaker.parentNode!==vanster) vanster.appendChild(osaker); } else { var wrap=rot.querySelector('.fpb-wrap'); var veta=rot.querySelector('.fpb-veta'); if(osaker.parentNode!==wrap) wrap.insertBefore(osaker,veta);} }
+  plats.remove(); flytta(); if(dator.addEventListener) dator.addEventListener('change',flytta);
+  /* Rubriken på listan heter "Välj tjänst" på dator */
+  var lr=rot.querySelector('.fpb-mobilrubrik'); function rubrik(){lr.textContent=dator.matches?'Välj tjänst':'Vanligaste bokningarna';} rubrik(); if(dator.addEventListener) dator.addEventListener('change',rubrik);
+})();
+</script>
+<style>
+/* Boka här-knappen i sidhuvudet behövs inte på bokningssidan */
+[data-book]{display:none!important}
+</style>
+</div>
+<div class="sc-host" data-sc-name="Sidfot"><template id="__bundler_thumbnail"></template><footer style="background: rgb(58, 53, 48); color: rgb(248, 246, 242); font-family: &quot;Plus Jakarta Sans&quot;, system-ui, sans-serif;">
+  <div style="max-width: 1600px; margin: 0px auto; padding: 96px 40px 64px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 48px 40px;">
+    <div>
+      <a href="/" style="display: flex; align-items: center; gap: 14px; color: rgb(248, 246, 242); margin-bottom: 26px; text-decoration: none;">
+        <svg width="36" height="36" viewBox="0 0 38 38" fill="none" style="flex: 0 0 auto; display: block;">
+          <circle cx="19" cy="19" r="17.5" stroke="#7E9680" stroke-width="1.2" fill="none"></circle>
+          <line x1="19" y1="10" x2="19" y2="28" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+          <line x1="10" y1="19" x2="28" y2="19" stroke="#7E9680" stroke-width="1.6" stroke-linecap="round"></line>
+        </svg>
+        <span style="display: flex; flex-direction: column; line-height: 1;">
+          <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.23em; text-transform: uppercase; color: rgb(248, 246, 242);">Fertilitet</span>
+          <span style="font-size: 13px; font-weight: 300; letter-spacing: 0.5em; text-transform: uppercase; color: rgb(126, 150, 128); margin-top: 5px;">Plus</span>
+        </span>
+      </a>
+      <p style="margin: 0px 0px 26px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(248, 246, 242, 0.55); max-width: 26em;">Fertilitetsklinik med mottagning i Stockholm och Göteborg. Ingen remiss, inga väntetider.</p>
+      <a href="/pages/boka-tid" class="scp2" style="display: inline-block; background: rgb(126, 150, 128); color: rgb(248, 246, 242); padding: 13px 28px; border-radius: 4px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.05em; text-decoration: none;">Boka tid här</a>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Stockholm</p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(248, 246, 242, 0.6);">Värtavägen 30<br>115 53 Stockholm</p>
+      <p style="margin: 0px 0px 6px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); overflow-wrap: anywhere;"><a href="mailto:info@fertilitetplus.se" class="scp3" style="color: rgba(248, 246, 242, 0.6); text-decoration: none;">info@fertilitetplus.se</a></p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6);"><a href="tel:+46101903690" class="scp3" style="color: rgba(248, 246, 242, 0.6); text-decoration: none;">010&nbsp;190 36 90</a></p>
+      <div style="font-size: 14px; font-weight: 300; line-height: 1.5; color: rgba(248, 246, 242, 0.55); max-width: 300px;"><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Mån–tors</span><span style="text-align: right;">09:00–17:00</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Fredag</span><span style="text-align: right;">09:00–16:00</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Lunch</span><span style="text-align: right;">12:00–12:30</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Lör–sön</span><span style="text-align: right;">Efter förfrågan</span></div></div>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Göteborg</p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(248, 246, 242, 0.6);">Askims kyrkväg 46<br>436 42 Askim</p>
+      <p style="margin: 0px 0px 6px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); overflow-wrap: anywhere;"><a href="mailto:info@fertilitetplus.se" class="scp3" style="color: rgba(248, 246, 242, 0.6); text-decoration: none; overflow-wrap: anywhere;">info@fertilitetplus.se</a></p>
+      <p style="margin: 0px 0px 14px; font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6);"><a href="tel:+46101903690" class="scp3" style="color: rgba(248, 246, 242, 0.6); text-decoration: none;">010&nbsp;190 36 90</a></p>
+      <div style="font-size: 14px; font-weight: 300; line-height: 1.5; color: rgba(248, 246, 242, 0.55); max-width: 300px;"><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Mån–fre</span><span style="text-align: right;">Efter förfrågan</span></div><div style="display: flex; justify-content: space-between; gap: 16px; padding: 6px 0px; border-bottom: 1px solid rgba(248, 246, 242, 0.08);"><span>Lör–sön</span><span style="text-align: right;">Efter förfrågan</span></div></div>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Utredningar</p>
+      <ul style="display: flex; flex-direction: column; gap: 10px; margin: 0px; padding: 0px; list-style: none;">
+        <li><a href="/pages/fertilitetsutredning" class="scp3" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Fertilitetsutredning</a></li>
+        <li><a href="/pages/immunsuppression" class="scp3" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Autoimmuna sjukdomar och fertilitet</a></li>
+        <li><a href="/pages/spermaprov" class="scp3" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Spermaprov</a></li>
+        <li><a href="/pages/provtagning-infor-behandling-utomlands" class="scp3" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">IVF &amp; utlandsbehandlingar</a></li>
+        <li><a href="/pages/nipt-test" class="scp3" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Fostertest NIPT</a></li>
+        <li><a href="/pages/nyhet-dropp" class="scp3" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Vitamindropp</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p style="margin: 0px 0px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Genvägar</p>
+      <ul style="display: flex; flex-direction: column; gap: 10px; margin: 0px 0px 32px; padding: 0px; list-style: none;">
+        <li><a href="/pages/kontakt" class="scp3" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Kontakt</a></li>
+        <li><a href="/pages/om-fertilitet" class="scp3" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Vanliga frågor</a></li>
+        <li><a href="/pages/prislista" class="scp3" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Prislista</a></li>
+        <li><a href="https://shop.fertilitetplus.se/blogs/news" target="_blank" rel="noopener" class="scp3" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Artiklar</a></li>
+        <li><a href="/collections/all" class="scp3" style="font-size: 16px; font-weight: 300; color: rgba(248, 246, 242, 0.6); text-decoration: none;">Produkter</a></li>
+      </ul>
+      <p style="margin: 0px 0px 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(200, 181, 162);">Betala på klinik</p>
+      <p style="margin: 0px 0px 12px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(248, 246, 242, 0.45); max-width: 22em;">Endast för dig som ska betala ett besök på kliniken. Betalning här är ingen bokning.</p>
+      <a href="/collections/betala-pa-klinik" class="scp3" style="font-size: 16px; font-weight: 600; color: rgb(248, 246, 242); text-decoration: underline; text-underline-offset: 3px;">Till betalning</a>
+    </div>
+  </div>
+  <div style="max-width: 1600px; margin: 0px auto; padding: 24px 40px 64px; border-top: 1px solid rgba(248, 246, 242, 0.1); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+    <p style="margin: 0px; font-size: 12px; font-weight: 300; letter-spacing: 0.06em; color: rgba(200, 181, 162, 0.4);">© 2026 Fertilitetplus AB · Org.nr 559180-3076 · <a href="/policies/privacy-policy" class="scp4" style="color: rgba(200, 181, 162, 0.6); text-decoration: underline; text-underline-offset: 3px;">Integritetspolicy</a> · <a href="#cookies" class="scp4" style="color: rgba(200, 181, 162, 0.6); text-decoration: underline; text-underline-offset: 3px;">Cookie-inställningar</a></p>
+    <p style="margin: 0px; font-size: 12px; font-weight: 300; letter-spacing: 0.06em; color: rgba(200, 181, 162, 0.4);">Stockholm · Göteborg</p>
+  </div>
+  <div class="sc-host" data-sc-name="Cookiebanner">
+  <div role="dialog" aria-modal="false" aria-labelledby="fp-cookie-title" data-cookie-banner="true" style="position: fixed; left: 24px; bottom: 24px; z-index: 100; width: calc(100% - 48px); max-width: 460px; background: rgb(248, 246, 242); border: 1px solid rgb(235, 231, 225); border-radius: 4px; box-shadow: rgba(58, 53, 48, 0.35) 0px 24px 60px -24px; font-family: &quot;Plus Jakarta Sans&quot;, system-ui, sans-serif; color: rgb(58, 53, 48); max-height: calc(-48px + 100vh); overflow-y: auto;" hidden="" data-kopplad="">
+    <div style="padding: 28px 28px 24px;">
+      <p style="margin: 0px 0px 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(126, 150, 128);">Cookies</p>
+      <h2 id="fp-cookie-title" style="margin: 0px 0px 12px; font-size: 18px; font-weight: 700; line-height: 1.4; color: rgb(58, 53, 48);">Vi använder cookies</h2>
+      <p style="margin: 0px 0px 20px; font-size: 15px; font-weight: 300; line-height: 1.7; color: rgba(58, 53, 48, 0.78);">Nödvändiga cookies behövs för att sajten, varukorgen och bokningen ska fungera. Med ditt samtycke använder vi även cookies för statistik och marknadsföring. Du kan ändra ditt val när som helst. <a href="/policies/privacy-policy" style="color: rgb(58, 53, 48); font-weight: 500; text-decoration: underline; text-underline-offset: 3px;">Läs mer i vår integritetspolicy</a>.</p>
+
+      
+        <div data-kategorier="" style="display: flex; flex-direction: column; border-top: 1px solid rgb(235, 231, 225); margin-bottom: 20px;">
+          
+            <div style="display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; padding: 16px 0px; border-bottom: 1px solid rgb(235, 231, 225);">
+              <div>
+                <p style="margin: 0px 0px 4px; font-size: 15px; font-weight: 600; color: rgb(58, 53, 48);"><span class="sc-interp">Nödvändiga</span></p>
+                <p style="margin: 0px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(58, 53, 48, 0.7);"><span class="sc-interp">Krävs för att sajten, varukorgen och bokningen ska fungera.</span></p>
+              </div>
+              
+                <span style="flex: 0 0 auto; margin-top: 2px; font-size: 12px; font-weight: 600; color: rgb(126, 150, 128); white-space: nowrap;">Alltid på</span>
+              
+              
+              
+            </div>
+          
+            <div style="display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; padding: 16px 0px; border-bottom: 1px solid rgb(235, 231, 225);">
+              <div>
+                <p style="margin: 0px 0px 4px; font-size: 15px; font-weight: 600; color: rgb(58, 53, 48);"><span class="sc-interp">Statistik</span></p>
+                <p style="margin: 0px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(58, 53, 48, 0.7);"><span class="sc-interp">Hjälper oss förstå hur sajten används, samlat och utan att identifiera dig.</span></p>
+              </div>
+              
+              
+              
+                <button role="switch" aria-checked="false" aria-label="Statistik" data-kategori="statistik" style="flex: 0 0 auto; position: relative; width: 44px; height: 26px; border-radius: 13px; border: 0px; background: rgb(200, 181, 162); cursor: pointer; padding: 0px;">
+                  <span style="position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: rgb(248, 246, 242);"></span>
+                </button>
+              
+            </div>
+          
+            <div style="display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; padding: 16px 0px; border-bottom: 1px solid rgb(235, 231, 225);">
+              <div>
+                <p style="margin: 0px 0px 4px; font-size: 15px; font-weight: 600; color: rgb(58, 53, 48);"><span class="sc-interp">Marknadsföring</span></p>
+                <p style="margin: 0px; font-size: 14px; font-weight: 300; line-height: 1.6; color: rgba(58, 53, 48, 0.7);"><span class="sc-interp">Används för att visa och mäta annonser på andra sajter.</span></p>
+              </div>
+              
+              
+              
+                <button role="switch" aria-checked="false" aria-label="Marknadsföring" data-kategori="marknadsforing" style="flex: 0 0 auto; position: relative; width: 44px; height: 26px; border-radius: 13px; border: 0px; background: rgb(200, 181, 162); cursor: pointer; padding: 0px;">
+                  <span style="position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: rgb(248, 246, 242);"></span>
+                </button>
+              
+            </div>
+          
+        </div>
+        <div data-kategorier-knappar="" style="display: flex; flex-direction: column; gap: 10px;">
+          <button class="scp8" data-samtycke="spara" style="font-family: inherit; background: rgb(58, 53, 48); color: rgb(248, 246, 242); border: 1px solid rgb(58, 53, 48); padding: 13px 20px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;">Spara mina val</button>
+          <button class="scp9" data-samtycke="alla" style="font-family: inherit; background: transparent; color: rgb(58, 53, 48); border: 1px solid rgb(58, 53, 48); padding: 13px 20px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;">Acceptera alla</button>
+        </div>
+      
+
+      
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;" data-huvudval="">
+          <button class="scp8" style="font-family: inherit; background: rgb(58, 53, 48); color: rgb(248, 246, 242); border: 1px solid rgb(58, 53, 48); padding: 13px 16px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;" data-samtycke="alla">Acceptera alla</button>
+          <button class="scp8" style="font-family: inherit; background: rgb(58, 53, 48); color: rgb(248, 246, 242); border: 1px solid rgb(58, 53, 48); padding: 13px 16px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;" data-samtycke="nodvandiga">Endast nödvändiga</button>
+        </div><button style="font-family: inherit; background: none; border: 0px; padding: 6px 0px; font-size: 14px; font-weight: 600; color: rgb(58, 53, 48); text-decoration: underline; text-underline-offset: 3px; cursor: pointer;" data-samtycke="anpassa">Anpassa</button></div>
+  </div></div></footer></div></div></div>
+
+
+</body></html>
